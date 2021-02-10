@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.novang.anisched.R;
 import com.novang.anisched.adapter.AnimeListAdapter;
+import com.novang.anisched.adapter.CaptionListAdapter;
 
 public class MainFragment extends Fragment {
 
@@ -23,6 +24,8 @@ public class MainFragment extends Fragment {
 
     private RecyclerView animeListView;
     private AnimeListAdapter animeListAdapter;
+    private RecyclerView captionListView;
+    private CaptionListAdapter captionListAdapter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -50,19 +53,29 @@ public class MainFragment extends Fragment {
     public void initReferences() {
         animeListView = getView().findViewById(R.id.anime_list_View);
         animeListAdapter = new AnimeListAdapter();
+        captionListView = getView().findViewById(R.id.caption_list_View);
+        captionListAdapter = new CaptionListAdapter();
 
         animeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         animeListView.setAdapter(animeListAdapter);
+        captionListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        captionListView.setAdapter(captionListAdapter);
     }
 
     public void initObservers() {
         viewModel.animeList.observe(getViewLifecycleOwner(), animes -> {
             animeListAdapter.updateList(animes);
         });
+
+        viewModel.captionList.observe(getViewLifecycleOwner(), captions -> {
+            captionListAdapter.updateList(captions);
+        });
     }
 
     public void initEvents() {
-
+        animeListAdapter.setOnItemClickListener((v, anime) -> {
+            viewModel.callCaption(anime.getId());
+        });
     }
 
 }
