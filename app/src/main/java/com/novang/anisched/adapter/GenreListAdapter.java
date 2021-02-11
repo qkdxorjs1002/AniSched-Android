@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.novang.anisched.R;
 import com.novang.anisched.model.anissia.Caption;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
-public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.ViewHolder> {
+public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.ViewHolder> {
 
-    private List<Caption> captionList;
+    private List<String> genreList;
     private OnItemClickListener onItemClickListener;
 
-    public CaptionListAdapter() {
+    public GenreListAdapter() {
         onItemClickListener = null;
     }
 
@@ -26,38 +28,33 @@ public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_caption_list_item, parent, false);
+                .inflate(R.layout.layout_genre_list_item, parent, false);
 
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Caption caption = captionList.get(position);
+        String genreText = genreList.get(position);
 
-        TextView captionEpisode = holder.view.findViewById(R.id.episode);
-        TextView captionAuthor = holder.view.findViewById(R.id.author);
-        TextView captionUpdate = holder.view.findViewById(R.id.update);
-
-        captionEpisode.setText(caption.getEpisode());
-        captionAuthor.setText(caption.getAuthor());
-        captionUpdate.setText(caption.getUploadDate());
+        TextView genre = holder.view.findViewById(R.id.genre);
+        genre.setText(genreText);
 
         holder.view.setOnClickListener(v -> {
             if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(v, caption);
+                onItemClickListener.onItemClick(v, genreText);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (captionList == null) {
+        if (genreList == null) {
 
             return 0;
         }
 
-        return captionList.size();
+        return genreList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,13 +66,19 @@ public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.
         }
     }
 
-    public void updateList(List<Caption> list) {
-        captionList = list;
+    public void updateList(String genres) {
+        StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
+        genreList = new ArrayList<>();
+
+        while(stringTokenizer.hasMoreElements()) {
+            genreList.add((String)stringTokenizer.nextElement());
+        }
+
         notifyDataSetChanged();
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View v, Caption caption);
+        void onItemClick(View v, String genre);
     }
 
     public void setOnItemClickListener(OnItemClickListener i) {
