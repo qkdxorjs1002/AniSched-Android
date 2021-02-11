@@ -13,6 +13,8 @@ import retrofit2.http.Path;
 /**
  * 애니시아 API<br/>
  * https://github.com/anissia-net/document
+ *
+ * @author Novang (qkdxorjs1002)
  */
 public interface AnissiaService {
 

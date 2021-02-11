@@ -16,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * 애니시아 API<br/>
  * https://github.com/anissia-net/document
+ *
+ * @author Novang (qkdxorjs1002)
  */
 public class AnissiaRepository {
 
