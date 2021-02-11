@@ -2,6 +2,8 @@ package com.novang.anisched.model.anissia;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * 애니시아 API<br/>
  * https://github.com/anissia-net/document
@@ -33,6 +35,12 @@ public class Anime {
 
     @SerializedName("website")
     private String website;
+
+    @SerializedName("captionCount")
+    private int captionCount;
+
+    @SerializedName("captions")
+    private List<Caption> captionList;
 
     /**
      * 고유번호
@@ -147,6 +155,33 @@ public class Anime {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    /**
+     * 자막 수
+     *
+     * @return (1)
+     */
+    public int getCaptionCount() {
+        return captionCount;
+    }
+
+    public void setCaptionCount(int captionCount) {
+        this.captionCount = captionCount;
+    }
+
+    /**
+     * Nullable<br/>
+     * 자막 목록
+     *
+     * @return (List<Caption>)
+     */
+    public List<Caption> getCaptionList() {
+        return captionList;
+    }
+
+    public void setCaptionList(List<Caption> captionList) {
+        this.captionList = captionList;
     }
 
 }

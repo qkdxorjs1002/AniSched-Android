@@ -3,6 +3,7 @@ package com.novang.anisched.repository.anissia;
 
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
+import com.novang.anisched.model.anissia.Rank;
 
 import java.util.List;
 
@@ -28,6 +29,15 @@ public interface AnissiaService {
     Call<List<Anime>> callSchedule(@Path("week") int week);
 
     /**
+     * 전체 목록
+     *
+     * @param page int
+     * @return Call<List<Anime>>
+     */
+    @GET("list/{page}")
+    Call<List<Anime>> callAllList(@Path("page") int page);
+
+    /**
      * 자막 목록
      *
      * @param id 애니메이션 고유번호
@@ -36,4 +46,22 @@ public interface AnissiaService {
     @GET("caption/animeNo/{id}")
     Call<List<Caption>> callCaption(@Path("id") int id);
 
+    /**
+     * 애니메이션 정보
+     *
+     * @param id 애니메이션 고유번호
+     * @return Call<Anime>
+     */
+    @GET("animeNo/{id}")
+    Call<Anime> callAnimeInfo(@Path("id") int id);
+
+    /**
+     * 순위 정보
+     *
+     * @param factor 순위 단위 (day/week/month)
+     * @return Call<List<Rank></Rank>>
+     */
+    @GET("rank/{factor}")
+    Call<List<Rank>> callRankInfo(@Path("factor") String factor);
+    
 }
