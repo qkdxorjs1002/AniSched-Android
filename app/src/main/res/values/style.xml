@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Font.ExtendTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="Font.DialogTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Font.Title" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="Font.MainList" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Font.TextButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Font.Description" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Font.RaisedButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Font.SubHeader" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textDisabled</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Font.SubList" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textDisabled</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>
