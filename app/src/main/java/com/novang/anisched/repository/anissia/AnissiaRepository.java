@@ -54,7 +54,7 @@ public class AnissiaRepository {
         callSchedule.enqueue(new Callback<List<Anime>>() {
             @Override
             public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
-                animeList.setValue(response.body());
+                animeList.postValue(response.body());
             }
 
             @Override
@@ -80,7 +80,7 @@ public class AnissiaRepository {
         callAllList.enqueue(new Callback<List<Anime>>() {
             @Override
             public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
-                animeList.setValue(response.body());
+                animeList.postValue(response.body());
             }
 
             @Override
@@ -106,7 +106,7 @@ public class AnissiaRepository {
         callCaption.enqueue(new Callback<List<Caption>>() {
             @Override
             public void onResponse(Call<List<Caption>> call, Response<List<Caption>> response) {
-                captionList.setValue(response.body());
+                captionList.postValue(response.body());
             }
 
             @Override
@@ -132,7 +132,7 @@ public class AnissiaRepository {
         callAnimeInfo.enqueue(new Callback<Anime>() {
             @Override
             public void onResponse(Call<Anime> call, Response<Anime> response) {
-                animeInfo.setValue(response.body());
+                animeInfo.postValue(response.body());
             }
 
             @Override
@@ -158,7 +158,7 @@ public class AnissiaRepository {
         callRankInfo.enqueue(new Callback<List<Rank>>() {
             @Override
             public void onResponse(Call<List<Rank>> call, Response<List<Rank>> response) {
-                rankList.setValue(response.body());
+                rankList.postValue(response.body());
             }
 
             @Override
