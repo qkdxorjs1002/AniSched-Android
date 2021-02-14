@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="UI.Category.Button" parent="Widget.AppCompat.ImageButton">
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:background">@drawable/ripple_background</item>
+        <item name="android:src">@drawable/ic_baseline_calendar</item>
+        <item name="android:tint">@color/icon</item>
+    </style>
+
+    <style name="UI.Category.TextView" parent="Widget.AppCompat.TextView">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/Font.Category</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
     <style name="Font.ExtendTitle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/text</item>
         <item name="android:textSize">40sp</item>
@@ -43,5 +57,15 @@
     <style name="Font.SubList" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/textDisabled</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Font.Category" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textDisabled</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Font.Toolbar" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

@@ -1,82 +1,452 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:fitsSystemWindows="true"
     tools:context=".ui.detail.DetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|snapMargins"
+            app:contentScrim="@color/gradientEnd"
+            app:statusBarScrim="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/anime_info_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+            <TextView
+                android:id="@+id/anime_info_subject"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="24dp"
+                android:background="@color/gradientEnd"
+                android:text="title"
+                android:textAppearance="@style/Font.DialogTitle"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textLight"
+                app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/anime_info_website">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/anime_info_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:src="@drawable/ic_launcher_background"
-                app:layout_constraintTop_toTopOf="parent"/>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/anime_info_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/anime_info_thumbnail">
+                android:paddingHorizontal="24dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/anime_info_tmdb_poster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
-                    android:id="@+id/anime_info_subject"
-                    android:layout_width="match_parent"
+                    android:id="@+id/anime_info_time_header"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="anime title"
-                    android:textSize="24dp"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:text="시간"
+                    android:textAppearance="@style/Font.SubHeader"
+                    android:textColor="@color/textLight"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/anime_info_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_time_header"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/anime_info_startdate_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="방영 시작"
+                    android:textAppearance="@style/Font.SubHeader"
+                    android:textColor="@color/textLight"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_time"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <TextView
                     android:id="@+id/anime_info_startdate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0000-00-00"
-                    app:layout_constraintTop_toBottomOf="@id/anime_info_subject"/>
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_startdate_header"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/anime_info_enddate_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="종영"
+                    android:textAppearance="@style/Font.SubHeader"
+                    android:textColor="@color/textLight"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_startdate"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <TextView
                     android:id="@+id/anime_info_enddate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0000-00-00"
-                    app:layout_constraintTop_toBottomOf="@id/anime_info_startdate"/>
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_enddate_header"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/anime_info_genre_list_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
                     app:layout_constraintTop_toBottomOf="@id/anime_info_enddate"
+                    tools:itemCount="1"
                     tools:listitem="@layout/layout_genre_list_item"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/caption_list_View"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tmdb_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/anime_info_container"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/layout_caption_list_item"/>
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/anime_info_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tmdb_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="정보"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/anime_info_status_live"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_baseline_tv_live"
+                        app:tint="@color/textLight"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/anime_info_status_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_baseline_tv_off"
+                        app:tint="@color/textSub"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tmdb_title_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/tmdb_header">
+
+                    <TextView
+                        android:id="@+id/tmdb_title_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="제목"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubHeader"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="제목 없음"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_title_header"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tmdb_rating_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/tmdb_title_container">
+
+                    <TextView
+                        android:id="@+id/tmdb_rating_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="시청자 평점"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubHeader"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ProgressBar
+                        android:id="@+id/tmdb_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:progressTint="@color/textLight"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_rating_header"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_rating_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_rating_count_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="명의 시청자 평가"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
+                        app:layout_constraintLeft_toRightOf="@id/tmdb_rating_count"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_rating_decimal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
+                        app:layout_constraintRight_toLeftOf="@id/tmdb_rating_decimal_header"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_rating_decimal_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="점"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tmdb_overview_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/tmdb_rating_container">
+
+                    <TextView
+                        android:id="@+id/tmdb_overview_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="줄거리"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubHeader"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tmdb_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="줄거리 내용 없음"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubList"
+                        android:textColor="@color/textSub"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_overview_header"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/caption_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tmdb_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/caption_list_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자막 목록"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/textSub"
+                    app:strokeWidth="1dp"
+                    app:layout_constraintTop_toBottomOf="@id/caption_list_header">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/caption_list_View"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/layout_caption_list_item"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/website_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/caption_list_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/website_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    android:background="?selectableItemBackground"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사이트 바로가기"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/textLight"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@id/website_container"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/anime_info_website"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
