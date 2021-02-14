@@ -3,6 +3,7 @@ package com.novang.anisched.model.anissia;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 애니시아 API<br/>
@@ -16,7 +17,7 @@ public class Anime {
     private int id;
 
     @SerializedName("status")
-    private boolean status;
+    private String status;
 
     @SerializedName("time")
     private String time;
@@ -57,15 +58,19 @@ public class Anime {
 
     /**
      * 상태<br/>
-     * '0'일 경우 결방 표시
+     * 'OFF'일 경우 결방 표시
      *
-     * @return (0,1)
+     * @return boolean
      */
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public boolean isStatus() {
+        return status.equals("ON");
+    }
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -77,7 +82,10 @@ public class Anime {
      * @return (00:00/0000-00-00)
      */
     public String getTime() {
-        return time;
+        if(time == null || Objects.equals(time, "")) {
+            return "N/A";
+        }
+        return time.replace("-99", "");
     }
 
     public void setTime(String time) {
@@ -121,6 +129,9 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getStartDate() {
+        if(startDate == null || Objects.equals(startDate, "")) {
+            return "미정";
+        }
         return startDate;
     }
 
@@ -136,6 +147,9 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getEndDate() {
+        if(endDate == null || Objects.equals(endDate, "")) {
+            return "미정";
+        }
         return endDate;
     }
 
@@ -150,6 +164,9 @@ public class Anime {
      * @return (https://example.url)
      */
     public String getWebsite() {
+        if(website == null || Objects.equals(website, "")) {
+            return "";
+        }
         return website;
     }
 
