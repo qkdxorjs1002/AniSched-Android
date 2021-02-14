@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.repository.anissia.AnissiaRepository;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class ListViewModel extends ViewModel {

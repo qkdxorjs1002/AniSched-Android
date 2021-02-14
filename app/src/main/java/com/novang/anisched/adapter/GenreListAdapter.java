@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.novang.anisched.R;
-import com.novang.anisched.model.anissia.Caption;
 
 import java.util.ArrayList;
 import java.util.List;
