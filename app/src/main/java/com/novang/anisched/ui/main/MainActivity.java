@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.novang.anisched.R;
 import com.novang.anisched.ui.list.ListActivity;
@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
 
     private ConstraintLayout menuAll;
-    private RadioGroup menuGroup1;
-    private RadioGroup menuGroup2;
+    private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void initReferences() {
         menuAll = findViewById(R.id.menu_all);
-        menuGroup1 = findViewById(R.id.menu_group1);
-        menuGroup2 = findViewById(R.id.menu_group2);
+        menuSun = findViewById(R.id.menu_sunday);
+        menuMon = findViewById(R.id.menu_monday);
+        menuTue = findViewById(R.id.menu_tuesday);
+        menuWed = findViewById(R.id.menu_wednesday);
+        menuThu = findViewById(R.id.menu_thursday);
+        menuFri = findViewById(R.id.menu_friday);
+        menuSat = findViewById(R.id.menu_saturday);
+        menuOva = findViewById(R.id.menu_ova);
     }
 
     public void initObservers() {
@@ -54,25 +59,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initEvents() {
+        View.OnClickListener menuClickListener = v -> {
+            int week = 7;
+
+            switch(getResources().getResourceEntryName(v.getId())) {
+                case "menu_sunday":
+                    week = 0;
+                    break;
+                case "menu_monday":
+                    week = 1;
+                    break;
+                case "menu_tuesday":
+                    week = 2;
+                    break;
+                case "menu_wednesday":
+                    week = 3;
+                    break;
+                case "menu_thursday":
+                    week = 4;
+                    break;
+                case "menu_friday":
+                    week = 5;
+                    break;
+                case "menu_saturday":
+                    week = 6;
+                    break;
+                case "menu_ova":
+                    week = 7;
+                    break;
+            }
+
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("week", week);
+            startActivity(intent);
+        };
+
         menuAll.setOnClickListener(v -> {
 
         });
 
-        menuGroup1.setOnCheckedChangeListener((group, checkedId) -> {
-            RadioButton radioButton = findViewById(checkedId);
-            Intent intent = new Intent(this, ListActivity.class);
-            intent.putExtra("week", group.indexOfChild(radioButton));
-            startActivity(intent);
-            radioButton.setChecked(false);
-        });
-
-        menuGroup2.setOnCheckedChangeListener((group, checkedId) -> {
-            RadioButton radioButton = findViewById(checkedId);
-            Intent intent = new Intent(this, ListActivity.class);
-            intent.putExtra("week", group.indexOfChild(radioButton) + 4);
-            startActivity(intent);
-            radioButton.setChecked(false);
-        });
+        menuSun.setOnClickListener(menuClickListener);
+        menuMon.setOnClickListener(menuClickListener);
+        menuTue.setOnClickListener(menuClickListener);
+        menuWed.setOnClickListener(menuClickListener);
+        menuThu.setOnClickListener(menuClickListener);
+        menuFri.setOnClickListener(menuClickListener);
+        menuSat.setOnClickListener(menuClickListener);
+        menuOva.setOnClickListener(menuClickListener);
     }
 
 }
