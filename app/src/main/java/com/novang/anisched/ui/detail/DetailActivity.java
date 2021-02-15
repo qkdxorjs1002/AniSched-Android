@@ -113,7 +113,7 @@ public class DetailActivity extends AppCompatActivity {
             websiteHeader.setOnClickListener(v -> {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(anime.getWebsite())));
             });
-            genreListViewAdapter.updateList(anime.getGenres());
+            genreListViewAdapter.updateList(anime.getGenreList());
             captionListAdapter.updateList(anime.getCaptionList());
         });
 

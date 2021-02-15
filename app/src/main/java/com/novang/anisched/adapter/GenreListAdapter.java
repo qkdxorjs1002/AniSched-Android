@@ -65,13 +65,8 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         }
     }
 
-    public void updateList(String genres) {
-        StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
-        genreList = new ArrayList<>();
-
-        while(stringTokenizer.hasMoreElements()) {
-            genreList.add((String)stringTokenizer.nextElement());
-        }
+    public void updateList(List<String> genreList) {
+        this.genreList = genreList;
 
         notifyDataSetChanged();
     }

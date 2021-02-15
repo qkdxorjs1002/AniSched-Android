@@ -2,8 +2,10 @@ package com.novang.anisched.model.anissia;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringTokenizer;
 
 /**
  * 애니시아 API<br/>
@@ -114,11 +116,22 @@ public class Anime {
      * @return (장르1,장르2)
      */
     public String getGenres() {
-        return genres;
+        return genres.replace(",", "/");
     }
 
     public void setGenres(String genres) {
         this.genres = genres;
+    }
+
+    public List<String> getGenreList() {
+        StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
+        List<String> genreList = new ArrayList<>();
+
+        while(stringTokenizer.hasMoreElements()) {
+            genreList.add((String)stringTokenizer.nextElement());
+        }
+
+        return genreList;
     }
 
     /**
