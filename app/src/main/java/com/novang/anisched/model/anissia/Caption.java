@@ -35,7 +35,9 @@ public class Caption {
      * @return (0/12/12.3)
      */
     public String getEpisode() {
-        if(episode.equals("0")) {
+        if(website.equals("")) {
+            return "준비중";
+        } else if(episode.equals("0")) {
             return "단편";
         }
         return episode.concat("화");

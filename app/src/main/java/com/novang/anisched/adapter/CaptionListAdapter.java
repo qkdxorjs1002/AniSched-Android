@@ -42,6 +42,9 @@ public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.
         captionEpisode.setText(caption.getEpisode());
         captionAuthor.setText(caption.getAuthor());
         captionUpdate.setText(caption.getTimeElapsed());
+        if(caption.getWebsite().equals("")) {
+            holder.view.setEnabled(false);
+        }
 
         holder.view.setOnClickListener(v -> {
             if (onItemClickListener != null) {
