@@ -104,7 +104,7 @@ public class DetailActivity extends AppCompatActivity {
             animeTime.setText(anime.getTime());
             animeStartDate.setText(anime.getStartDate());
             animeEndDate.setText(anime.getEndDate());
-            if(anime.isStatus()) {
+            if (anime.isStatus()) {
                 animeStatusLive.setVisibility(View.VISIBLE);
             } else {
                 animeStatusOff.setVisibility(View.VISIBLE);
@@ -118,14 +118,14 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         viewModel.tmdbResult.observe(this, result -> {
-            tmdbTitle.setText(tmdbTitle.getText().toString().concat("\n").concat(result.getOriginalName()));
+            tmdbTitle.setText(tmdbTitle.getText().toString().concat("\n").concat(result.getFlexibleOriginalName()));
             tmdbOverview.setText(result.getOverview());
             tmdbRating.setProgress(result.getVoteDecimal());
             tmdbRatingCount.setText(String.valueOf(result.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(result.getVoteDecimal()));
 
             GlideApp.with(this)
-                    .load(result.getBackdropPath("original"))
+                    .load(result.getBackdropURL("original"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .listener(new RequestListener<Drawable>() {
                         @Override
@@ -142,7 +142,7 @@ public class DetailActivity extends AppCompatActivity {
                     .into(animeThumbnail);
 
             GlideApp.with(this)
-                    .load(result.getPosterPath("w400"))
+                    .load(result.getPosterURL("w400"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(Target.SIZE_ORIGINAL)
                     .into(animeTmdbPoster);

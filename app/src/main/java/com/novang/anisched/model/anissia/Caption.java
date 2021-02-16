@@ -35,9 +35,9 @@ public class Caption {
      * @return (0/12/12.3)
      */
     public String getEpisode() {
-        if(website.equals("")) {
+        if (website.equals("")) {
             return "준비중";
-        } else if(episode.equals("0")) {
+        } else if (episode.equals("0")) {
             return "단편";
         }
         return episode.concat("화");
@@ -61,44 +61,6 @@ public class Caption {
         this.uploadDate = uploadDate;
     }
 
-    public String getTimeElapsed() {
-        try {
-            long up = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA).parse(uploadDate).getTime();
-            long now = Calendar.getInstance(Locale.KOREA).getTime().getTime();
-            long diff = (now - up) / 60000;
-
-            int elapsedYear = (int) (diff / 525600);
-            if(elapsedYear > 0) {
-                return String.valueOf(elapsedYear).concat("년 전");
-            }
-
-            int elapsedMonth = (int) ((diff % 525600) / 43800);
-            if(elapsedMonth > 0) {
-                return String.valueOf(elapsedMonth).concat("개월 전");
-            }
-
-            int elapsedDay = (int) (((diff % 525600) % 43800) / 1440);
-            if(elapsedDay > 0) {
-                return String.valueOf(elapsedDay).concat("일 전");
-            }
-
-            int elapsedHour = (int) ((((diff % 525600) % 43800) % 1440) / 60);
-            if(elapsedHour > 0) {
-                return String.valueOf(elapsedHour).concat("시간 전");
-            }
-
-            int elapsedMinute = (int) ((((diff % 525600) % 43800) % 1440) % 60);
-            if(elapsedMinute > 0) {
-                return String.valueOf(elapsedMinute).concat("분 전");
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return "방금 전";
-    }
-
     /**
      * Nullable<br/>
      * 링크 주소<br/>
@@ -107,7 +69,7 @@ public class Caption {
      * @return (https://example.url)
      */
     public String getWebsite() {
-        if(website == null) {
+        if (website == null) {
             return "";
         }
         return website;
@@ -129,6 +91,44 @@ public class Caption {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getTimeElapsed() {
+        try {
+            long up = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA).parse(uploadDate).getTime();
+            long now = Calendar.getInstance(Locale.KOREA).getTime().getTime();
+            long diff = (now - up) / 60000;
+
+            int elapsedYear = (int) (diff / 525600);
+            if (elapsedYear > 0) {
+                return String.valueOf(elapsedYear).concat("년 전");
+            }
+
+            int elapsedMonth = (int) ((diff % 525600) / 43800);
+            if (elapsedMonth > 0) {
+                return String.valueOf(elapsedMonth).concat("개월 전");
+            }
+
+            int elapsedDay = (int) (((diff % 525600) % 43800) / 1440);
+            if (elapsedDay > 0) {
+                return String.valueOf(elapsedDay).concat("일 전");
+            }
+
+            int elapsedHour = (int) ((((diff % 525600) % 43800) % 1440) / 60);
+            if (elapsedHour > 0) {
+                return String.valueOf(elapsedHour).concat("시간 전");
+            }
+
+            int elapsedMinute = (int) ((((diff % 525600) % 43800) % 1440) % 60);
+            if (elapsedMinute > 0) {
+                return String.valueOf(elapsedMinute).concat("분 전");
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "방금 전";
     }
 
 }

@@ -43,6 +43,9 @@ public class Result {
     @SerializedName("original_name")
     private String originalName;
 
+    @SerializedName("original_title")
+    private String originalTitle;
+
     @SerializedName("overview")
     private String overview;
 
@@ -72,17 +75,8 @@ public class Result {
         this.adult = adult;
     }
 
-    /**
-     * 이미지 URL
-     *
-     * @param width w200~500 / original
-     * @return String URL
-     */
-    public String getBackdropPath(String width) {
-        if(backdropPath == null) {
-            return "";
-        }
-        return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
@@ -146,7 +140,7 @@ public class Result {
     }
 
     public String getOriginalName() {
-        if(originalName == null) {
+        if (originalName == null || Objects.equals(originalName, "")) {
             return "";
         }
         return originalName;
@@ -156,8 +150,19 @@ public class Result {
         this.originalName = originalName;
     }
 
+    public String getOriginalTitle() {
+        if (originalTitle == null || Objects.equals(originalTitle, "")) {
+            return "";
+        }
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
     public String getOverview() {
-        if(overview == null || Objects.equals(overview, "")) {
+        if (overview == null || Objects.equals(overview, "")) {
             return "줄거리 내용 없음";
         }
         return overview;
@@ -175,17 +180,8 @@ public class Result {
         this.popularity = popularity;
     }
 
-    /**
-     * 이미지 URL
-     *
-     * @param width w200~500 / original
-     * @return String URL
-     */
     public String getPosterPath(String width) {
-        if(posterPath == null) {
-            return "";
-        }
-        return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
+        return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -226,5 +222,62 @@ public class Result {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    /**
+     * 배너 이미지 URL<br/>
+     * 배너 이미지 없으면 포스터 이미지 반환
+     *
+     * @param width w200~500 / original
+     * @return String URL
+     */
+    public String getBackdropURL(String width) {
+        if (backdropPath == null || Objects.equals(backdropPath, "")) {
+            return getPosterPath(width);
+        }
+        return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
+    }
+
+    /**
+     * 이미지 URL
+     *
+     * @param width w200~500 / original
+     * @return String URL
+     */
+    public String getPosterURL(String width) {
+        if (posterPath == null) {
+            return "";
+        }
+        return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
+    }
+
+    /**
+     * 미디어 제목 반환<br/>
+     * 타입 상관 없이 반환
+     *
+     * @return String
+     */
+    public String getFlexibleName() {
+        if (mediaType.equals("tv")) {
+            return name;
+        } else if (mediaType.equals("movie")) {
+            return title;
+        }
+        return "";
+    }
+
+    /**
+     * 미디어 제목 반환<br/>
+     * 타입 상관 없이 반환
+     *
+     * @return String
+     */
+    public String getFlexibleOriginalName() {
+        if (mediaType.equals("tv")) {
+            return originalName;
+        } else if (mediaType.equals("movie")) {
+            return originalTitle;
+        }
+        return "";
     }
 }

@@ -84,7 +84,7 @@ public class Anime {
      * @return (00:00/0000-00-00)
      */
     public String getTime() {
-        if(time == null || Objects.equals(time, "")) {
+        if (time == null || Objects.equals(time, "")) {
             return "N/A";
         }
         return time.replace("-99", "");
@@ -111,7 +111,7 @@ public class Anime {
     /**
      * Non-Nullable<br/>
      * 장르<br/>
-     * 구분자는 ','
+     * 구분자는 ',' 반환시 '/'로 치환
      *
      * @return (장르1,장르2)
      */
@@ -123,17 +123,6 @@ public class Anime {
         this.genres = genres;
     }
 
-    public List<String> getGenreList() {
-        StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
-        List<String> genreList = new ArrayList<>();
-
-        while(stringTokenizer.hasMoreElements()) {
-            genreList.add((String)stringTokenizer.nextElement());
-        }
-
-        return genreList;
-    }
-
     /**
      * Nullable<br/>
      * 방영 시작일<br/>
@@ -142,7 +131,7 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getStartDate() {
-        if(startDate == null || Objects.equals(startDate, "")) {
+        if (startDate == null || Objects.equals(startDate, "")) {
             return "미정";
         }
         return startDate;
@@ -160,7 +149,7 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getEndDate() {
-        if(endDate == null || Objects.equals(endDate, "")) {
+        if (endDate == null || Objects.equals(endDate, "")) {
             return "미정";
         }
         return endDate;
@@ -177,7 +166,7 @@ public class Anime {
      * @return (https://example.url)
      */
     public String getWebsite() {
-        if(website == null || Objects.equals(website, "")) {
+        if (website == null || Objects.equals(website, "")) {
             return "";
         }
         return website;
@@ -214,4 +203,20 @@ public class Anime {
         this.captionList = captionList;
     }
 
+    /**
+     * 장르 목록 반환<br/>
+     * 장르 문자열을 리스트로 반환
+     *
+     * @return List<String>
+     */
+    public List<String> getGenreList() {
+        StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
+        List<String> genreList = new ArrayList<>();
+
+        while(stringTokenizer.hasMoreElements()) {
+            genreList.add((String)stringTokenizer.nextElement());
+        }
+
+        return genreList;
+    }
 }
