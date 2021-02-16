@@ -11,6 +11,7 @@
 ### 애니메이션 편성표 앱 (애니시아 API, TMDb)
 <br/>
 
+![AppVeyor](https://img.shields.io/appveyor/build/qkdxorjs1002/AniSched-Android?color=yellow&logo=appveyor&style=for-the-badge)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 ## 다운로드
