@@ -5,15 +5,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
-import com.novang.anisched.model.tmdb.Result;
+import com.novang.anisched.model.tmdb.search.Result;
 import com.novang.anisched.repository.anissia.AnissiaRepository;
 import com.novang.anisched.repository.tmdb.TMDBRepository;
 import com.novang.anisched.tool.Levenshtein;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class DetailViewModel extends ViewModel {
 

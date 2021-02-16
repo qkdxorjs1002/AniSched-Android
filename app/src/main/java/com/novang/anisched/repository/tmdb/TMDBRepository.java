@@ -2,12 +2,7 @@ package com.novang.anisched.repository.tmdb;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.novang.anisched.R;
 import com.novang.anisched.model.tmdb.Search;
-
-import org.intellij.lang.annotations.Language;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

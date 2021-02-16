@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.tmdb.search.Result;
 
 import java.util.List;
 

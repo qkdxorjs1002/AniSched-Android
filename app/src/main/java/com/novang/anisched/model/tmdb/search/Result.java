@@ -1,4 +1,4 @@
-package com.novang.anisched.model.tmdb;
+package com.novang.anisched.model.tmdb.search;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -245,7 +245,7 @@ public class Result {
      * @return String URL
      */
     public String getPosterURL(String width) {
-        if (posterPath == null) {
+        if (posterPath == null || Objects.equals(posterPath, "")) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
