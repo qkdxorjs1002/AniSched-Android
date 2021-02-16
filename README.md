@@ -3,19 +3,15 @@
 
 <p align="center">
   <img src="img/icon.jpg" width="256px"/> 현재 Icon 없음
-
 <br/><br/>
-
   <img src="img/main.jpg" width="256px"/> <img src="img/detail1.jpg" width="256px"/> <img src="img/detail2.jpg" width="256px"/>
 </p>
-
-<br/><br/>
+<br/>
 
 ### 애니메이션 편성표 앱 (애니시아 API, TMDb)
-<br/><br/>
+<br/>
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-<br/><br/>
 
 ## 다운로드
 ### API 23 (Marshmallow / 6) 이상 지원
