@@ -1,13 +1,13 @@
 # AniSched-Android
 ## 개발 진행 중 (진행도는 [여기](https://github.com/qkdxorjs1002/AniSched-Android/projects/1))
 
-<center>
+<p align="center">
   <img src="img/icon.jpg" width="256px"/> 현재 Icon 없음
 
 <br/><br/>
 
   <img src="img/main.jpg" width="256px"/> <img src="img/detail1.jpg" width="256px"/> <img src="img/detail2.jpg" width="256px"/>
-</center>
+</p>
 
 <br/><br/>
 
