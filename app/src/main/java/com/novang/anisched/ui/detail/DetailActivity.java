@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -35,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     private ConstraintLayout loadingContainer;
     private ImageView loadingIcon;
     private AppBarLayout appBar;
+    private ConstraintLayout animeStatusOffNotice;
     private ImageView animeThumbnail;
     private TextView animeSubject;
     private ImageView animeTmdbPoster;
@@ -73,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         loadingContainer = findViewById(R.id.loading_container);
         loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
+        animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
         animeThumbnail = findViewById(R.id.anime_info_thumbnail);
         animeSubject = findViewById(R.id.anime_info_subject);
         animeTmdbPoster = findViewById(R.id.anime_info_tmdb_poster);
@@ -100,6 +103,7 @@ public class DetailActivity extends AppCompatActivity {
         loadingContainer.setVisibility(View.VISIBLE);
         loadingIcon.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
         appBar.setExpanded(false, false);
+        animeStatusOffNotice.setVisibility(View.GONE);
         animeStatusLive.setVisibility(View.GONE);
         animeStatusOff.setVisibility(View.GONE);
     }
@@ -114,6 +118,7 @@ public class DetailActivity extends AppCompatActivity {
             if (anime.isStatus()) {
                 animeStatusLive.setVisibility(View.VISIBLE);
             } else {
+                animeStatusOffNotice.setVisibility(View.VISIBLE);
                 animeStatusOff.setVisibility(View.VISIBLE);
             }
             tmdbTitle.setText(anime.getSubject());
