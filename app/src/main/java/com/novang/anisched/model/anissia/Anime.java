@@ -134,7 +134,7 @@ public class Anime {
         if (startDate == null || Objects.equals(startDate, "")) {
             return "미정";
         }
-        return startDate;
+        return startDate.replace("-99", "");
     }
 
     public void setStartDate(String startDate) {
@@ -152,7 +152,7 @@ public class Anime {
         if (endDate == null || Objects.equals(endDate, "")) {
             return "미정";
         }
-        return endDate;
+        return endDate.replace("-99", "");
     }
 
     public void setEndDate(String endDate) {
