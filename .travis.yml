@@ -1,5 +1,5 @@
 # travis-ci yml
-
+os: linux
 language: android
 dist: trusty
 android:
@@ -35,11 +35,11 @@ script:
 
 deploy:
   provider: releases
-  api_key: ${github_oauth_token}
-  file: "app/build/outputs/apk/debug/app-debug.apk"
+  token: ${github_oauth_token}
   skip_cleanup: true
+  file: "app/build/outputs/apk/debug/app-debug.apk"
   name: "debug build"
-  body: "Travis-CI가 빌드한 테스트용 Debug 버전입니다. (불안정할 가능성이 높습니다.)"
+  release_notes: "Travis-CI가 빌드한 테스트용 Debug 버전입니다. (불안정할 가능성이 높습니다.)"
   prerelease: true
   on:
     tags: true
