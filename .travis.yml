@@ -1,0 +1,29 @@
+# travis-ci yml
+
+language: android
+dist: trusty
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-30.0.2
+    - android-30
+
+before_install:
+  - chmod +x gradlew
+  - chmod +rx app
+  - yes | sdkmanager "platforms;android-30"
+  - yes | sdkmanager "build-tools;30.0.2"
+  - touch $HOME/.android/repositories.cfg
+  - echo "<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string name=\"tmdb_api_key\">${tmdb_api_key}</string></resources>" >> app/src/main/res/values/api_key.xml
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
