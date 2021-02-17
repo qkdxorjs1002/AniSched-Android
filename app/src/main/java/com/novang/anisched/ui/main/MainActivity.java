@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
 
-    private ConstraintLayout menuAll;
+    private ConstraintLayout menuNew;
     private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initReferences() {
-        menuAll = findViewById(R.id.menu_all);
+        menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
         menuMon = findViewById(R.id.menu_monday);
         menuTue = findViewById(R.id.menu_tuesday);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initEvents() {
         View.OnClickListener menuClickListener = v -> {
-            int week = 7;
+            int week = 8;
 
             switch(getResources().getResourceEntryName(v.getId())) {
                 case "menu_sunday":
@@ -94,10 +94,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         };
 
-        menuAll.setOnClickListener(v -> {
-
-        });
-
+        menuNew.setOnClickListener(menuClickListener);
         menuSun.setOnClickListener(menuClickListener);
         menuMon.setOnClickListener(menuClickListener);
         menuTue.setOnClickListener(menuClickListener);
