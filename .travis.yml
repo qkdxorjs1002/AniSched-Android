@@ -1,0 +1,45 @@
+# travis-ci yml
+os: linux
+language: android
+dist: trusty
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-30.0.2
+    - android-30
+
+before_install:
+  - chmod +x gradlew
+  - chmod +rx app
+  - yes | sdkmanager "platforms;android-30"
+  - yes | sdkmanager "build-tools;30.0.2"
+  - touch $HOME/.android/repositories.cfg
+
+before_script:
+  - echo "<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string name=\"tmdb_api_key\">${tmdb_api_key}</string></resources>" >> app/src/main/res/values/api_key.xml
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
+
+script:
+    - ./gradlew build check
+
+deploy:
+  provider: releases
+  token: ${github_oauth_token}
+  skip_cleanup: true
+  file: "app/build/outputs/apk/debug/app-debug.apk"
+  name: "debug build"
+  release_notes: "Travis-CI가 빌드한 테스트용 Debug 버전입니다. (불안정할 가능성이 높습니다.)"
+  prerelease: true
+  on:
+    tags: true
