@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private DetailViewModel viewModel;
 
+    private ConstraintLayout loadingContainer;
+    private ImageView loadingIcon;
     private AppBarLayout appBar;
     private ImageView animeThumbnail;
     private TextView animeSubject;
@@ -67,6 +70,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void initReferences() {
+        loadingContainer = findViewById(R.id.loading_container);
+        loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
         animeThumbnail = findViewById(R.id.anime_info_thumbnail);
         animeSubject = findViewById(R.id.anime_info_subject);
@@ -92,6 +97,8 @@ public class DetailActivity extends AppCompatActivity {
         captionListView.setLayoutManager(new LinearLayoutManager(this));
         captionListView.setAdapter(captionListAdapter);
 
+        loadingContainer.setVisibility(View.VISIBLE);
+        loadingIcon.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
         appBar.setExpanded(false, false);
         animeStatusLive.setVisibility(View.GONE);
         animeStatusOff.setVisibility(View.GONE);
@@ -115,6 +122,8 @@ public class DetailActivity extends AppCompatActivity {
             });
             genreListViewAdapter.updateList(anime.getGenreList());
             captionListAdapter.updateList(anime.getCaptionList());
+            loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+            loadingContainer.setVisibility(View.GONE);
         });
 
         viewModel.tmdbResult.observe(this, result -> {
