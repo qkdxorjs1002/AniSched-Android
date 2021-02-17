@@ -2,7 +2,7 @@
 ## 개발 진행 중 (진행도는 [여기](https://github.com/qkdxorjs1002/AniSched-Android/projects/1))
 
 <p align="center">
-  <img src="img/icon.jpg" width="256px"/> 현재 Icon 없음
+  <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
 <br/><br/>
   <img src="img/main.jpg" width="256px"/> <img src="img/detail1.jpg" width="256px"/> <img src="img/detail2.jpg" width="256px"/>
 </p>
