@@ -12,11 +12,13 @@
 <br/>
 
 [![Travis (.org)](https://img.shields.io/travis/qkdxorjs1002/AniSched-Android?logo=travis-ci&style=for-the-badge)](https://travis-ci.com/qkdxorjs1002/AniSched-Android)
+[![GitHub all releases](https://img.shields.io/github/downloads/qkdxorjs1002/AniSched-Android/total?style=for-the-badge)](https://github.com/qkdxorjs1002/AniSched-Android/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 ## 다운로드
 ### API 23 (Marshmallow / 6) 이상 지원
-[![Download](https://img.shields.io/badge/Release-Downloads-red.svg?style=for-the-badge&logo=github)](https://github.com/qkdxorjs1002/AniSched-Android/releases)<br/><br/>
+[![Download](https://img.shields.io/badge/Release-Downloads-red.svg?style=for-the-badge&logo=github)](https://github.com/qkdxorjs1002/AniSched-Android/releases)
+<br/><br/>
 위 링크에서 앱을 다운로드 할 수 있습니다.
 <br/><br/>
 
