@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -79,17 +81,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.35"
-                    android:background="@color/textSub"/>
+                    android:paddingVertical="10dp"
+                    android:background="@color/text"
+                    android:alpha="0.15"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
                     android:gravity="center"
                     android:alpha="0.9"
                     android:text="이번 회차는 결방입니다"
-                    android:textAppearance="@style/Font.SubHeader"
-                    android:textColor="@color/text"
+                    android:textAppearance="@style/Font.Description"
+                    android:textColor="@color/textLight"
                     app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.novang.anisched.ui.detail;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.novang.anisched.R;
 import com.novang.anisched.adapter.CaptionListAdapter;
 import com.novang.anisched.adapter.GenreListAdapter;
@@ -35,6 +37,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private DetailViewModel viewModel;
 
+    private CoordinatorLayout container;
+    private CollapsingToolbarLayout toolbarLayout;
     private ConstraintLayout loadingContainer;
     private ImageView loadingIcon;
     private AppBarLayout appBar;
@@ -78,6 +82,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initReferences() {
+        container = findViewById(R.id.container);
+        toolbarLayout = findViewById(R.id.toolbar_layout);
         loadingContainer = findViewById(R.id.loading_container);
         loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
@@ -140,23 +146,10 @@ public class DetailActivity extends AppCompatActivity {
             });
             genreListViewAdapter.updateList(anime.getGenreList());
             captionListAdapter.updateList(anime.getCaptionList());
-            loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
-            loadingContainer.setVisibility(View.GONE);
         });
 
         viewModel.tmdbMovie.observe(this, movie -> {
-            GlideApp.with(this)
-                    .load(movie.getBackdropURL("original"))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .listener(glideBackdropListener)
-                    .into(animeTmdbBackdrop);
-
-            GlideApp.with(this)
-                    .load(movie.getPosterURL("w400"))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(Target.SIZE_ORIGINAL)
-                    .into(animeTmdbPoster);
-
+            updateImages(movie.getBackdropURL("original"), movie.getPosterURL("w400"));
             tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
             tmdbOverview.setText(movie.getOverview());
             tmdbRating.setProgress(movie.getVoteDecimal());
@@ -165,28 +158,21 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         viewModel.tmdbTV.observe(this, tv -> {
-            GlideApp.with(this)
-                    .load(tv.getBackdropURL("original"))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .listener(glideBackdropListener)
-                    .into(animeTmdbBackdrop);
-
-            GlideApp.with(this)
-                    .load(tv.getPosterURL("w400"))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(Target.SIZE_ORIGINAL)
-                    .into(animeTmdbPoster);
-
+            updateImages(tv.getBackdropURL("original"), tv.getPosterURL("w400"));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
             tmdbOverview.setText(tv.getOverview());
             tmdbRating.setProgress(tv.getVoteDecimal());
             tmdbRatingCount.setText(String.valueOf(tv.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
             tmdbSeasonListAdapter.updateList(tv.getSeasonList());
-
             tmdbSeasonContainer.setVisibility(View.VISIBLE);
         });
 
+        viewModel.gradientBackground.observe(this, dynamicBackground -> {
+            container.setBackground(dynamicBackground.getGradient());
+            toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
+            animeSubject.setBackgroundColor(dynamicBackground.getTopColor());
+        });
     }
 
     private void initEvents() {
@@ -195,16 +181,33 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private final RequestListener<Drawable> glideBackdropListener = new RequestListener<Drawable>() {
-        @Override
-        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-            return false;
-        }
+    private void updateImages(String backdropURL, String posterURL) {
+        RequestListener<Bitmap> backdropListener = new RequestListener<Bitmap>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                return false;
+            }
 
-        @Override
-        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-            appBar.setExpanded(true, true);
-            return false;
-        }
-    };
+            @Override
+            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                appBar.setExpanded(true, true);
+                viewModel.dynamicBackground(resource);
+                return false;
+            }
+        };
+
+        GlideApp.with(this)
+                .asBitmap()
+                .load(backdropURL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(backdropListener)
+                .into(animeTmdbBackdrop);
+
+        GlideApp.with(this)
+                .asBitmap()
+                .load(posterURL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(Target.SIZE_ORIGINAL)
+                .into(animeTmdbPoster);
+    }
 }

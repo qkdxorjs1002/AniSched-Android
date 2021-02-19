@@ -1,5 +1,7 @@
 package com.novang.anisched.ui.detail;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -9,6 +11,7 @@ import com.novang.anisched.model.tmdb.TV;
 import com.novang.anisched.model.tmdb.search.Result;
 import com.novang.anisched.repository.anissia.AnissiaRepository;
 import com.novang.anisched.repository.tmdb.TMDBRepository;
+import com.novang.anisched.tool.DynamicBackground;
 import com.novang.anisched.tool.Levenshtein;
 
 import java.util.List;
@@ -22,6 +25,8 @@ public class DetailViewModel extends ViewModel {
     public MutableLiveData<Movie> tmdbMovie;
     public MutableLiveData<TV> tmdbTV;
 
+    public MutableLiveData<DynamicBackground> gradientBackground;
+
     public DetailViewModel() {
         anissiaRepository = new AnissiaRepository();
         tmdbRepository = new TMDBRepository();
@@ -29,6 +34,17 @@ public class DetailViewModel extends ViewModel {
         anissiaAnime = new MutableLiveData<>();
         tmdbMovie = new MutableLiveData<>();
         tmdbTV = new MutableLiveData<>();
+
+        loadingStatus = new MutableLiveData<>(true);
+        gradientBackground = new MutableLiveData<>();
+    }
+
+    public void dynamicBackground(Bitmap bitmap) {
+        DynamicBackground dynamicBackground = DynamicBackground.generate(bitmap);
+
+        if (dynamicBackground != null) {
+            gradientBackground.postValue(dynamicBackground);
+        }
     }
 
     public void callAnimeInfo(int id) {

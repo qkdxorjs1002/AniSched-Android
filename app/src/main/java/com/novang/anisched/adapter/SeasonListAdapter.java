@@ -54,7 +54,8 @@ public class SeasonListAdapter extends RecyclerView.Adapter<SeasonListAdapter.Vi
         TextView seasonEpisodeCount = holder.view.findViewById(R.id.season_episode_count);
         TextView seasonOverview = holder.view.findViewById(R.id.season_overview);
 
-        GlideApp.with(holder.view)
+        GlideApp.with(holder.itemView)
+                .asBitmap()
                 .load(season.getPosterURL("w400"))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .override(Target.SIZE_ORIGINAL)
