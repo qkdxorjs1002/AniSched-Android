@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void initReferences() {
+    private void initReferences() {
         menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
         menuMon = findViewById(R.id.menu_monday);
@@ -54,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
         menuOva = findViewById(R.id.menu_ova);
     }
 
-    public void initObservers() {
+    private void initObservers() {
 
     }
 
-    public void initEvents() {
+    private void initEvents() {
         View.OnClickListener menuClickListener = v -> {
             int week = 8;
 

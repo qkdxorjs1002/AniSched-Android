@@ -31,15 +31,15 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-    public void initReferences() {
+    private void initReferences() {
 
     }
 
-    public void initObservers() {
+    private void initObservers() {
 
     }
 
-    public void initEvents() {
+    private void initEvents() {
 
     }
 }

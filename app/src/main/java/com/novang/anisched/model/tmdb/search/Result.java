@@ -183,7 +183,7 @@ public class Result {
         this.popularity = popularity;
     }
 
-    public String getPosterPath(String width) {
+    public String getPosterPath() {
         return posterPath;
     }
 
@@ -219,10 +219,6 @@ public class Result {
         return voteAverage;
     }
 
-    public int getVoteDecimal() {
-        return (int)(voteAverage * 10);
-    }
-
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
@@ -244,7 +240,7 @@ public class Result {
      */
     public String getBackdropURL(String width) {
         if (backdropPath == null || Objects.equals(backdropPath, "")) {
-            return getPosterPath(width);
+            return getPosterURL(width);
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
     }
@@ -290,5 +286,15 @@ public class Result {
             return originalTitle;
         }
         return "";
+    }
+
+    /**
+     * 평가 점수 반환<br/>
+     * 100점 만점
+     *
+     * @return int
+     */
+    public int getVoteDecimal() {
+        return (int)(voteAverage * 10);
     }
 }

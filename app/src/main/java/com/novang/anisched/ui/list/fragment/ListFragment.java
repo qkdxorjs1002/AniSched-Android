@@ -55,20 +55,20 @@ public class ListFragment extends Fragment {
         viewModel.callSchedule(week);
     }
 
-    public void initReferences() {
+    private void initReferences() {
         animeListView = getView().findViewById(R.id.anime_list_View);
         animeListAdapter = new AnimeListAdapter();
         animeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         animeListView.setAdapter(animeListAdapter);
     }
 
-    public void initObservers() {
+    private void initObservers() {
         viewModel.animeList.observe(this, animes -> {
             animeListAdapter.updateList(animes);
         });
     }
 
-    public void initEvents() {
+    private void initEvents() {
         animeListAdapter.setOnItemClickListener((v, anime) -> {
             Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra("id", anime.getId());
