@@ -25,6 +25,7 @@ public class DetailViewModel extends ViewModel {
     public MutableLiveData<Movie> tmdbMovie;
     public MutableLiveData<TV> tmdbTV;
 
+    public MutableLiveData<Boolean> loadingStatus;
     public MutableLiveData<DynamicBackground> gradientBackground;
 
     public DetailViewModel() {
@@ -67,6 +68,7 @@ public class DetailViewModel extends ViewModel {
 
     public void searchTMDB(String apiKey, String keyword) {
         searchTMDB(apiKey, keyword, keyword);
+        loadingStatus.postValue(false);
     }
 
     private void searchTMDB(String apiKey, String keyword, String originalKeyword) {

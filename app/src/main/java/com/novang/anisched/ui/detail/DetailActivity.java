@@ -168,6 +168,13 @@ public class DetailActivity extends AppCompatActivity {
             tmdbSeasonContainer.setVisibility(View.VISIBLE);
         });
 
+        viewModel.loadingStatus.observe(this, loading -> {
+            if (!loading) {
+                loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+                loadingContainer.setVisibility(View.GONE);
+            }
+        });
+
         viewModel.gradientBackground.observe(this, dynamicBackground -> {
             container.setBackground(dynamicBackground.getGradient());
             toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
