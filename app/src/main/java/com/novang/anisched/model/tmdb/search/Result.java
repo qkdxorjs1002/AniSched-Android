@@ -2,6 +2,7 @@ package com.novang.anisched.model.tmdb.search;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,6 +96,9 @@ public class Result {
     }
 
     public List<Integer> getGenreIdList() {
+        if (genreIdList == null) {
+            return new ArrayList<>();
+        }
         return genreIdList;
     }
 
