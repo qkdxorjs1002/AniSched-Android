@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -26,6 +28,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.novang.anisched.R;
 import com.novang.anisched.adapter.CaptionListAdapter;
 import com.novang.anisched.adapter.GenreListAdapter;
+import com.novang.anisched.adapter.SeasonListAdapter;
 import com.novang.anisched.tool.GlideApp;
 
 public class DetailActivity extends AppCompatActivity {
@@ -49,10 +52,14 @@ public class DetailActivity extends AppCompatActivity {
     private ProgressBar tmdbRating;
     private TextView tmdbRatingCount;
     private TextView tmdbRatingDecimal;
+    private ConstraintLayout tmdbSeasonContainer;
     private ConstraintLayout websiteHeader;
 
     private RecyclerView genreListView;
     private GenreListAdapter genreListViewAdapter;
+    private RecyclerView tmdbSeasonListView;
+    private SeasonListAdapter tmdbSeasonListAdapter;
+    private SnapHelper tmdbSeasonListSnapHelper;
     private RecyclerView captionListView;
     private CaptionListAdapter captionListAdapter;
 
@@ -88,14 +95,21 @@ public class DetailActivity extends AppCompatActivity {
         tmdbRating = findViewById(R.id.tmdb_rating);
         tmdbRatingCount = findViewById(R.id.tmdb_rating_count);
         tmdbRatingDecimal = findViewById(R.id.tmdb_rating_decimal);
+        tmdbSeasonContainer = findViewById(R.id.tmdb_season_container);
         websiteHeader = findViewById(R.id.website_header);
         genreListView = findViewById(R.id.anime_info_genre_list_view);
         genreListViewAdapter = new GenreListAdapter();
+        tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
+        tmdbSeasonListAdapter = new SeasonListAdapter();
+        tmdbSeasonListSnapHelper = new PagerSnapHelper();
         captionListView = findViewById(R.id.caption_list_View);
         captionListAdapter = new CaptionListAdapter();
 
         genreListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         genreListView.setAdapter(genreListViewAdapter);
+        tmdbSeasonListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        tmdbSeasonListView.setAdapter(tmdbSeasonListAdapter);
+        tmdbSeasonListSnapHelper.attachToRecyclerView(tmdbSeasonListView);
         captionListView.setLayoutManager(new LinearLayoutManager(this));
         captionListView.setAdapter(captionListAdapter);
 
@@ -105,6 +119,7 @@ public class DetailActivity extends AppCompatActivity {
         animeStatusOffNotice.setVisibility(View.GONE);
         animeStatusLive.setVisibility(View.GONE);
         animeStatusOff.setVisibility(View.GONE);
+        tmdbSeasonContainer.setVisibility(View.GONE);
     }
 
     private void initObservers() {
@@ -130,12 +145,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         viewModel.tmdbMovie.observe(this, movie -> {
-            tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
-            tmdbOverview.setText(movie.getOverview());
-            tmdbRating.setProgress(movie.getVoteDecimal());
-            tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
-            tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
-
             GlideApp.with(this)
                     .load(movie.getBackdropURL("original"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -147,15 +156,15 @@ public class DetailActivity extends AppCompatActivity {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(Target.SIZE_ORIGINAL)
                     .into(animeTmdbPoster);
+
+            tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
+            tmdbOverview.setText(movie.getOverview());
+            tmdbRating.setProgress(movie.getVoteDecimal());
+            tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
+            tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
         });
 
         viewModel.tmdbTV.observe(this, tv -> {
-            tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
-            tmdbOverview.setText(tv.getOverview());
-            tmdbRating.setProgress(tv.getVoteDecimal());
-            tmdbRatingCount.setText(String.valueOf(tv.getVoteCount()));
-            tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
-
             GlideApp.with(this)
                     .load(tv.getBackdropURL("original"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -167,6 +176,15 @@ public class DetailActivity extends AppCompatActivity {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(Target.SIZE_ORIGINAL)
                     .into(animeTmdbPoster);
+
+            tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
+            tmdbOverview.setText(tv.getOverview());
+            tmdbRating.setProgress(tv.getVoteDecimal());
+            tmdbRatingCount.setText(String.valueOf(tv.getVoteCount()));
+            tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
+            tmdbSeasonListAdapter.updateList(tv.getSeasonList());
+
+            tmdbSeasonContainer.setVisibility(View.VISIBLE);
         });
 
     }

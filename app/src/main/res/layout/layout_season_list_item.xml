@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingEnd="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="RtlSymmetry">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/text"
+            android:alpha="0.15"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/season_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:paddingVertical="10dp"
+                app:layout_constraintLeft_toRightOf="@id/season_poster"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/season_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시즌 제목"
+                    android:textAppearance="@style/Font.Description"
+                    android:textColor="@color/textLight"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/season_air_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0000-00-00"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/season_name"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/season_splitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:text="|"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/season_name"
+                    app:layout_constraintLeft_toRightOf="@id/season_air_date"/>
+
+                <TextView
+                    android:id="@+id/season_episode_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/season_name"
+                    app:layout_constraintLeft_toRightOf="@id/season_splitter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="화"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/season_name"
+                    app:layout_constraintLeft_toRightOf="@id/season_episode_count"/>
+
+                <TextView
+                    android:id="@+id/season_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="시즌 줄거리"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    android:maxLines="5"
+                    android:ellipsize="end"
+                    app:layout_constraintTop_toBottomOf="@id/season_air_date"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
