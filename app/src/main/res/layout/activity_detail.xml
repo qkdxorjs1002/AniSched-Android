@@ -27,7 +27,7 @@
             app:statusBarScrim="@android:color/transparent">
 
             <ImageView
-                android:id="@+id/anime_info_thumbnail"
+                android:id="@+id/anime_info_tmdb_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
@@ -206,7 +206,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="정보"
+                        android:text="TMDb 정보"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.MainList"
                         android:textColor="@color/textLight"

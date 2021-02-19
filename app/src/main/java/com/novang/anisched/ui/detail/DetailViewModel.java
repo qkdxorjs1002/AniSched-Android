@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.novang.anisched.model.anissia.Anime;
-import com.novang.anisched.model.anissia.Caption;
+import com.novang.anisched.model.tmdb.Movie;
+import com.novang.anisched.model.tmdb.TV;
 import com.novang.anisched.model.tmdb.search.Result;
 import com.novang.anisched.repository.anissia.AnissiaRepository;
 import com.novang.anisched.repository.tmdb.TMDBRepository;
@@ -17,29 +18,35 @@ public class DetailViewModel extends ViewModel {
     private AnissiaRepository anissiaRepository;
     private TMDBRepository tmdbRepository;
 
-    public MutableLiveData<Anime> animeInfo;
-    public MutableLiveData<List<Caption>> captionList;
-    public MutableLiveData<Result> tmdbResult;
+    public MutableLiveData<Anime> anissiaAnime;
+    public MutableLiveData<Movie> tmdbMovie;
+    public MutableLiveData<TV> tmdbTV;
 
     public DetailViewModel() {
         anissiaRepository = new AnissiaRepository();
         tmdbRepository = new TMDBRepository();
 
-        animeInfo = new MutableLiveData<>();
-        captionList = new MutableLiveData<>();
-        tmdbResult = new MutableLiveData<>();
+        anissiaAnime = new MutableLiveData<>();
+        tmdbMovie = new MutableLiveData<>();
+        tmdbTV = new MutableLiveData<>();
     }
 
     public void callAnimeInfo(int id) {
         anissiaRepository.callAnimeInfo(id).observeForever(anime -> {
-            animeInfo.postValue(anime);
+            anissiaAnime.postValue(anime);
         });
     }
 
-    public void callCaption(int id) {
-        anissiaRepository.callCaption(id).observeForever(captions -> {
-            captionList.postValue(captions);
-        });
+    public void getDetail(String apiKey, String type, int id) {
+        if (type.equals("movie")) {
+            tmdbRepository.movieDetail(apiKey, "ko-KR", id).observeForever(movie -> {
+                tmdbMovie.postValue(movie);
+            });
+        } else if (type.equals("tv")) {
+            tmdbRepository.tvDetail(apiKey, "ko-KR", id).observeForever(tv -> {
+                tmdbTV.postValue(tv);
+            });
+        }
     }
 
     public void searchTMDB(String apiKey, String keyword) {
@@ -59,13 +66,16 @@ public class DetailViewModel extends ViewModel {
             List<Result> result = searches.getResultList();
 
             if (result != null) {
-                if (result.size() > 1) {
-                    tmdbResult.postValue(selectBestResult(result, keyword));
-                } else if (result.size() == 1) {
-                    tmdbResult.postValue(result.get(0));
+                if (result.size() > 0) {
+                    int idx = selectBestResult(result, originalKeyword);
+                    if (idx != -1) {
+                        getDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
+                    }
                 } else {
                     if (filtered.matches(".*[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s].*")) {
                         searchTMDB(apiKey, filtered.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", " "), originalKeyword);
+                    } else if (filtered.matches(".*[^\uAC00-\uD7A3xfe0-9\\s].*")) {
+                        searchTMDB(apiKey, filtered.replaceAll("[^\uAC00-\uD7A3xfe0-9\\s]", " "), originalKeyword);
                     } else if (filtered.contains(" ")) {
                         searchTMDB(apiKey, filtered.replace(" ", ""), originalKeyword);
                     }
@@ -74,23 +84,26 @@ public class DetailViewModel extends ViewModel {
         });
     }
 
-    private Result selectBestResult(List<Result> result, String keyword) {
-        int similar = 0, last_diff = 100;
+    private int selectBestResult(List<Result> result, String keyword) {
+        int similar = -1, last_diff = 100;
 
         for (int idx = 0; result.size() > idx; idx++) {
             Result target = result.get(idx);
 
-            if (target.getMediaType().equals("tv") || target.getMediaType().equals("movie")) {
-                int diff = Levenshtein.getDistance(target.getFlexibleName(), keyword)
-                        + Levenshtein.getDistance(target.getFlexibleOriginalName(), keyword);
+            if (target.getGenreIdList().contains(16)) {
+                if (target.getMediaType().equals("tv") || target.getMediaType().equals("movie")) {
+                    int diff = Levenshtein.getDistance(
+                            target.getFlexibleName().replace(" ", ""),
+                            keyword.replace(" ", ""));
 
-                if (last_diff >= diff) {
-                    similar = idx;
-                    last_diff = diff;
+                    if (last_diff >= diff) {
+                        similar = idx;
+                        last_diff = diff;
+                    }
                 }
             }
         }
 
-        return result.get(similar);
+        return similar;
     }
 }

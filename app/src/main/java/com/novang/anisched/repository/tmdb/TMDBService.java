@@ -1,9 +1,12 @@
 package com.novang.anisched.repository.tmdb;
 
+import com.novang.anisched.model.tmdb.Movie;
 import com.novang.anisched.model.tmdb.Search;
+import com.novang.anisched.model.tmdb.TV;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -24,7 +27,36 @@ public interface TMDBService {
      */
     @GET("search/multi")
     Call<Search> search(@Query("api_key") String apiKey,
-                                @Query("language") String lang,
-                                @Query("query") String keyword);
+                        @Query("language") String lang,
+                        @Query("query") String keyword
+    );
+
+    /**
+     * 영화 상세 정보
+     *
+     * @param id id
+     * @param apiKey API Key
+     * @param lang language code
+     * @return Call<Movie>
+     */
+    @GET("movie/{id}")
+    Call<Movie> movieDetail(@Path("id") int id,
+                            @Query("api_key") String apiKey,
+                            @Query("language") String lang
+    );
+
+    /**
+     * TV 프로그램 상세 정보
+     *
+     * @param id id
+     * @param apiKey API Key
+     * @param lang language code
+     * @return Call<TV>
+     */
+    @GET("tv/{id}")
+    Call<TV> tvDetail(@Path("id") int id,
+                      @Query("api_key") String apiKey,
+                      @Query("language") String lang
+    );
 
 }

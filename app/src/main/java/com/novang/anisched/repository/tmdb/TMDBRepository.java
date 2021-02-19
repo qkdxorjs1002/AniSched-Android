@@ -2,7 +2,9 @@ package com.novang.anisched.repository.tmdb;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.novang.anisched.model.tmdb.Movie;
 import com.novang.anisched.model.tmdb.Search;
+import com.novang.anisched.model.tmdb.TV;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +58,62 @@ public class TMDBRepository {
         });
 
         return searchList;
+    }
+
+    /**
+     * 영화 상세 정보
+     *
+     * @param apiKey API Key
+     * @param lang language code
+     * @param id id
+     * @return Call<Movie>
+     */
+    public MutableLiveData<Movie> movieDetail(String apiKey, String lang, int id) {
+        MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
+
+        Call<Movie> callMovieDetail = service.movieDetail(id, apiKey, lang);
+
+        callMovieDetail.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                movieDetail.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+        return movieDetail;
+    }
+
+    /**
+     * TV 상세 정보
+     *
+     * @param apiKey API Key
+     * @param lang language code
+     * @param id id
+     * @return Call<TV>
+     */
+    public MutableLiveData<TV> tvDetail(String apiKey, String lang, int id) {
+        MutableLiveData<TV> tvDetail = new MutableLiveData<>();
+
+        Call<TV> callMovieDetail = service.tvDetail(id, apiKey, lang);
+
+        callMovieDetail.enqueue(new Callback<TV>() {
+            @Override
+            public void onResponse(Call<TV> call, Response<TV> response) {
+                tvDetail.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TV> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+        return tvDetail;
     }
 
 }

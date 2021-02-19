@@ -39,9 +39,6 @@ public class TV {
     @SerializedName("in_production")
     private boolean inProduction;
 
-    @SerializedName("media_type")
-    private String mediaType;
-
     @SerializedName("languages")
     private List<String> languageList;
 
@@ -156,14 +153,6 @@ public class TV {
 
     public void setInProduction(boolean inProduction) {
         this.inProduction = inProduction;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
     }
 
     public List<String> getLanguageList() {
@@ -355,4 +344,13 @@ public class TV {
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
     }
 
+    /**
+     * 평가 점수 반환<br/>
+     * 100점 만점
+     *
+     * @return int
+     */
+    public int getVoteDecimal() {
+        return (int)(voteAverage * 10);
+    }
 }

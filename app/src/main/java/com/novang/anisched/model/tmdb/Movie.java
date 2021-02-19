@@ -30,14 +30,11 @@ public class Movie {
     @SerializedName("homepage")
     private String homepage;
 
-    @SerializedName("first_air_date")
-    private String firstAirDate;
-
     @SerializedName("id")
     private int id;
 
     @SerializedName("imdb_id")
-    private int imdbId;
+    private String imdbId;
 
     @SerializedName("original_language")
     private String originalLanguage;
@@ -124,14 +121,6 @@ public class Movie {
         this.homepage = homepage;
     }
 
-    public String getFirstAirDate() {
-        return firstAirDate;
-    }
-
-    public void setFirstAirDate(String firstAirDate) {
-        this.firstAirDate = firstAirDate;
-    }
-
     public int getId() {
         return id;
     }
@@ -140,11 +129,11 @@ public class Movie {
         this.id = id;
     }
 
-    public int getImdbId() {
+    public String getImdbId() {
         return imdbId;
     }
 
-    public void setImdbId(int imdbId) {
+    public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
 
@@ -300,5 +289,14 @@ public class Movie {
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
     }
-    
+
+    /**
+     * 평가 점수 반환<br/>
+     * 100점 만점
+     *
+     * @return int
+     */
+    public int getVoteDecimal() {
+        return (int)(voteAverage * 10);
+    }
 }

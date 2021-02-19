@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView loadingIcon;
     private AppBarLayout appBar;
     private ConstraintLayout animeStatusOffNotice;
-    private ImageView animeThumbnail;
+    private ImageView animeTmdbBackdrop;
     private TextView animeSubject;
     private ImageView animeTmdbPoster;
     private TextView animeTime;
@@ -71,12 +70,12 @@ public class DetailActivity extends AppCompatActivity {
         viewModel.callAnimeInfo(getIntent().getIntExtra("id", -1));
     }
 
-    public void initReferences() {
+    private void initReferences() {
         loadingContainer = findViewById(R.id.loading_container);
         loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
         animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
-        animeThumbnail = findViewById(R.id.anime_info_thumbnail);
+        animeTmdbBackdrop = findViewById(R.id.anime_info_tmdb_backdrop);
         animeSubject = findViewById(R.id.anime_info_subject);
         animeTmdbPoster = findViewById(R.id.anime_info_tmdb_poster);
         animeTime = findViewById(R.id.anime_info_time);
@@ -108,8 +107,8 @@ public class DetailActivity extends AppCompatActivity {
         animeStatusOff.setVisibility(View.GONE);
     }
 
-    public void initObservers() {
-        viewModel.animeInfo.observe(this, anime -> {
+    private void initObservers() {
+        viewModel.anissiaAnime.observe(this, anime -> {
             viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime.getSubject());
             animeSubject.setText(anime.getSubject());
             animeTime.setText(anime.getTime());
@@ -121,7 +120,6 @@ public class DetailActivity extends AppCompatActivity {
                 animeStatusOffNotice.setVisibility(View.VISIBLE);
                 animeStatusOff.setVisibility(View.VISIBLE);
             }
-            tmdbTitle.setText(anime.getSubject());
             websiteHeader.setOnClickListener(v -> {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(anime.getWebsite())));
             });
@@ -131,41 +129,64 @@ public class DetailActivity extends AppCompatActivity {
             loadingContainer.setVisibility(View.GONE);
         });
 
-        viewModel.tmdbResult.observe(this, result -> {
-            tmdbTitle.setText(tmdbTitle.getText().toString().concat("\n").concat(result.getFlexibleOriginalName()));
-            tmdbOverview.setText(result.getOverview());
-            tmdbRating.setProgress(result.getVoteDecimal());
-            tmdbRatingCount.setText(String.valueOf(result.getVoteCount()));
-            tmdbRatingDecimal.setText(String.valueOf(result.getVoteDecimal()));
+        viewModel.tmdbMovie.observe(this, movie -> {
+            tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
+            tmdbOverview.setText(movie.getOverview());
+            tmdbRating.setProgress(movie.getVoteDecimal());
+            tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
+            tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
 
             GlideApp.with(this)
-                    .load(result.getBackdropURL("original"))
+                    .load(movie.getBackdropURL("original"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            appBar.setExpanded(true, true);
-                            return false;
-                        }
-                    })
-                    .into(animeThumbnail);
+                    .listener(glideBackdropListener)
+                    .into(animeTmdbBackdrop);
 
             GlideApp.with(this)
-                    .load(result.getPosterURL("w400"))
+                    .load(movie.getPosterURL("w400"))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(Target.SIZE_ORIGINAL)
                     .into(animeTmdbPoster);
         });
+
+        viewModel.tmdbTV.observe(this, tv -> {
+            tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
+            tmdbOverview.setText(tv.getOverview());
+            tmdbRating.setProgress(tv.getVoteDecimal());
+            tmdbRatingCount.setText(String.valueOf(tv.getVoteCount()));
+            tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
+
+            GlideApp.with(this)
+                    .load(tv.getBackdropURL("original"))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .listener(glideBackdropListener)
+                    .into(animeTmdbBackdrop);
+
+            GlideApp.with(this)
+                    .load(tv.getPosterURL("w400"))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(Target.SIZE_ORIGINAL)
+                    .into(animeTmdbPoster);
+        });
+
     }
 
-    public void initEvents() {
+    private void initEvents() {
         captionListAdapter.setOnItemClickListener((v, caption) -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(caption.getWebsite())));
         });
     }
+
+    private final RequestListener<Drawable> glideBackdropListener = new RequestListener<Drawable>() {
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+            appBar.setExpanded(true, true);
+            return false;
+        }
+    };
 }
