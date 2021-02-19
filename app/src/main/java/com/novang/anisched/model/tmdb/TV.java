@@ -7,8 +7,10 @@ import com.novang.anisched.model.tmdb.tv.Network;
 import com.novang.anisched.model.tmdb.common.Production;
 import com.novang.anisched.model.tmdb.tv.Season;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringTokenizer;
 
 /**
  * TMDB API<br/>
@@ -22,7 +24,7 @@ public class TV {
     private String backdropPath;
 
     @SerializedName("episode_run_time")
-    private List<Integer> episodeRunTime;
+    private List<Integer> episodeRuntime;
 
     @SerializedName("first_air_date")
     private String firstAirDate;
@@ -107,12 +109,12 @@ public class TV {
         this.backdropPath = backdropPath;
     }
 
-    public List<Integer> getEpisodeRunTime() {
-        return episodeRunTime;
+    public List<Integer> getEpisodeRuntime() {
+        return episodeRuntime;
     }
 
     public void setEpisodeRunTime(List<Integer> episodeRunTime) {
-        this.episodeRunTime = episodeRunTime;
+        this.episodeRuntime = episodeRunTime;
     }
 
     public String getFirstAirDate() {
@@ -352,5 +354,23 @@ public class TV {
      */
     public int getVoteDecimal() {
         return (int)(voteAverage * 10);
+    }
+
+    public String getStringNetworkList() {
+        if (networkList != null) {
+            Iterator<Network> iterator = networkList.iterator();
+            StringBuilder string = new StringBuilder();
+
+            while (iterator.hasNext()) {
+                string.append(iterator.next().getName());
+
+                if (iterator.hasNext()) {
+                    string.append(" • ");
+                }
+            }
+
+            return string.toString();
+        }
+        return "";
     }
 }

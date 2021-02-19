@@ -137,6 +137,16 @@
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <TextView
+                    android:id="@+id/anime_info_runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - 24m"
+                    android:textAppearance="@style/Font.SubList"
+                    android:textColor="@color/textSub"
+                    app:layout_constraintTop_toBottomOf="@id/anime_info_time_header"
+                    app:layout_constraintLeft_toRightOf="@id/anime_info_time"/>
+
+                <TextView
                     android:id="@+id/anime_info_startdate_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -373,6 +383,45 @@
                         android:textAppearance="@style/Font.SubList"
                         android:textColor="@color/textSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_overview_header"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tmdb_networks_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/tmdb_overview_container">
+
+                    <TextView
+                        android:id="@+id/tmdb_networks_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="방송사"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.SubHeader"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/tmdb_networks_header">
+
+                        <TextView
+                            android:id="@+id/tmdb_networks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="방송사 목록 없음"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@style/Font.SubList"
+                            android:textColor="@color/textSub"
+                            app:layout_constraintTop_toBottomOf="@id/tmdb_networks_header"/>
+
+                    </ScrollView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Network {
 
     @SerializedName("name")
-    private String firstAirDate;
+    private String name;
 
     @SerializedName("id")
     private int id;
@@ -24,12 +24,12 @@ public class Network {
     @SerializedName("origin_country")
     private String originCountry;
 
-    public String getFirstAirDate() {
-        return firstAirDate;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstAirDate(String firstAirDate) {
-        this.firstAirDate = firstAirDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
