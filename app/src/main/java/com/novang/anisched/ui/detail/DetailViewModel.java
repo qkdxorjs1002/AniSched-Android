@@ -68,7 +68,6 @@ public class DetailViewModel extends ViewModel {
 
     public void searchTMDB(String apiKey, String keyword) {
         searchTMDB(apiKey, keyword, keyword);
-        loadingStatus.postValue(false);
     }
 
     private void searchTMDB(String apiKey, String keyword, String originalKeyword) {
@@ -96,6 +95,8 @@ public class DetailViewModel extends ViewModel {
                         searchTMDB(apiKey, filtered.replaceAll("[^\uAC00-\uD7A3xfe0-9\\s]", " "), originalKeyword);
                     } else if (filtered.contains(" ")) {
                         searchTMDB(apiKey, filtered.replace(" ", ""), originalKeyword);
+                    } else {
+                        loadingStatus.postValue(false);
                     }
                 }
             }

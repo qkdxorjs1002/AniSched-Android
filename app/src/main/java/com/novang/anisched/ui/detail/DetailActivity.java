@@ -155,6 +155,7 @@ public class DetailActivity extends AppCompatActivity {
             tmdbRating.setProgress(movie.getVoteDecimal());
             tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
+            viewModel.loadingStatus.postValue(false);
         });
 
         viewModel.tmdbTV.observe(this, tv -> {
@@ -166,12 +167,16 @@ public class DetailActivity extends AppCompatActivity {
             tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
             tmdbSeasonListAdapter.updateList(tv.getSeasonList());
             tmdbSeasonContainer.setVisibility(View.VISIBLE);
+            viewModel.loadingStatus.postValue(false);
         });
 
         viewModel.loadingStatus.observe(this, loading -> {
             if (!loading) {
                 loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
                 loadingContainer.setVisibility(View.GONE);
+            } else {
+                loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+                loadingContainer.setVisibility(View.VISIBLE);
             }
         });
 
