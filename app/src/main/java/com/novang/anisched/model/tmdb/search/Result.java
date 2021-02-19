@@ -55,6 +55,9 @@ public class Result {
     @SerializedName("poster_path")
     private String posterPath;
 
+    @SerializedName("release_date")
+    private String releaseDate;
+
     @SerializedName("title")
     private String title;
 
@@ -186,6 +189,14 @@ public class Result {
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getTitle() {
