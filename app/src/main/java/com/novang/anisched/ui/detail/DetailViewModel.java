@@ -87,6 +87,8 @@ public class DetailViewModel extends ViewModel {
                     int idx = selectBestResult(result, originalKeyword);
                     if (idx != -1) {
                         getDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
+                    } else {
+                        loadingStatus.postValue(false);
                     }
                 } else {
                     if (filtered.matches(".*[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s].*")) {
