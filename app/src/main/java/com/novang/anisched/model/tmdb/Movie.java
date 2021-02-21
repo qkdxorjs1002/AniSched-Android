@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.tmdb.common.Genre;
 import com.novang.anisched.model.tmdb.common.Production;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -298,5 +299,23 @@ public class Movie {
      */
     public int getVoteDecimal() {
         return (int)(voteAverage * 10);
+    }
+
+    public String getStringProductionList() {
+        if (productionCompany != null) {
+            Iterator<Production> iterator = productionCompany.iterator();
+            StringBuilder string = new StringBuilder();
+
+            while (iterator.hasNext()) {
+                string.append(iterator.next().getName());
+
+                if (iterator.hasNext()) {
+                    string.append(" • ");
+                }
+            }
+
+            return string.toString();
+        }
+        return "";
     }
 }

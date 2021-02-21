@@ -25,6 +25,7 @@ public class DetailViewModel extends ViewModel {
     public MutableLiveData<Movie> tmdbMovie;
     public MutableLiveData<TV> tmdbTV;
 
+    public MutableLiveData<String> mediaType;
     public MutableLiveData<Boolean> loadingStatus;
     public MutableLiveData<DynamicBackground> gradientBackground;
 
@@ -36,6 +37,7 @@ public class DetailViewModel extends ViewModel {
         tmdbMovie = new MutableLiveData<>();
         tmdbTV = new MutableLiveData<>();
 
+        mediaType = new MutableLiveData<>();
         loadingStatus = new MutableLiveData<>(true);
         gradientBackground = new MutableLiveData<>();
     }
@@ -58,10 +60,12 @@ public class DetailViewModel extends ViewModel {
         if (type.equals("movie")) {
             tmdbRepository.movieDetail(apiKey, "ko-KR", id).observeForever(movie -> {
                 tmdbMovie.postValue(movie);
+                mediaType.postValue("movie");
             });
         } else if (type.equals("tv")) {
             tmdbRepository.tvDetail(apiKey, "ko-KR", id).observeForever(tv -> {
                 tmdbTV.postValue(tv);
+                mediaType.postValue("tv");
             });
         }
     }

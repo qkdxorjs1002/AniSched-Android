@@ -37,17 +37,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private DetailViewModel viewModel;
 
-    private CoordinatorLayout container;
     private CollapsingToolbarLayout toolbarLayout;
-    private ConstraintLayout loadingContainer;
-    private ImageView loadingIcon;
     private AppBarLayout appBar;
-    private ConstraintLayout animeStatusOffNotice;
     private ImageView animeTmdbBackdrop;
     private TextView animeSubject;
     private ImageView animeTmdbPoster;
     private TextView animeTime;
-    private TextView animeRuntime;
     private TextView animeStartDate;
     private TextView animeEndDate;
     private ImageView animeStatusLive;
@@ -58,8 +53,17 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tmdbRatingCount;
     private TextView tmdbRatingDecimal;
     private TextView tmdbNetworks;
+    private TextView tmdbProduction;
+    private ImageView loadingIcon;
+
+    private CoordinatorLayout container;
+    private ConstraintLayout loadingContainer;
+    private ConstraintLayout animeStatusOffNotice;
+    private ConstraintLayout tmdbDetailContainer;
+    private ConstraintLayout tmdbNetworksContainer;
     private ConstraintLayout tmdbSeasonContainer;
     private ConstraintLayout websiteHeader;
+    private ConstraintLayout apiLogoContainer;
 
     private RecyclerView genreListView;
     private GenreListAdapter genreListViewAdapter;
@@ -77,6 +81,7 @@ public class DetailActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(DetailViewModel.class);
 
         initReferences();
+        initViews();
         initObservers();
         initEvents();
 
@@ -84,17 +89,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initReferences() {
-        container = findViewById(R.id.container);
         toolbarLayout = findViewById(R.id.toolbar_layout);
-        loadingContainer = findViewById(R.id.loading_container);
         loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
-        animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
         animeTmdbBackdrop = findViewById(R.id.anime_info_tmdb_backdrop);
         animeSubject = findViewById(R.id.anime_info_subject);
         animeTmdbPoster = findViewById(R.id.anime_info_tmdb_poster);
         animeTime = findViewById(R.id.anime_info_time);
-        animeRuntime = findViewById(R.id.anime_info_runtime);
         animeStartDate = findViewById(R.id.anime_info_startdate);
         animeEndDate = findViewById(R.id.anime_info_enddate);
         animeStatusLive = findViewById(R.id.anime_info_status_live);
@@ -105,8 +106,17 @@ public class DetailActivity extends AppCompatActivity {
         tmdbRatingCount = findViewById(R.id.tmdb_rating_count);
         tmdbRatingDecimal = findViewById(R.id.tmdb_rating_decimal);
         tmdbNetworks = findViewById(R.id.tmdb_networks);
-        tmdbSeasonContainer = findViewById(R.id.tmdb_season_container);
+        tmdbProduction = findViewById(R.id.tmdb_production);
         websiteHeader = findViewById(R.id.website_header);
+
+        container = findViewById(R.id.container);
+        loadingContainer = findViewById(R.id.loading_container);
+        animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
+        tmdbDetailContainer = findViewById(R.id.tmdb_detail_container);
+        tmdbNetworksContainer = findViewById(R.id.tmdb_networks_container);
+        tmdbSeasonContainer = findViewById(R.id.tmdb_season_container);
+        apiLogoContainer = findViewById(R.id.api_logo_container);
+
         genreListView = findViewById(R.id.anime_info_genre_list_view);
         genreListViewAdapter = new GenreListAdapter();
         tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
@@ -114,7 +124,9 @@ public class DetailActivity extends AppCompatActivity {
         tmdbSeasonListSnapHelper = new PagerSnapHelper();
         captionListView = findViewById(R.id.caption_list_View);
         captionListAdapter = new CaptionListAdapter();
+    }
 
+    private void initViews() {
         genreListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         genreListView.setAdapter(genreListViewAdapter);
         tmdbSeasonListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -129,8 +141,10 @@ public class DetailActivity extends AppCompatActivity {
         animeStatusOffNotice.setVisibility(View.GONE);
         animeStatusLive.setVisibility(View.GONE);
         animeStatusOff.setVisibility(View.GONE);
-        animeRuntime.setVisibility(View.GONE);
+        tmdbDetailContainer.setVisibility(View.GONE);
+        tmdbNetworksContainer.setVisibility(View.GONE);
         tmdbSeasonContainer.setVisibility(View.GONE);
+        apiLogoContainer.setVisibility(View.GONE);
     }
 
     private void initObservers() {
@@ -155,30 +169,38 @@ public class DetailActivity extends AppCompatActivity {
 
         viewModel.tmdbMovie.observe(this, movie -> {
             updateImages(movie.getBackdropURL("original"), movie.getPosterURL("w400"));
-            animeRuntime.setText(movie.getRuntime());
+            animeTime.setText(movie.getRuntime().concat("분"));
             tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
             tmdbOverview.setText(movie.getOverview());
             tmdbRating.setProgress(movie.getVoteDecimal());
             tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
+            tmdbProduction.setText(movie.getStringProductionList());
             viewModel.loadingStatus.postValue(false);
         });
 
         viewModel.tmdbTV.observe(this, tv -> {
             updateImages(tv.getBackdropURL("original"), tv.getPosterURL("w400"));
-            if (tv.getEpisodeRuntime() != null) {
-                animeRuntime.setText(" - ".concat(tv.getEpisodeRuntime().get(0).toString().concat("m")));
-                animeRuntime.setVisibility(View.VISIBLE);
-            }
+            animeTime.setText(animeTime.getText().toString().concat(" - ").concat(tv.getEpisodeRuntime().get(0).toString().concat("분")));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
             tmdbOverview.setText(tv.getOverview());
             tmdbRating.setProgress(tv.getVoteDecimal());
             tmdbRatingCount.setText(String.valueOf(tv.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(tv.getVoteDecimal()));
             tmdbNetworks.setText(tv.getStringNetworkList());
+            tmdbProduction.setText(tv.getStringProductionList());
             tmdbSeasonListAdapter.updateList(tv.getSeasonList());
-            tmdbSeasonContainer.setVisibility(View.VISIBLE);
             viewModel.loadingStatus.postValue(false);
+        });
+
+        viewModel.mediaType.observe(this, s -> {
+            tmdbDetailContainer.setVisibility(View.VISIBLE);
+            apiLogoContainer.setVisibility(View.VISIBLE);
+
+            if (s.equals("tv")) {
+                tmdbNetworksContainer.setVisibility(View.VISIBLE);
+                tmdbSeasonContainer.setVisibility(View.VISIBLE);
+            }
         });
 
         viewModel.loadingStatus.observe(this, loading -> {
@@ -186,7 +208,6 @@ public class DetailActivity extends AppCompatActivity {
                 loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
                 loadingContainer.setVisibility(View.GONE);
             } else {
-                loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
                 loadingContainer.setVisibility(View.VISIBLE);
             }
         });

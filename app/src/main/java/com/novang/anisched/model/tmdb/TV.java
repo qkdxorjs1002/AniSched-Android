@@ -373,4 +373,22 @@ public class TV {
         }
         return "";
     }
+
+    public String getStringProductionList() {
+        if (productionCompany != null) {
+            Iterator<Production> iterator = productionCompany.iterator();
+            StringBuilder string = new StringBuilder();
+
+            while (iterator.hasNext()) {
+                string.append(iterator.next().getName());
+
+                if (iterator.hasNext()) {
+                    string.append(" • ");
+                }
+            }
+
+            return string.toString();
+        }
+        return "";
+    }
 }
