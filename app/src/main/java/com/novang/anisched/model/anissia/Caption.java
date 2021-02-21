@@ -1,6 +1,7 @@
 package com.novang.anisched.model.anissia;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +14,7 @@ import java.util.Locale;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Caption {
+public class Caption extends BaseModel {
 
     @SerializedName("episode")
     private String episode;
@@ -69,7 +70,7 @@ public class Caption {
      * @return (https://example.url)
      */
     public String getWebsite() {
-        if (website == null) {
+        if (isNullOrEmpty(website)) {
             return "";
         }
         return website;

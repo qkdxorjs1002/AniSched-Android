@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb.search;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Result {
+public class Result extends BaseModel {
 
     @SerializedName("adult")
     private boolean adult;
@@ -147,7 +148,7 @@ public class Result {
     }
 
     public String getOriginalName() {
-        if (originalName == null || Objects.equals(originalName, "")) {
+        if (isNullOrEmpty(originalName)) {
             return "";
         }
         return originalName;
@@ -158,7 +159,7 @@ public class Result {
     }
 
     public String getOriginalTitle() {
-        if (originalTitle == null || Objects.equals(originalTitle, "")) {
+        if (isNullOrEmpty(originalTitle)) {
             return "";
         }
         return originalTitle;
@@ -169,7 +170,7 @@ public class Result {
     }
 
     public String getOverview() {
-        if (overview == null || Objects.equals(overview, "")) {
+        if (isNullOrEmpty(overview)) {
             return "줄거리 내용 없음";
         }
         return overview;
@@ -243,7 +244,7 @@ public class Result {
      * @return String URL
      */
     public String getBackdropURL(String width) {
-        if (backdropPath == null || Objects.equals(backdropPath, "")) {
+        if (isNullOrEmpty(backdropPath)) {
             return getPosterURL(width);
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
@@ -256,7 +257,7 @@ public class Result {
      * @return String URL
      */
     public String getPosterURL(String width) {
-        if (posterPath == null || Objects.equals(posterPath, "")) {
+        if (isNullOrEmpty(posterPath)) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);

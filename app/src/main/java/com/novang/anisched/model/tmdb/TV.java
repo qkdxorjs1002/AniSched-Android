@@ -1,12 +1,15 @@
 package com.novang.anisched.model.tmdb;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 import com.novang.anisched.model.tmdb.common.Genre;
 import com.novang.anisched.model.tmdb.tv.Episode;
 import com.novang.anisched.model.tmdb.tv.Network;
 import com.novang.anisched.model.tmdb.common.Production;
 import com.novang.anisched.model.tmdb.tv.Season;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +21,7 @@ import java.util.StringTokenizer;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class TV {
+public class TV extends BaseModel {
 
     @SerializedName("backdrop_path")
     private String backdropPath;
@@ -230,7 +233,7 @@ public class TV {
     }
 
     public String getOriginalName() {
-        if (originalName == null || Objects.equals(originalName, "")) {
+        if (isNullOrEmpty(originalName)) {
             return "";
         }
         return originalName;
@@ -241,7 +244,7 @@ public class TV {
     }
 
     public String getOverview() {
-        if (overview == null || Objects.equals(overview, "")) {
+        if (isNullOrEmpty(overview)) {
             return "줄거리 내용 없음";
         }
         return overview;
@@ -327,7 +330,7 @@ public class TV {
      * @return String URL
      */
     public String getBackdropURL(String width) {
-        if (backdropPath == null || Objects.equals(backdropPath, "")) {
+        if (isNullOrEmpty(backdropPath)) {
             return getPosterURL(width);
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
@@ -340,7 +343,7 @@ public class TV {
      * @return String URL
      */
     public String getPosterURL(String width) {
-        if (posterPath == null || Objects.equals(posterPath, "")) {
+        if (isNullOrEmpty(posterPath)) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
@@ -390,5 +393,14 @@ public class TV {
             return string.toString();
         }
         return "";
+    }
+
+    public int getRuntime() {
+        if (episodeRuntime != null) {
+            if (episodeRuntime.size() != 0) {
+                return episodeRuntime.get(0);
+            }
+        }
+        return 0;
     }
 }

@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb.tv;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Episode {
+public class Episode extends BaseModel {
 
     @SerializedName("air_date")
     private String airDate;
@@ -75,7 +76,7 @@ public class Episode {
     }
 
     public String getOverview() {
-        if (overview == null || Objects.equals(overview, "")) {
+        if (isNullOrEmpty(overview)) {
             return "줄거리 내용 없음";
         }
         return overview;
@@ -132,7 +133,7 @@ public class Episode {
      * @return String URL
      */
     public String getStillURL(String width) {
-        if (stillPath == null || Objects.equals(stillPath, "")) {
+        if (isNullOrEmpty(stillPath)) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(stillPath);

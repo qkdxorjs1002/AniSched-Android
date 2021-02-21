@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb.common;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 /**
  * TMDB API<br/>
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Genre {
+public class Genre extends BaseModel {
 
     @SerializedName("id")
     private String id;

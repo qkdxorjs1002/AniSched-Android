@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb.tv;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Network {
+public class Network extends BaseModel {
 
     @SerializedName("name")
     private String name;
@@ -63,7 +64,7 @@ public class Network {
      * @return String URL
      */
     public String getLogoURL(String width) {
-        if (logoPath == null || Objects.equals(logoPath, "")) {
+        if (isNullOrEmpty(logoPath)) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(logoPath);

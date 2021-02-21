@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 import com.novang.anisched.model.tmdb.search.Result;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Search {
+public class Search extends BaseModel {
 
     @SerializedName("page")
     private int page;

@@ -1,6 +1,7 @@
 package com.novang.anisched.model.tmdb;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 import com.novang.anisched.model.tmdb.common.Genre;
 import com.novang.anisched.model.tmdb.common.Production;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Movie {
+public class Movie extends BaseModel {
 
     @SerializedName("adult")
     private boolean adult;
@@ -147,7 +148,7 @@ public class Movie {
     }
 
     public String getOriginalTitle() {
-        if (originalTitle == null || Objects.equals(originalTitle, "")) {
+        if (isNullOrEmpty(originalTitle)) {
             return "";
         }
         return originalTitle;
@@ -158,7 +159,7 @@ public class Movie {
     }
 
     public String getOverview() {
-        if (overview == null || Objects.equals(overview, "")) {
+        if (isNullOrEmpty(overview)) {
             return "줄거리 내용 없음";
         }
         return overview;
@@ -272,7 +273,7 @@ public class Movie {
      * @return String URL
      */
     public String getBackdropURL(String width) {
-        if (backdropPath == null || Objects.equals(backdropPath, "")) {
+        if (isNullOrEmpty(backdropPath)) {
             return getPosterURL(width);
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(backdropPath);
@@ -285,7 +286,7 @@ public class Movie {
      * @return String URL
      */
     public String getPosterURL(String width) {
-        if (posterPath == null) {
+        if (isNullOrEmpty(posterPath)) {
             return "";
         }
         return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);

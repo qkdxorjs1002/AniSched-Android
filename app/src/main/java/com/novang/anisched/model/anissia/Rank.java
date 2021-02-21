@@ -1,6 +1,7 @@
 package com.novang.anisched.model.anissia;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 /**
  * 애니시아 API<br/>
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Rank {
+public class Rank extends BaseModel {
 
     @SerializedName("animeNo")
     private int id;

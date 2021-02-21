@@ -1,6 +1,7 @@
 package com.novang.anisched.model.anissia;
 
 import com.google.gson.annotations.SerializedName;
+import com.novang.anisched.model.base.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.StringTokenizer;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Anime {
+public class Anime extends BaseModel {
 
     @SerializedName("animeNo")
     private int id;
@@ -84,7 +85,7 @@ public class Anime {
      * @return (00:00/0000-00-00)
      */
     public String getTime() {
-        if (time == null || Objects.equals(time, "")) {
+        if (isNullOrEmpty(time)) {
             return "N/A";
         }
         return time.replace("-99", "");
@@ -131,7 +132,7 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getStartDate() {
-        if (startDate == null || Objects.equals(startDate, "")) {
+        if (isNullOrEmpty(startDate)) {
             return "미정";
         }
         return startDate.replace("-99", "");
@@ -149,7 +150,7 @@ public class Anime {
      * @return (0000-00-00)
      */
     public String getEndDate() {
-        if (endDate == null || Objects.equals(endDate, "")) {
+        if (isNullOrEmpty(endDate)) {
             return "미정";
         }
         return endDate.replace("-99", "");
@@ -166,7 +167,7 @@ public class Anime {
      * @return (https://example.url)
      */
     public String getWebsite() {
-        if (website == null || Objects.equals(website, "")) {
+        if (isNullOrEmpty(website)) {
             return "";
         }
         return website;
