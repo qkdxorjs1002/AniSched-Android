@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -181,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
 
         viewModel.tmdbTV.observe(this, tv -> {
             updateImages(tv.getBackdropURL("original"), tv.getPosterURL("w400"));
-            animeTime.setText(animeTime.getText().toString().concat(" - ").concat(tv.getEpisodeRuntime().get(0).toString().concat("분")));
+            animeTime.setText(animeTime.getText().toString().concat(" - ").concat(String.valueOf(tv.getRuntime()).concat("분")));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
             tmdbOverview.setText(tv.getOverview());
             tmdbRating.setProgress(tv.getVoteDecimal());
