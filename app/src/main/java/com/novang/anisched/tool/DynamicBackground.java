@@ -6,43 +6,36 @@ import android.graphics.drawable.GradientDrawable;
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 
+/**
+ * Pick color from bitmap to generate gradient drawable
+ *
+ * @author Novang (qkdxorjs1002)
+ */
 public class DynamicBackground {
 
     private GradientDrawable gradient;
     private int topColor;
     private int bottomColor;
+    private boolean isDark;
 
-    public DynamicBackground(GradientDrawable gradient, int topColor, int bottomColor) {
+    public DynamicBackground(GradientDrawable gradient, int topColor, int bottomColor, boolean isDark) {
         this.gradient = gradient;
         this.topColor = topColor;
         this.bottomColor = bottomColor;
+        this.isDark = isDark;
     }
 
     public static DynamicBackground generate(Bitmap bitmap) {
         Palette palette = Palette.from(bitmap).generate();
-
-        Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
-        Palette.Swatch vibrant = palette.getVibrantSwatch();
-        Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
-        Palette.Swatch lightMuted = palette.getLightMutedSwatch();
-        Palette.Swatch muted = palette.getMutedSwatch();
-        Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
+        Palette.Swatch dominantSwatch = palette.getDominantSwatch();
 
         int topColor = 0, bottomColor = 0;
+        boolean isDark = false;
         float hue = 0;
 
-        if (lightVibrant != null) {
-            hue = lightVibrant.getHsl()[0];
-        } else if (vibrant != null) {
-            hue = vibrant.getHsl()[0];
-        } else if (darkVibrant != null) {
-            hue = darkVibrant.getHsl()[0];
-        } else if (lightMuted != null) {
-            hue = lightMuted.getHsl()[0];
-        } else if (muted != null) {
-            hue = muted.getHsl()[0];
-        } else if (darkMuted != null) {
-            hue = darkMuted.getHsl()[0];
+        if (dominantSwatch != null) {
+            hue = dominantSwatch.getHsl()[0];
+            isDark = !(dominantSwatch.getHsl()[2] >= 0.5f);
         } else {
             return null;
         }
@@ -54,7 +47,7 @@ public class DynamicBackground {
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[] { topColor, topColor, bottomColor });
 
-        return new DynamicBackground(gradientDrawable, topColor, bottomColor);
+        return new DynamicBackground(gradientDrawable, topColor, bottomColor, isDark);
     }
 
     public GradientDrawable getGradient() {
@@ -67,5 +60,9 @@ public class DynamicBackground {
 
     public int getBottomColor() {
         return bottomColor;
+    }
+
+    public boolean isDark() {
+        return isDark;
     }
 }

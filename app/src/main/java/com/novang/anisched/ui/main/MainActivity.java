@@ -5,8 +5,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.widget.ImageButton;
 
 import com.novang.anisched.R;
@@ -55,7 +57,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initObservers() {
-
+        /*if (!dynamicBackground.isDark()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                getWindow().getInsetsController().setSystemBarsAppearance(
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+            } else {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }*/
     }
 
     private void initEvents() {
