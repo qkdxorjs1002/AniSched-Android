@@ -272,14 +272,12 @@ public class DetailActivity extends AppCompatActivity {
         GlideApp.with(this)
                 .asBitmap()
                 .load(backdropURL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(backdropListener)
                 .into(animeTmdbBackdrop);
 
         GlideApp.with(this)
                 .asBitmap()
                 .load(posterURL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .override(Target.SIZE_ORIGINAL)
                 .into(animeTmdbPoster);
     }
