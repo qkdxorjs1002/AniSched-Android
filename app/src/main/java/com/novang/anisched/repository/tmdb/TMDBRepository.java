@@ -68,7 +68,7 @@ public class TMDBRepository {
      * @param id id
      * @return Call<Movie>
      */
-    public MutableLiveData<Movie> movieDetail(String apiKey, String lang, int id) {
+    public MutableLiveData<Movie> requestMovieDetail(String apiKey, String lang, int id) {
         MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
 
         Call<Movie> callMovieDetail = service.movieDetail(id, apiKey, lang);
@@ -96,7 +96,7 @@ public class TMDBRepository {
      * @param id id
      * @return Call<TV>
      */
-    public MutableLiveData<TV> tvDetail(String apiKey, String lang, int id) {
+    public MutableLiveData<TV> requestTVDetail(String apiKey, String lang, int id) {
         MutableLiveData<TV> tvDetail = new MutableLiveData<>();
 
         Call<TV> callMovieDetail = service.tvDetail(id, apiKey, lang);

@@ -59,12 +59,12 @@ public class DetailViewModel extends ViewModel {
 
     public void getDetail(String apiKey, String type, int id) {
         if (type.equals("movie")) {
-            tmdbRepository.movieDetail(apiKey, "ko-KR", id).observeForever(movie -> {
+            tmdbRepository.requestMovieDetail(apiKey, "ko-KR", id).observeForever(movie -> {
                 tmdbMovie.postValue(movie);
                 mediaType.postValue("movie");
             });
         } else if (type.equals("tv")) {
-            tmdbRepository.tvDetail(apiKey, "ko-KR", id).observeForever(tv -> {
+            tmdbRepository.requestTVDetail(apiKey, "ko-KR", id).observeForever(tv -> {
                 tmdbTV.postValue(tv);
                 mediaType.postValue("tv");
             });
