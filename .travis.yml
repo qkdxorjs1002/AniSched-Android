@@ -19,7 +19,7 @@ before_install:
 
 before_script:
   - echo "<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string name=\"tmdb_api_key\">${tmdb_api_key}</string></resources>" >> app/src/main/res/values/api_key.xml
-  - echo "ext {\n store_password = \"${store_pw}\"\n  key_password = \"${key_pw}\"" >> app/credentials.gradle
+  - echo -e "ext {\n store_password = \"${store_pw}\"\n  key_password = \"${key_pw}\"" >> app/credentials.gradle
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
