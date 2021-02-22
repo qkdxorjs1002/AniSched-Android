@@ -7,7 +7,7 @@ android {
 
     signingConfigs {
         anisched {
-            storeFile file('E:\\Backup\\Development\\KeyStore\\Android\\anisched.jks')
+            storeFile store_path
             storePassword store_password
             keyAlias 'anisched'
             keyPassword key_password

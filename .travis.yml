@@ -1,46 +1,49 @@
-# travis-ci yml
 os: linux
+
 language: android
+
 dist: trusty
+
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-30.0.2
-    - android-30
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-30.0.2
+  - android-30
 
 before_install:
-  - chmod +x gradlew
-  - chmod +rx app
-  - yes | sdkmanager "platforms;android-30"
-  - yes | sdkmanager "build-tools;30.0.2"
-  - touch $HOME/.android/repositories.cfg
+- openssl aes-256-cbc -K $encrypted_e9fb24e28298_key -iv $encrypted_e9fb24e28298_iv -in anisched.jks.enc -out anisched.jks -d
+- chmod +x gradlew
+- chmod +rx app
+- yes | sdkmanager "platforms;android-30"
+- yes | sdkmanager "build-tools;30.0.2"
+- touch $HOME/.android/repositories.cfg
 
 before_script:
-  - echo "<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string name=\"tmdb_api_key\">${tmdb_api_key}</string></resources>" >> app/src/main/res/values/api_key.xml
-  - echo -e "ext {\n store_password = \"${store_pw}\"\n  key_password = \"${key_pw}\" \n}" >> app/credentials.gradle
+- echo "<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string name=\"tmdb_api_key\">${tmdb_api_key}</string></resources>" >> app/src/main/res/values/api_key.xml
+- echo -e "ext {\n store_path = file(\"${store_path}\")\n  store_password = \"${store_pw}\"\n  key_password = \"${key_pw}\" \n}" >> app/credentials.gradle
 
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -rf $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 
 script:
-    - ./gradlew build check
+- "./gradlew build check"
 
 deploy:
   provider: releases
-  token: ${github_oauth_token}
+  token: "${github_oauth_token}"
   skip_cleanup: true
-  file: "app/build/outputs/apk/debug/app-debug.apk"
-  name: "debug build"
-  body: "Travis-CI가 빌드한 테스트용 Debug 버전입니다. (불안정할 가능성이 높습니다.)"
+  file: app/build/outputs/apk/debug/app-debug.apk
+  name: debug build
+  body: Travis-CI가 빌드한 테스트용 Debug 버전입니다. (불안정할 가능성이 높습니다.)
   prerelease: true
   on:
     tags: true
