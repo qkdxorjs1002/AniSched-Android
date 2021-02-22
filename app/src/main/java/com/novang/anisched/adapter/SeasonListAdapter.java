@@ -58,10 +58,6 @@ public class SeasonListAdapter extends RecyclerView.Adapter<SeasonListAdapter.Vi
         seasonEpisodeCount.setText(String.valueOf(season.getEpisodeCount()));
         seasonOverview.setText(season.getOverview());
 
-        if (position >= getItemCount() - 1) {
-            holder.view.setPadding(0, 0, 0, 0);
-        }
-
         holder.view.setOnClickListener(v -> {
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(v, season);
