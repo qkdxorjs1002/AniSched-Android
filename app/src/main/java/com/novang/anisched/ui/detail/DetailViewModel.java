@@ -15,7 +15,11 @@ import com.novang.anisched.repository.tmdb.TMDBRepository;
 import com.novang.anisched.tool.DynamicBackground;
 import com.novang.anisched.tool.Levenshtein;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class DetailViewModel extends ViewModel {
 
@@ -25,6 +29,7 @@ public class DetailViewModel extends ViewModel {
     public MutableLiveData<Anime> anissiaAnime;
     public MutableLiveData<Movie> tmdbMovie;
     public MutableLiveData<TV> tmdbTV;
+    public MutableLiveData<List<Video>> tmdbVideos;
 
     public MutableLiveData<String> mediaType;
     public MutableLiveData<Boolean> loadingStatus;
@@ -37,6 +42,7 @@ public class DetailViewModel extends ViewModel {
         anissiaAnime = new MutableLiveData<>();
         tmdbMovie = new MutableLiveData<>();
         tmdbTV = new MutableLiveData<>();
+        tmdbVideos = new MutableLiveData<>();
 
         mediaType = new MutableLiveData<>();
         loadingStatus = new MutableLiveData<>(true);
@@ -69,63 +75,83 @@ public class DetailViewModel extends ViewModel {
                 mediaType.postValue("tv");
             });
         }
+
+        if (type.equals("movie") || type.equals("tv")) {
+            getVideos(apiKey, type, id);
+        }
     }
 
-    public void searchTMDB(String apiKey, String keyword) {
-        searchTMDB(apiKey, keyword, keyword);
+    public void getVideos(String apiKey, String type, int id) {
+        getVideos(apiKey, "ko-KR", type, id);
     }
 
-    private void searchTMDB(String apiKey, String keyword, String originalKeyword) {
-        String filtered = keyword.replaceAll("\\s\\d기", "")
-                .replace("OVA", "")
-                .replace("OAD", "")
-                .replaceAll("\\s시즌(\\d|\\s\\d|)", "")
-                .replaceAll("\\s\\d[n-t][dhrt]", "")
-                .replaceAll("\\sSeason\\s\\d", "")
-                .replaceAll("[-~].*[-~]", " ");
+    public void getVideos(String apiKey, String lang, String type, int id) {
+        tmdbRepository.requestVideos(apiKey, lang, type, id).observeForever(videos -> {
+            List<Video> videoList = videos.getVideoList();
 
-        tmdbRepository.search(apiKey, "ko-KR", filtered).observeForever(searches -> {
-            List<Result> result = searches.getResultList();
-
-            if (result != null) {
-                if (result.size() > 0) {
-                    int idx = selectBestResult(result, originalKeyword);
-                    if (idx != -1) {
-                        getDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
-                    } else {
-                        loadingStatus.postValue(false);
-                    }
-                } else {
-                    if (filtered.matches(".*[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s].*")) {
-                        searchTMDB(apiKey, filtered.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", " "), originalKeyword);
-                    } else if (filtered.matches(".*[^\uAC00-\uD7A3xfe0-9\\s].*")) {
-                        searchTMDB(apiKey, filtered.replaceAll("[^\uAC00-\uD7A3xfe0-9\\s]", " "), originalKeyword);
-                    } else if (filtered.contains(" ")) {
-                        searchTMDB(apiKey, filtered.replace(" ", ""), originalKeyword);
-                    } else {
-                        loadingStatus.postValue(false);
-                    }
+            if (videoList.isEmpty()) {
+                if (lang.equals("ko-KR")) {
+                    getVideos(apiKey, "ja-JP", type, id);
+                } else if (lang.equals("ja-JP")) {
+                    getVideos(apiKey, "en-US", type, id);
                 }
+            } else {
+                tmdbVideos.postValue(videos.getVideoList());
             }
         });
     }
 
-    private int selectBestResult(List<Result> result, String keyword) {
-        int similar = -1, last_diff = 100;
+    public void searchTMDB(String apiKey, Anime anime) {
+        List<String> regexList = new ArrayList<>(Arrays.asList(
+                "(\\s\\d기)|(\\s시즌(\\d|\\s\\d|))|(\\s\\d[n-t][dhrt])|(\\sSeason\\s\\d)|(\\sOVA)|(\\sOAD)",
+                "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s[A-z].*$", "\\s"
+        ));
+
+        searchTMDB(apiKey, anime.getSubject(), anime, regexList.iterator());
+    }
+
+    private void searchTMDB(String apiKey, String keyword, Anime anime, Iterator<String> iterator) {
+        tmdbRepository.search(apiKey, "ko-KR", keyword).observeForever(searches -> {
+            List<Result> result = searches.getResultList();
+
+            if (!result.isEmpty()) {
+                int idx = selectBestResult(result, keyword, anime);
+                if (idx != -1) {
+                    getDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
+                    return;
+                }
+            }
+
+            if (!iterator.hasNext()) {
+                loadingStatus.postValue(false);
+                return;
+            }
+            String filtered = keyword.replaceAll(iterator.next(), "");
+            searchTMDB(apiKey, filtered, anime, iterator);
+        });
+    }
+
+    private int selectBestResult(List<Result> result, String keyword, Anime anime) {
+        int similar = -1;
+        double last_diff = 0;
 
         for (int idx = 0; result.size() > idx; idx++) {
             Result target = result.get(idx);
 
-            if (target.getGenreIdList().contains(16)) {
-                if (target.getMediaType().equals("tv") || target.getMediaType().equals("movie")) {
-                    int diff = Levenshtein.getDistance(
-                            target.getFlexibleName().replace(" ", ""),
-                            keyword.replace(" ", ""));
+            if (Objects.equals(target.getFirstAirDate(), anime.getStartDate())) {
+                similar = idx;
+                break;
+            }
 
-                    if (last_diff >= diff) {
-                        similar = idx;
-                        last_diff = diff;
-                    }
+            if (target.getGenreIdList().contains(16) && ((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
+                String targetString = target.getFlexibleName().replace(" ", "");
+
+                double diff = (Levenshtein.getDistance(targetString, anime.getSubject().replace(" ", ""))
+                        + Levenshtein.getDistance(targetString, keyword.replace(" ", ""))) / 2;
+
+                if (last_diff < diff) {
+                    similar = idx;
+                    last_diff = diff;
                 }
             }
         }

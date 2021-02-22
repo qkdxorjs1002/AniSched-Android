@@ -6,9 +6,20 @@ package com.novang.anisched.tool;
  */
 public class Levenshtein {
 
-    public static int getDistance(String a, String b) {
+    public static double getDistance(String a, String b) {
         a = a.toLowerCase();
         b = b.toLowerCase();
+
+        if (a.length() < b.length()) {
+            String tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        int aLength = a.length();
+        if (aLength == 0) {
+            return 1.0;
+        }
 
         int [] costs = new int [b.length() + 1];
 
@@ -27,7 +38,7 @@ public class Levenshtein {
             }
         }
 
-        return costs[b.length()];
+        return (aLength - costs[b.length()]) / (double) aLength;
     }
 
 }

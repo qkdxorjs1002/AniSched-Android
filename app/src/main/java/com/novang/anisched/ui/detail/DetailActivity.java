@@ -164,7 +164,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initObservers() {
         viewModel.anissiaAnime.observe(this, anime -> {
-            viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime.getSubject());
+            viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime);
             animeSubject.setText(anime.getSubject());
             animeTime.setText(anime.getTime());
             animeStartDate.setText(anime.getStartDate());
