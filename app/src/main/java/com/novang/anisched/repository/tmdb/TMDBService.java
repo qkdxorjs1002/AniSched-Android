@@ -3,6 +3,7 @@ package com.novang.anisched.repository.tmdb;
 import com.novang.anisched.model.tmdb.Movie;
 import com.novang.anisched.model.tmdb.Search;
 import com.novang.anisched.model.tmdb.TV;
+import com.novang.anisched.model.tmdb.Videos;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -57,6 +58,22 @@ public interface TMDBService {
     Call<TV> tvDetail(@Path("id") int id,
                       @Query("api_key") String apiKey,
                       @Query("language") String lang
+    );
+
+    /**
+     * 비디오 정보
+     *
+     * @param type media type
+     * @param id id
+     * @param apiKey API Key
+     * @param lang language code
+     * @return Call<Videos>
+     */
+    @GET("{type}/{id}/videos")
+    Call<Videos> videos(@Path("type") String type,
+                        @Path("id") int id,
+                        @Query("api_key") String apiKey,
+                        @Query("language") String lang
     );
 
 }

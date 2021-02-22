@@ -33,6 +33,7 @@ import com.novang.anisched.R;
 import com.novang.anisched.adapter.CaptionListAdapter;
 import com.novang.anisched.adapter.GenreListAdapter;
 import com.novang.anisched.adapter.SeasonListAdapter;
+import com.novang.anisched.adapter.VideoListAdapter;
 import com.novang.anisched.tool.GlideApp;
 
 public class DetailActivity extends AppCompatActivity {
@@ -61,6 +62,7 @@ public class DetailActivity extends AppCompatActivity {
     private CoordinatorLayout container;
     private ConstraintLayout loadingContainer;
     private ConstraintLayout animeStatusOffNotice;
+    private ConstraintLayout tmdbVideoListContainer;
     private ConstraintLayout tmdbDetailContainer;
     private ConstraintLayout tmdbNetworksContainer;
     private ConstraintLayout tmdbSeasonContainer;
@@ -69,6 +71,9 @@ public class DetailActivity extends AppCompatActivity {
 
     private RecyclerView genreListView;
     private GenreListAdapter genreListViewAdapter;
+    private RecyclerView tmdbVideoListView;
+    private VideoListAdapter tmdbVideoListAdapter;
+    private SnapHelper tmdbVideoListSnapHelper;
     private RecyclerView tmdbSeasonListView;
     private SeasonListAdapter tmdbSeasonListAdapter;
     private SnapHelper tmdbSeasonListSnapHelper;
@@ -113,6 +118,7 @@ public class DetailActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
         loadingContainer = findViewById(R.id.loading_container);
+        tmdbVideoListContainer = findViewById(R.id.tmdb_video_list_container);
         animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
         tmdbDetailContainer = findViewById(R.id.tmdb_detail_container);
         tmdbNetworksContainer = findViewById(R.id.tmdb_networks_container);
@@ -121,6 +127,9 @@ public class DetailActivity extends AppCompatActivity {
 
         genreListView = findViewById(R.id.anime_info_genre_list_view);
         genreListViewAdapter = new GenreListAdapter();
+        tmdbVideoListView = findViewById(R.id.tmdb_video_list);
+        tmdbVideoListAdapter = new VideoListAdapter();
+        tmdbVideoListSnapHelper = new PagerSnapHelper();
         tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
         tmdbSeasonListAdapter = new SeasonListAdapter();
         tmdbSeasonListSnapHelper = new PagerSnapHelper();
@@ -131,6 +140,9 @@ public class DetailActivity extends AppCompatActivity {
     private void initViews() {
         genreListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         genreListView.setAdapter(genreListViewAdapter);
+        tmdbVideoListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        tmdbVideoListView.setAdapter(tmdbVideoListAdapter);
+        tmdbVideoListSnapHelper.attachToRecyclerView(tmdbVideoListView);
         tmdbSeasonListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         tmdbSeasonListView.setAdapter(tmdbSeasonListAdapter);
         tmdbSeasonListSnapHelper.attachToRecyclerView(tmdbSeasonListView);
@@ -143,6 +155,7 @@ public class DetailActivity extends AppCompatActivity {
         animeStatusOffNotice.setVisibility(View.GONE);
         animeStatusLive.setVisibility(View.GONE);
         animeStatusOff.setVisibility(View.GONE);
+        tmdbVideoListContainer.setVisibility(View.GONE);
         tmdbDetailContainer.setVisibility(View.GONE);
         tmdbNetworksContainer.setVisibility(View.GONE);
         tmdbSeasonContainer.setVisibility(View.GONE);
@@ -193,6 +206,11 @@ public class DetailActivity extends AppCompatActivity {
             tmdbProduction.setText(tv.getStringProductionList());
             tmdbSeasonListAdapter.updateList(tv.getSeasonList());
             viewModel.loadingStatus.postValue(false);
+        });
+
+        viewModel.tmdbVideos.observe(this, videos -> {
+            tmdbVideoListAdapter.updateList(videos);
+            tmdbVideoListContainer.setVisibility(View.VISIBLE);
         });
 
         viewModel.mediaType.observe(this, s -> {

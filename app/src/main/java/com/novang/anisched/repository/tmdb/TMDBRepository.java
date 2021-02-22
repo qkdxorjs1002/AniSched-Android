@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.novang.anisched.model.tmdb.Movie;
 import com.novang.anisched.model.tmdb.Search;
 import com.novang.anisched.model.tmdb.TV;
+import com.novang.anisched.model.tmdb.Videos;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -114,6 +115,35 @@ public class TMDBRepository {
         });
 
         return tvDetail;
+    }
+
+    /**
+     * 비디오 정보
+     *
+     * @param type media type
+     * @param id id
+     * @param apiKey API Key
+     * @param lang language code
+     * @return Call<Videos>
+     */
+    public MutableLiveData<Videos> requestVideos(String apiKey, String lang, String type, int id) {
+        MutableLiveData<Videos> videos = new MutableLiveData<>();
+
+        Call<Videos> callVideos = service.videos(type, id, apiKey, lang);
+
+        callVideos.enqueue(new Callback<Videos>() {
+            @Override
+            public void onResponse(Call<Videos> call, Response<Videos> response) {
+                videos.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Videos> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+        return videos;
     }
 
 }

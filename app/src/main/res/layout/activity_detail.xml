@@ -47,8 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
-                android:gravity="center_vertical"
                 android:paddingHorizontal="24dp"
+                android:gravity="center_vertical"
                 android:background="@color/gradientEnd"
                 android:text="title"
                 android:textAppearance="@style/Font.DialogTitle"
@@ -83,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:paddingVertical="10dp"
                     android:background="@color/text"
-                    android:alpha="0.15"/>
+                    android:alpha="0.25"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -193,11 +193,32 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tmdb_video_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/anime_info_container">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tmdb_video_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/layout_video_list_item"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/tmdb_detail_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                app:layout_constraintTop_toBottomOf="@id/anime_info_container">
+                app:layout_constraintTop_toBottomOf="@id/tmdb_video_list_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/tmdb_detail_header"
@@ -488,10 +509,11 @@
                     android:id="@+id/tmdb_season_list"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:paddingHorizontal="24dp"
+                    android:paddingHorizontal="20dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tmdb_season_header"
+                    tools:itemCount="1"
                     tools:listitem="@layout/layout_season_list_item"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -539,7 +561,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
-                        tools:itemCount="3"
+                        tools:itemCount="1"
                         tools:listitem="@layout/layout_caption_list_item"/>
 
                 </com.google.android.material.card.MaterialCardView>
