@@ -1,4 +1,4 @@
-package com.novang.anisched.model.tmdb.common;
+package com.novang.anisched.model.tmdb.child.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;

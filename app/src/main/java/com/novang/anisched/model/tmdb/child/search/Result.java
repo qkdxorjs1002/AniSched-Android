@@ -1,11 +1,10 @@
-package com.novang.anisched.model.tmdb.search;
+package com.novang.anisched.model.tmdb.child.search;
 
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * TMDB API<br/>

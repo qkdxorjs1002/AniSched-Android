@@ -1,9 +1,7 @@
-package com.novang.anisched.model.tmdb.tv;
+package com.novang.anisched.model.tmdb.child.tv;
 
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
-
-import java.util.Objects;
 
 /**
  * TMDB API<br/>
@@ -11,13 +9,13 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Season extends BaseModel {
+public class Episode extends BaseModel {
 
     @SerializedName("air_date")
     private String airDate;
 
-    @SerializedName("episode_count")
-    private int episodeCount;
+    @SerializedName("episode_number")
+    private String firstAirDate;
 
     @SerializedName("id")
     private int id;
@@ -28,16 +26,22 @@ public class Season extends BaseModel {
     @SerializedName("overview")
     private String overview;
 
-    @SerializedName("poster_path")
-    private String posterPath;
+    @SerializedName("production_code")
+    private String productionCode;
 
     @SerializedName("season_number")
     private int seasonNumber;
 
+    @SerializedName("still_path")
+    private String stillPath;
+
+    @SerializedName("vote_average")
+    private double voteAverage;
+
+    @SerializedName("vote_count")
+    private int voteCount;
+
     public String getAirDate() {
-        if (isNullOrEmpty(airDate)) {
-            return "방영일 정보 없음";
-        }
         return airDate;
     }
 
@@ -45,12 +49,12 @@ public class Season extends BaseModel {
         this.airDate = airDate;
     }
 
-    public int getEpisodeCount() {
-        return episodeCount;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setEpisodeCount(int episodeCount) {
-        this.episodeCount = episodeCount;
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public int getId() {
@@ -80,12 +84,12 @@ public class Season extends BaseModel {
         this.overview = overview;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getProductionCode() {
+        return productionCode;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setProductionCode(String productionCode) {
+        this.productionCode = productionCode;
     }
 
     public int getSeasonNumber() {
@@ -96,18 +100,41 @@ public class Season extends BaseModel {
         this.seasonNumber = seasonNumber;
     }
 
+    public String getStillPath() {
+        return stillPath;
+    }
+
+    public void setStillPath(String stillPath) {
+        this.stillPath = stillPath;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
     /**
      * 이미지 URL
      *
      * @param width w200~500 / original
      * @return String URL
      */
-    public String getPosterURL(String width) {
-        if (isNullOrEmpty(posterPath)) {
+    public String getStillURL(String width) {
+        if (isNullOrEmpty(stillPath)) {
             return "";
         }
-        return "https://image.tmdb.org/t/p/".concat(width).concat(posterPath);
+        return "https://image.tmdb.org/t/p/".concat(width).concat(stillPath);
     }
-
 
 }

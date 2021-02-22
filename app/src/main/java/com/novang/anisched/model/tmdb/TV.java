@@ -2,18 +2,14 @@ package com.novang.anisched.model.tmdb;
 
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
-import com.novang.anisched.model.tmdb.common.Genre;
-import com.novang.anisched.model.tmdb.tv.Episode;
-import com.novang.anisched.model.tmdb.tv.Network;
-import com.novang.anisched.model.tmdb.common.Production;
-import com.novang.anisched.model.tmdb.tv.Season;
+import com.novang.anisched.model.tmdb.child.common.Genre;
+import com.novang.anisched.model.tmdb.child.tv.Episode;
+import com.novang.anisched.model.tmdb.child.tv.Network;
+import com.novang.anisched.model.tmdb.child.common.Production;
+import com.novang.anisched.model.tmdb.child.tv.Season;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringTokenizer;
 
 /**
  * TMDB API<br/>

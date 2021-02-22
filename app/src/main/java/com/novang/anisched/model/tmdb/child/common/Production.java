@@ -1,9 +1,7 @@
-package com.novang.anisched.model.tmdb.tv;
+package com.novang.anisched.model.tmdb.child.common;
 
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
-
-import java.util.Objects;
 
 /**
  * TMDB API<br/>
@@ -11,10 +9,7 @@ import java.util.Objects;
  *
  * @author Novang (qkdxorjs1002)
  */
-public class Network extends BaseModel {
-
-    @SerializedName("name")
-    private String name;
+public class Production extends BaseModel {
 
     @SerializedName("id")
     private int id;
@@ -22,16 +17,11 @@ public class Network extends BaseModel {
     @SerializedName("logo_path")
     private String logoPath;
 
+    @SerializedName("name")
+    private String name;
+
     @SerializedName("origin_country")
     private String originCountry;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getId() {
         return id;
@@ -47,6 +37,14 @@ public class Network extends BaseModel {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOriginCountry() {

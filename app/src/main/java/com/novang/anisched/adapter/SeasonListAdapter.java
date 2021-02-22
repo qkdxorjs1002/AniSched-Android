@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.novang.anisched.R;
-import com.novang.anisched.model.tmdb.tv.Season;
+import com.novang.anisched.model.tmdb.child.tv.Season;
 import com.novang.anisched.tool.GlideApp;
 
 import java.util.Collections;
