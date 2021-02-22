@@ -3,6 +3,16 @@ plugins {
 }
 
 android {
+    apply from: 'credentials.gradle'
+
+    signingConfigs {
+        anisched {
+            storeFile file('E:\\Backup\\Development\\KeyStore\\Android\\anisched.jks')
+            storePassword store_password
+            keyAlias 'anisched'
+            keyPassword key_password
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -14,12 +24,21 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.anisched
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.anisched
+        }
+
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-debug.pro'
+            signingConfig signingConfigs.anisched
         }
     }
     compileOptions {

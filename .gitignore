@@ -83,3 +83,4 @@ lint/tmp/
 # lint/reports/
 app/src/main/res/values/api_key.xml
 .private
+app/credentials.gradle

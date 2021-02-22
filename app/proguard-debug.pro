@@ -20,4 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.novang.anisched.model.** { *; }
+-dontobfuscate
+-keepattributes SoureFile, LineNumberTable
