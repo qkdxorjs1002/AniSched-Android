@@ -302,20 +302,21 @@ public class Movie extends BaseModel {
     }
 
     public String getStringProductionList() {
-        if (productionCompany != null) {
-            Iterator<Production> iterator = productionCompany.iterator();
-            StringBuilder string = new StringBuilder();
-
-            while (iterator.hasNext()) {
-                string.append(iterator.next().getName());
-
-                if (iterator.hasNext()) {
-                    string.append(" • ");
-                }
-            }
-
-            return string.toString();
+        if (isNullOrEmpty(productionCompany)) {
+            return "제작사 정보 없음";
         }
-        return "";
+
+        Iterator<Production> iterator = productionCompany.iterator();
+        StringBuilder string = new StringBuilder();
+
+        while (iterator.hasNext()) {
+            string.append(iterator.next().getName());
+
+            if (iterator.hasNext()) {
+                string.append(" • ");
+            }
+        }
+
+        return string.toString();
     }
 }

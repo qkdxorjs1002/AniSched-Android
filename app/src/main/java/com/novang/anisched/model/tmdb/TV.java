@@ -1,5 +1,7 @@
 package com.novang.anisched.model.tmdb;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
 import com.novang.anisched.model.tmdb.child.common.Genre;
@@ -8,8 +10,12 @@ import com.novang.anisched.model.tmdb.child.tv.Network;
 import com.novang.anisched.model.tmdb.child.common.Production;
 import com.novang.anisched.model.tmdb.child.tv.Season;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * TMDB API<br/>
@@ -356,46 +362,46 @@ public class TV extends BaseModel {
     }
 
     public String getStringNetworkList() {
-        if (networkList != null) {
-            Iterator<Network> iterator = networkList.iterator();
-            StringBuilder string = new StringBuilder();
-
-            while (iterator.hasNext()) {
-                string.append(iterator.next().getName());
-
-                if (iterator.hasNext()) {
-                    string.append(" • ");
-                }
-            }
-
-            return string.toString();
+        if (isNullOrEmpty(networkList)) {
+            return "방송사 정보 없음";
         }
-        return "";
+
+        Iterator<Network> iterator = networkList.iterator();
+        StringBuilder string = new StringBuilder();
+
+        while (iterator.hasNext()) {
+            string.append(iterator.next().getName());
+
+            if (iterator.hasNext()) {
+                string.append(" • ");
+            }
+        }
+
+        return string.toString();
     }
 
     public String getStringProductionList() {
-        if (productionCompany != null) {
-            Iterator<Production> iterator = productionCompany.iterator();
-            StringBuilder string = new StringBuilder();
-
-            while (iterator.hasNext()) {
-                string.append(iterator.next().getName());
-
-                if (iterator.hasNext()) {
-                    string.append(" • ");
-                }
-            }
-
-            return string.toString();
+        if (isNullOrEmpty(productionCompany)) {
+            return "제작사 정보 없음";
         }
-        return "";
+
+        Iterator<Production> iterator = productionCompany.iterator();
+        StringBuilder string = new StringBuilder();
+
+        while (iterator.hasNext()) {
+            string.append(iterator.next().getName());
+
+            if (iterator.hasNext()) {
+                string.append(" • ");
+            }
+        }
+
+        return string.toString();
     }
 
     public int getRuntime() {
-        if (episodeRuntime != null) {
-            if (episodeRuntime.size() != 0) {
-                return episodeRuntime.get(0);
-            }
+        if (isNullOrEmpty(episodeRuntime)) {
+            return episodeRuntime.get(0);
         }
         return 0;
     }

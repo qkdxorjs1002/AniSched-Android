@@ -89,7 +89,7 @@ public class DetailViewModel extends ViewModel {
         tmdbRepository.requestVideos(apiKey, lang, type, id).observeForever(videos -> {
             List<Video> videoList = videos.getVideoList();
 
-            if (videoList.isEmpty()) {
+            if (!videos.isNullOrEmpty(videoList)) {
                 if (lang.equals("ko-KR")) {
                     requestVideos(apiKey, "ja-JP", type, id);
                 } else if (lang.equals("ja-JP")) {
@@ -114,7 +114,7 @@ public class DetailViewModel extends ViewModel {
         tmdbRepository.search(apiKey, "ko-KR", keyword).observeForever(searches -> {
             List<Result> result = searches.getResultList();
 
-            if (!result.isEmpty()) {
+            if (!searches.isNullOrEmpty(result)) {
                 int idx = selectBestResult(result, keyword, anime);
                 if (idx != -1) {
                     requestDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
@@ -143,7 +143,14 @@ public class DetailViewModel extends ViewModel {
                 break;
             }
 
-            if (target.getGenreIdList().contains(16) && ((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
+            List<Integer> genreIdList = target.getGenreIdList();
+            if (!target.isNullOrEmpty(genreIdList)) {
+                if (!genreIdList.contains(16)) {
+                    continue;
+                }
+            }
+
+            if (((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
                 String targetString = target.getFlexibleName().replace(" ", "");
 
                 double diff = (Levenshtein.getDistance(targetString, anime.getSubject().replace(" ", ""))

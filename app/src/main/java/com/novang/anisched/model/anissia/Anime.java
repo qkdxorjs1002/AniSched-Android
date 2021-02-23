@@ -210,6 +210,10 @@ public class Anime extends BaseModel {
      * @return List<String>
      */
     public List<String> getGenreList() {
+        if (isNullOrEmpty(genres)) {
+            return null;
+        }
+
         StringTokenizer stringTokenizer = new StringTokenizer(genres, ",");
         List<String> genreList = new ArrayList<>();
 

@@ -96,9 +96,6 @@ public class Result extends BaseModel {
     }
 
     public List<Integer> getGenreIdList() {
-        if (genreIdList == null) {
-            return new ArrayList<>();
-        }
         return genreIdList;
     }
 
