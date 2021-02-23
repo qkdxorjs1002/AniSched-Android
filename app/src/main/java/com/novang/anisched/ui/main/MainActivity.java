@@ -1,16 +1,19 @@
 package com.novang.anisched.ui.main;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
+import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowInsetsController;
 import android.widget.ImageButton;
 
+import com.novang.anisched.BuildConfig;
 import com.novang.anisched.R;
 import com.novang.anisched.ui.list.ListActivity;
 import com.novang.anisched.ui.list.fragment.ListFragment;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                             Calendar.getInstance(Locale.KOREA).get(Calendar.DAY_OF_WEEK) - 1))
                     .commitNow();
         }
+
+        viewModel.requestRelease(BuildConfig.VERSION_NAME);
     }
 
     private void initReferences() {
@@ -57,7 +62,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initObservers() {
-
+        viewModel.release.observe(this, release -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("새 버전이 있습니다.")
+                    .setMessage(release.getTagName().concat("\n").concat(release.getBody()))
+                    .setPositiveButton("다운로드", (dialog, which) -> {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(release.getAssetList().get(0).getDownloadUrl())));
+                    })
+                    .setNegativeButton("취소", (dialog, which) -> {
+                        dialog.cancel();
+                    })
+                    .show();
+        });
     }
 
     private void initEvents() {
