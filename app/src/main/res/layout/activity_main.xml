@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/Font.MainList"
-                    android:src="@drawable/ic_baseline_arrow_forward"
+                    android:src="@drawable/ic_arrow"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
