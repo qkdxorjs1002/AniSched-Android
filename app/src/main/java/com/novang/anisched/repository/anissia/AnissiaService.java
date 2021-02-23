@@ -26,7 +26,7 @@ public interface AnissiaService {
      * @return Call<List<Anime>>
      */
     @GET("schedule/{week}")
-    Call<List<Anime>> callSchedule(@Path("week") int week);
+    Call<List<Anime>> requestSchedule(@Path("week") int week);
 
     /**
      * 전체 목록
@@ -35,7 +35,7 @@ public interface AnissiaService {
      * @return Call<List<Anime>>
      */
     @GET("list/{page}")
-    Call<List<Anime>> callAllList(@Path("page") int page);
+    Call<List<Anime>> requestAllSchedule(@Path("page") int page);
 
     /**
      * 자막 목록
@@ -44,7 +44,7 @@ public interface AnissiaService {
      * @return Call<List<Caption>>
      */
     @GET("caption/animeNo/{id}")
-    Call<List<Caption>> callCaption(@Path("id") int id);
+    Call<List<Caption>> requestCaption(@Path("id") int id);
 
     /**
      * 애니메이션 정보
@@ -53,7 +53,7 @@ public interface AnissiaService {
      * @return Call<Anime>
      */
     @GET("animeNo/{id}")
-    Call<Anime> callAnimeInfo(@Path("id") int id);
+    Call<Anime> requestAnime(@Path("id") int id);
 
     /**
      * 순위 정보
@@ -62,6 +62,6 @@ public interface AnissiaService {
      * @return Call<List<Rank></Rank>>
      */
     @GET("rank/{factor}")
-    Call<List<Rank>> callRankInfo(@Path("factor") String factor);
+    Call<List<Rank>> requestRanking(@Path("factor") String factor);
     
 }

@@ -41,9 +41,9 @@ public interface TMDBService {
      * @return Call<Movie>
      */
     @GET("movie/{id}")
-    Call<Movie> movieDetail(@Path("id") int id,
-                            @Query("api_key") String apiKey,
-                            @Query("language") String lang
+    Call<Movie> requestMovie(@Path("id") int id,
+                             @Query("api_key") String apiKey,
+                             @Query("language") String lang
     );
 
     /**
@@ -55,9 +55,9 @@ public interface TMDBService {
      * @return Call<TV>
      */
     @GET("tv/{id}")
-    Call<TV> tvDetail(@Path("id") int id,
-                      @Query("api_key") String apiKey,
-                      @Query("language") String lang
+    Call<TV> requestTv(@Path("id") int id,
+                       @Query("api_key") String apiKey,
+                       @Query("language") String lang
     );
 
     /**
@@ -70,10 +70,10 @@ public interface TMDBService {
      * @return Call<Videos>
      */
     @GET("{type}/{id}/videos")
-    Call<Videos> videos(@Path("type") String type,
-                        @Path("id") int id,
-                        @Query("api_key") String apiKey,
-                        @Query("language") String lang
+    Call<Videos> requestVideos(@Path("type") String type,
+                               @Path("id") int id,
+                               @Query("api_key") String apiKey,
+                               @Query("language") String lang
     );
 
 }

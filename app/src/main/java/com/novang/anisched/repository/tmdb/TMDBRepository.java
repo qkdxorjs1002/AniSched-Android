@@ -21,8 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TMDBRepository {
 
-    Retrofit retrofit;
-    TMDBService service;
+    private Retrofit retrofit;
+    private TMDBService service;
 
     public TMDBRepository() {
         retrofit = new Retrofit.Builder()
@@ -42,14 +42,14 @@ public class TMDBRepository {
      * @return Call<List<Anime>>
      */
     public MutableLiveData<Search> search(String apiKey, String lang, String keyword) {
-        MutableLiveData<Search> searchList = new MutableLiveData<>();
+        MutableLiveData<Search> resultList = new MutableLiveData<>();
 
-        Call<Search> callSchedule = service.search(apiKey, lang, keyword);
+        Call<Search> request = service.search(apiKey, lang, keyword);
 
-        callSchedule.enqueue(new Callback<Search>() {
+        request.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
-                searchList.postValue(response.body());
+                resultList.postValue(response.body());
             }
 
             @Override
@@ -58,7 +58,7 @@ public class TMDBRepository {
             }
         });
 
-        return searchList;
+        return resultList;
     }
 
     /**
@@ -69,12 +69,12 @@ public class TMDBRepository {
      * @param id id
      * @return Call<Movie>
      */
-    public MutableLiveData<Movie> requestMovieDetail(String apiKey, String lang, int id) {
+    public MutableLiveData<Movie> requestMovie(String apiKey, String lang, int id) {
         MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
 
-        Call<Movie> callMovieDetail = service.movieDetail(id, apiKey, lang);
+        Call<Movie> request = service.requestMovie(id, apiKey, lang);
 
-        callMovieDetail.enqueue(new Callback<Movie>() {
+        request.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 movieDetail.postValue(response.body());
@@ -97,12 +97,12 @@ public class TMDBRepository {
      * @param id id
      * @return Call<TV>
      */
-    public MutableLiveData<TV> requestTVDetail(String apiKey, String lang, int id) {
+    public MutableLiveData<TV> requestTv(String apiKey, String lang, int id) {
         MutableLiveData<TV> tvDetail = new MutableLiveData<>();
 
-        Call<TV> callMovieDetail = service.tvDetail(id, apiKey, lang);
+        Call<TV> request = service.requestTv(id, apiKey, lang);
 
-        callMovieDetail.enqueue(new Callback<TV>() {
+        request.enqueue(new Callback<TV>() {
             @Override
             public void onResponse(Call<TV> call, Response<TV> response) {
                 tvDetail.postValue(response.body());
@@ -127,14 +127,14 @@ public class TMDBRepository {
      * @return Call<Videos>
      */
     public MutableLiveData<Videos> requestVideos(String apiKey, String lang, String type, int id) {
-        MutableLiveData<Videos> videos = new MutableLiveData<>();
+        MutableLiveData<Videos> videoList = new MutableLiveData<>();
 
-        Call<Videos> callVideos = service.videos(type, id, apiKey, lang);
+        Call<Videos> request = service.requestVideos(type, id, apiKey, lang);
 
-        callVideos.enqueue(new Callback<Videos>() {
+        request.enqueue(new Callback<Videos>() {
             @Override
             public void onResponse(Call<Videos> call, Response<Videos> response) {
-                videos.postValue(response.body());
+                videoList.postValue(response.body());
             }
 
             @Override
@@ -143,7 +143,7 @@ public class TMDBRepository {
             }
         });
 
-        return videos;
+        return videoList;
     }
 
 }

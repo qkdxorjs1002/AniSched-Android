@@ -28,8 +28,8 @@ public class AnissiaRepository {
         public final String MONTH = "month";
     }
 
-    Retrofit retrofit;
-    AnissiaService service;
+    private Retrofit retrofit;
+    private AnissiaService service;
 
     public AnissiaRepository() {
         retrofit = new Retrofit.Builder()
@@ -46,12 +46,12 @@ public class AnissiaRepository {
      * @param week 0~6: 일~토<br/>7: 기타<br/>8: 신작
      * @return MutableLiveData<List<Anime>>
      */
-    public MutableLiveData<List<Anime>> callSchedule(int week) {
+    public MutableLiveData<List<Anime>> requestSchedule(int week) {
         MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
-        Call<List<Anime>> callSchedule = service.callSchedule(week);
+        Call<List<Anime>> request = service.requestSchedule(week);
 
-        callSchedule.enqueue(new Callback<List<Anime>>() {
+        request.enqueue(new Callback<List<Anime>>() {
             @Override
             public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
                 animeList.postValue(response.body());
@@ -72,12 +72,12 @@ public class AnissiaRepository {
      * @param page int
      * @return MutableLiveData<List<Anime>>
      */
-    public MutableLiveData<List<Anime>> callAllList(int page) {
+    public MutableLiveData<List<Anime>> requestAllSchedule(int page) {
         MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
-        Call<List<Anime>> callAllList = service.callAllList(page);
+        Call<List<Anime>> request = service.requestAllSchedule(page);
 
-        callAllList.enqueue(new Callback<List<Anime>>() {
+        request.enqueue(new Callback<List<Anime>>() {
             @Override
             public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
                 animeList.postValue(response.body());
@@ -98,12 +98,12 @@ public class AnissiaRepository {
      * @param id 애니메이션 고유번호
      * @return MutableLiveData<List<Caption>>
      */
-    public MutableLiveData<List<Caption>> callCaption(int id) {
+    public MutableLiveData<List<Caption>> requestCaption(int id) {
         MutableLiveData<List<Caption>> captionList = new MutableLiveData<>();
 
-        Call<List<Caption>> callCaption = service.callCaption(id);
+        Call<List<Caption>> request = service.requestCaption(id);
 
-        callCaption.enqueue(new Callback<List<Caption>>() {
+        request.enqueue(new Callback<List<Caption>>() {
             @Override
             public void onResponse(Call<List<Caption>> call, Response<List<Caption>> response) {
                 captionList.postValue(response.body());
@@ -124,12 +124,12 @@ public class AnissiaRepository {
      * @param id int
      * @return MutableLiveData<Anime>
      */
-    public MutableLiveData<Anime> callAnimeInfo(int id) {
+    public MutableLiveData<Anime> requestAnime(int id) {
         MutableLiveData<Anime> animeInfo = new MutableLiveData<>();
 
-        Call<Anime> callAnimeInfo = service.callAnimeInfo(id);
+        Call<Anime> request = service.requestAnime(id);
 
-        callAnimeInfo.enqueue(new Callback<Anime>() {
+        request.enqueue(new Callback<Anime>() {
             @Override
             public void onResponse(Call<Anime> call, Response<Anime> response) {
                 animeInfo.postValue(response.body());
@@ -150,12 +150,12 @@ public class AnissiaRepository {
      * @param factor (day/week/month)
      * @return MutableLiveData<List<Rank>>
      */
-    public MutableLiveData<List<Rank>> callRankInfo(String factor) {
+    public MutableLiveData<List<Rank>> requestRanking(String factor) {
         MutableLiveData<List<Rank>> rankList = new MutableLiveData<>();
 
-        Call<List<Rank>> callRankInfo = service.callRankInfo(factor);
+        Call<List<Rank>> request = service.requestRanking(factor);
 
-        callRankInfo.enqueue(new Callback<List<Rank>>() {
+        request.enqueue(new Callback<List<Rank>>() {
             @Override
             public void onResponse(Call<List<Rank>> call, Response<List<Rank>> response) {
                 rankList.postValue(response.body());

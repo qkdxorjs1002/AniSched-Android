@@ -57,43 +57,43 @@ public class DetailViewModel extends ViewModel {
         }
     }
 
-    public void callAnimeInfo(int id) {
-        anissiaRepository.callAnimeInfo(id).observeForever(anime -> {
+    public void requestAnime(int id) {
+        anissiaRepository.requestAnime(id).observeForever(anime -> {
             anissiaAnime.postValue(anime);
         });
     }
 
-    public void getDetail(String apiKey, String type, int id) {
+    public void requestDetail(String apiKey, String type, int id) {
         if (type.equals("movie")) {
-            tmdbRepository.requestMovieDetail(apiKey, "ko-KR", id).observeForever(movie -> {
+            tmdbRepository.requestMovie(apiKey, "ko-KR", id).observeForever(movie -> {
                 tmdbMovie.postValue(movie);
                 mediaType.postValue("movie");
             });
         } else if (type.equals("tv")) {
-            tmdbRepository.requestTVDetail(apiKey, "ko-KR", id).observeForever(tv -> {
+            tmdbRepository.requestTv(apiKey, "ko-KR", id).observeForever(tv -> {
                 tmdbTV.postValue(tv);
                 mediaType.postValue("tv");
             });
         }
 
         if (type.equals("movie") || type.equals("tv")) {
-            getVideos(apiKey, type, id);
+            requestVideos(apiKey, type, id);
         }
     }
 
-    public void getVideos(String apiKey, String type, int id) {
-        getVideos(apiKey, "ko-KR", type, id);
+    public void requestVideos(String apiKey, String type, int id) {
+        requestVideos(apiKey, "ko-KR", type, id);
     }
 
-    public void getVideos(String apiKey, String lang, String type, int id) {
+    public void requestVideos(String apiKey, String lang, String type, int id) {
         tmdbRepository.requestVideos(apiKey, lang, type, id).observeForever(videos -> {
             List<Video> videoList = videos.getVideoList();
 
             if (videoList.isEmpty()) {
                 if (lang.equals("ko-KR")) {
-                    getVideos(apiKey, "ja-JP", type, id);
+                    requestVideos(apiKey, "ja-JP", type, id);
                 } else if (lang.equals("ja-JP")) {
-                    getVideos(apiKey, "en-US", type, id);
+                    requestVideos(apiKey, "en-US", type, id);
                 }
             } else {
                 tmdbVideos.postValue(videos.getVideoList());
@@ -117,7 +117,7 @@ public class DetailViewModel extends ViewModel {
             if (!result.isEmpty()) {
                 int idx = selectBestResult(result, keyword, anime);
                 if (idx != -1) {
-                    getDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
+                    requestDetail(apiKey, result.get(idx).getMediaType(), result.get(idx).getId());
                     return;
                 }
             }

@@ -20,7 +20,7 @@ public class ListViewModel extends ViewModel {
     }
 
     public void callSchedule(int week) {
-        anissiaRepository.callSchedule(week).observeForever(animes -> {
+        anissiaRepository.requestSchedule(week).observeForever(animes -> {
             animeList.postValue(animes);
         });
     }
