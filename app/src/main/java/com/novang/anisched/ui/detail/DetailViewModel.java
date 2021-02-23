@@ -144,13 +144,11 @@ public class DetailViewModel extends ViewModel {
             }
 
             List<Integer> genreIdList = target.getGenreIdList();
-            if (!target.isNullOrEmpty(genreIdList)) {
-                if (!genreIdList.contains(16)) {
-                    continue;
-                }
+            if (target.isNullOrEmpty(genreIdList)) {
+                continue;
             }
 
-            if (((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
+            if (genreIdList.contains(16) && ((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
                 String targetString = target.getFlexibleName().replace(" ", "");
 
                 double diff = (Levenshtein.getDistance(targetString, anime.getSubject().replace(" ", ""))

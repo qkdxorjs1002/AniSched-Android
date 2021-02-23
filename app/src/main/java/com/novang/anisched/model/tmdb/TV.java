@@ -401,8 +401,8 @@ public class TV extends BaseModel {
 
     public int getRuntime() {
         if (isNullOrEmpty(episodeRuntime)) {
-            return episodeRuntime.get(0);
+            return 0;
         }
-        return 0;
+        return episodeRuntime.get(0);
     }
 }
