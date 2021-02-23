@@ -103,8 +103,8 @@ public class DetailViewModel extends ViewModel {
 
     public void searchTMDB(String apiKey, Anime anime) {
         List<String> regexList = new ArrayList<>(Arrays.asList(
-                "(\\s\\d기)|(\\s시즌(\\d|\\s\\d|))|(\\s\\d[n-t][dhrt])|(\\sSeason\\s\\d)|(\\sOVA)|(\\sOAD)",
-                "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s[A-z].*$", "\\s"
+                "(\\s\\d기)|(\\s(OVA|OAD))", "(\\s(IX|IV|V?I{0,3})$)|(\\s\\d(?i)[snrt](?i)[tdh])|(((\\s(?i)the)(\\s\\w+|)|)\\s(시즌|(?i)season)(\\d|\\s\\d|))",
+                "(((\\s(?i)the)(\\s\\w+|)|)\\s((?i)animation)(\\d|\\s\\d|))", "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s"
         ));
 
         searchTMDB(apiKey, anime.getSubject(), anime, regexList.iterator());
@@ -133,7 +133,7 @@ public class DetailViewModel extends ViewModel {
 
     private int selectBestResult(List<Result> result, String keyword, Anime anime) {
         int similar = -1;
-        double last_diff = 0;
+        double last_diff = -1;
 
         for (int idx = 0; result.size() > idx; idx++) {
             Result target = result.get(idx);
