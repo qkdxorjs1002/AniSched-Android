@@ -4,6 +4,7 @@ plugins {
 
 android {
     apply from: 'credentials.gradle'
+    apply from: 'git-version.gradle'
 
     signingConfigs {
         anisched {
@@ -20,8 +21,8 @@ android {
         applicationId "com.novang.anisched"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersion
+        versionName gitTag
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.anisched
