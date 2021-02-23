@@ -29,6 +29,11 @@
  - 그 외 [추가 예정](https://github.com/qkdxorjs1002/AniSched-Android/projects/1)
 <br/><br/>
 
+## Q&A
+### Q. 작품에 대한 상세 정보가 안나옵니다.
+A. TMDb에 정보가 없거나 쿼리 결과가 없는 경우입니다. [TMDb](https://www.themoviedb.org/)에서 작품을 검색한 후 편집 페이지에서 다른 제목으로 앱의 편성표 제목에 나타난 이름을 추가해주세요.
+<br/><br/>
+
 ## 사용된 API
  - [애니시아](https://anissia.net/) API
  - [TMDb](https://www.themoviedb.org/) API
