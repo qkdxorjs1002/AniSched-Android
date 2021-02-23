@@ -274,6 +274,7 @@
                         android:id="@+id/tmdb_title_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
                         android:text="제목"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubHeader"
@@ -305,6 +306,7 @@
                         android:id="@+id/tmdb_rating_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
                         android:text="시청자 평점"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubHeader"
@@ -378,6 +380,7 @@
                         android:id="@+id/tmdb_overview_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
                         android:text="줄거리"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubHeader"
@@ -409,6 +412,7 @@
                         android:id="@+id/tmdb_networks_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
                         android:text="방송사"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubHeader"
@@ -448,6 +452,7 @@
                         android:id="@+id/tmdb_production_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
                         android:text="제작사"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubHeader"
@@ -478,11 +483,54 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/tmdb_season_container"
+                android:id="@+id/website_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 app:layout_constraintTop_toBottomOf="@id/tmdb_detail_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/website_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    android:background="?selectableItemBackground"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사이트 바로가기"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textColor="@color/textLight"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75"
+                        android:src="@drawable/ic_arrow"
+                        app:tint="@color/textLight"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tmdb_season_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/website_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/tmdb_season_header"
@@ -509,6 +557,7 @@
                     android:id="@+id/tmdb_season_list"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
+                    android:paddingTop="4dp"
                     android:paddingHorizontal="20dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
@@ -549,6 +598,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
@@ -569,14 +619,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/website_container"
+                android:id="@+id/namu_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 app:layout_constraintTop_toBottomOf="@id/caption_list_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/website_header"
+                    android:id="@+id/namu_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="26dp"
@@ -587,7 +637,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="사이트 바로가기"
+                        android:text="나무위키"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.MainList"
                         android:textColor="@color/textLight"
@@ -600,6 +650,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.MainList"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75"
                         android:src="@drawable/ic_arrow"
                         app:tint="@color/textLight"
                         app:layout_constraintTop_toTopOf="parent"
@@ -613,7 +665,7 @@
                 android:id="@+id/api_logo_container"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:layout_constraintTop_toBottomOf="@id/website_container">
+                app:layout_constraintTop_toBottomOf="@id/namu_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="50dp"

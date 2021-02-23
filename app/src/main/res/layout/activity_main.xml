@@ -41,7 +41,10 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/Font.MainList"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75"
                     android:src="@drawable/ic_arrow"
+                    app:tint="@color/text"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 

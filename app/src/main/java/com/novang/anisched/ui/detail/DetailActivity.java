@@ -64,8 +64,9 @@ public class DetailActivity extends AppCompatActivity {
     private ConstraintLayout tmdbVideoListContainer;
     private ConstraintLayout tmdbDetailContainer;
     private ConstraintLayout tmdbNetworksContainer;
-    private ConstraintLayout tmdbSeasonContainer;
     private ConstraintLayout websiteHeader;
+    private ConstraintLayout tmdbSeasonContainer;
+    private ConstraintLayout namuHeader;
     private ConstraintLayout apiLogoContainer;
 
     private RecyclerView genreListView;
@@ -113,7 +114,6 @@ public class DetailActivity extends AppCompatActivity {
         tmdbRatingDecimal = findViewById(R.id.tmdb_rating_decimal);
         tmdbNetworks = findViewById(R.id.tmdb_networks);
         tmdbProduction = findViewById(R.id.tmdb_production);
-        websiteHeader = findViewById(R.id.website_header);
 
         container = findViewById(R.id.container);
         loadingContainer = findViewById(R.id.loading_container);
@@ -121,7 +121,9 @@ public class DetailActivity extends AppCompatActivity {
         animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
         tmdbDetailContainer = findViewById(R.id.tmdb_detail_container);
         tmdbNetworksContainer = findViewById(R.id.tmdb_networks_container);
+        websiteHeader = findViewById(R.id.website_header);
         tmdbSeasonContainer = findViewById(R.id.tmdb_season_container);
+        namuHeader = findViewById(R.id.namu_header);
         apiLogoContainer = findViewById(R.id.api_logo_container);
 
         genreListView = findViewById(R.id.anime_info_genre_list_view);
@@ -176,6 +178,10 @@ public class DetailActivity extends AppCompatActivity {
             }
             websiteHeader.setOnClickListener(v -> {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(anime.getWebsite())));
+            });
+            namuHeader.setOnClickListener(v -> {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://namu.wiki/go/".concat(anime.getSubject()))));
             });
             genreListViewAdapter.updateList(anime.getGenreList());
             captionListAdapter.updateList(anime.getCaptionList());
