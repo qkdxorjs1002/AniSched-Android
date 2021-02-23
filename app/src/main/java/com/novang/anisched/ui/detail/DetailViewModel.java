@@ -89,7 +89,7 @@ public class DetailViewModel extends ViewModel {
         tmdbRepository.requestVideos(apiKey, lang, type, id).observeForever(videos -> {
             List<Video> videoList = videos.getVideoList();
 
-            if (!videos.isNullOrEmpty(videoList)) {
+            if (videos.isNullOrEmpty(videoList)) {
                 if (lang.equals("ko-KR")) {
                     requestVideos(apiKey, "ja-JP", type, id);
                 } else if (lang.equals("ja-JP")) {
