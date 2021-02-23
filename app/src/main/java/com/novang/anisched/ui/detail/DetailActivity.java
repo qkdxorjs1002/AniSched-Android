@@ -129,7 +129,7 @@ public class DetailActivity extends AppCompatActivity {
         genreListView = findViewById(R.id.anime_info_genre_list_view);
         genreListAdapter = new GenreListAdapter();
         tmdbVideoListView = findViewById(R.id.tmdb_video_list);
-        tmdbVideoListAdapter = new VideoListAdapter();
+        tmdbVideoListAdapter = new VideoListAdapter(getLifecycle());
         tmdbVideoListSnapHelper = new PagerSnapHelper();
         tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
         tmdbSeasonListAdapter = new SeasonListAdapter();
