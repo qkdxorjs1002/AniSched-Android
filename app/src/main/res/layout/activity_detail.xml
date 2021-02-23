@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:text="00:00"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/anime_info_time_header"
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="0000-00-00"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/anime_info_startdate_header"
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:text="0000-00-00"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/anime_info_enddate_header"
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -245,7 +245,7 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_baseline_tv_live"
-                        app:tint="@color/textSub"
+                        app:tint="@color/textLightSub"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -256,7 +256,7 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_baseline_tv_off"
-                        app:tint="@color/textSub"
+                        app:tint="@color/textLightSub"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -289,7 +289,7 @@
                         android:text="제목 없음"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_title_header"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -329,7 +329,7 @@
                         android:text="0"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
                         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -340,7 +340,7 @@
                         android:text="명의 시청자 평가"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
                         app:layout_constraintLeft_toRightOf="@id/tmdb_rating_count"/>
 
@@ -351,7 +351,7 @@
                         android:text="0"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
                         app:layout_constraintRight_toLeftOf="@id/tmdb_rating_decimal_header"/>
 
@@ -362,7 +362,7 @@
                         android:text="점"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_rating"
                         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -395,7 +395,7 @@
                         android:text="줄거리 내용 없음"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Font.SubList"
-                        android:textColor="@color/textSub"
+                        android:textColor="@color/textLightSub"
                         app:layout_constraintTop_toBottomOf="@id/tmdb_overview_header"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -433,7 +433,7 @@
                             android:text="방송사 정보 없음"
                             android:textAlignment="viewStart"
                             android:textAppearance="@style/Font.SubList"
-                            android:textColor="@color/textSub"
+                            android:textColor="@color/textLightSub"
                             app:layout_constraintTop_toBottomOf="@id/tmdb_networks_header"/>
 
                     </ScrollView>
@@ -473,7 +473,7 @@
                             android:text="제작사 정보 없음"
                             android:textAlignment="viewStart"
                             android:textAppearance="@style/Font.SubList"
-                            android:textColor="@color/textSub"
+                            android:textColor="@color/textLightSub"
                             app:layout_constraintTop_toBottomOf="@id/tmdb_networks_header"/>
 
                     </ScrollView>
@@ -602,7 +602,7 @@
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/textSub"
+                    app:strokeColor="@color/textLightSub"
                     app:strokeWidth="1dp"
                     app:layout_constraintTop_toBottomOf="@id/caption_list_header">
 

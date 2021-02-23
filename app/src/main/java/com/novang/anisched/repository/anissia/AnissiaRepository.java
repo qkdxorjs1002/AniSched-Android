@@ -23,9 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AnissiaRepository {
 
     public static final class FACTOR {
-        public final String DAY = "day";
-        public final String WEEK = "week";
-        public final String MONTH = "month";
+        public static final String DAY = "day";
+        public static final String WEEK = "week";
+        public static final String MONTH = "month";
     }
 
     private Retrofit retrofit;

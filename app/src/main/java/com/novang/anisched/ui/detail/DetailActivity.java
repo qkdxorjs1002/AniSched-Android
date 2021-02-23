@@ -70,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
     private ConstraintLayout apiLogoContainer;
 
     private RecyclerView genreListView;
-    private GenreListAdapter genreListViewAdapter;
+    private GenreListAdapter genreListAdapter;
     private RecyclerView tmdbVideoListView;
     private VideoListAdapter tmdbVideoListAdapter;
     private SnapHelper tmdbVideoListSnapHelper;
@@ -127,7 +127,7 @@ public class DetailActivity extends AppCompatActivity {
         apiLogoContainer = findViewById(R.id.api_logo_container);
 
         genreListView = findViewById(R.id.anime_info_genre_list_view);
-        genreListViewAdapter = new GenreListAdapter();
+        genreListAdapter = new GenreListAdapter();
         tmdbVideoListView = findViewById(R.id.tmdb_video_list);
         tmdbVideoListAdapter = new VideoListAdapter();
         tmdbVideoListSnapHelper = new PagerSnapHelper();
@@ -140,7 +140,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initViews() {
         genreListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        genreListView.setAdapter(genreListViewAdapter);
+        genreListView.setAdapter(genreListAdapter);
         tmdbVideoListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         tmdbVideoListView.setAdapter(tmdbVideoListAdapter);
         tmdbVideoListSnapHelper.attachToRecyclerView(tmdbVideoListView);
@@ -183,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://namu.wiki/go/".concat(anime.getSubject()))));
             });
-            genreListViewAdapter.updateList(anime.getGenreList());
+            genreListAdapter.updateList(anime.getGenreList());
             captionListAdapter.updateList(anime.getCaptionList());
         });
 

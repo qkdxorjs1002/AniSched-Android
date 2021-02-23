@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="방영일 정보 없음"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/season_name"
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -68,7 +68,7 @@
                     android:paddingHorizontal="5dp"
                     android:text="|"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/season_name"
                     app:layout_constraintLeft_toRightOf="@id/season_air_date"/>
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/season_name"
                     app:layout_constraintLeft_toRightOf="@id/season_splitter"/>
 
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="화"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     app:layout_constraintTop_toBottomOf="@id/season_name"
                     app:layout_constraintLeft_toRightOf="@id/season_episode_count"/>
 
@@ -98,7 +98,7 @@
                     android:layout_marginTop="10dp"
                     android:text="시즌 줄거리"
                     android:textAppearance="@style/Font.SubList"
-                    android:textColor="@color/textSub"
+                    android:textColor="@color/textLightSub"
                     android:maxLines="5"
                     android:ellipsize="end"
                     app:layout_constraintTop_toBottomOf="@id/season_air_date"

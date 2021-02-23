@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         initReferences();
+        initViews();
         initObservers();
         initEvents();
 
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
                             Calendar.getInstance(Locale.KOREA).get(Calendar.DAY_OF_WEEK) - 1))
                     .commitNow();
         }
-
-        viewModel.requestRelease(BuildConfig.VERSION_NAME);
     }
 
     private void initReferences() {
@@ -59,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         menuFri = findViewById(R.id.menu_friday);
         menuSat = findViewById(R.id.menu_saturday);
         menuOva = findViewById(R.id.menu_ova);
+    }
+    private void initViews() {
+        viewModel.requestRelease(BuildConfig.VERSION_NAME);
     }
 
     private void initObservers() {

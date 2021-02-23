@@ -9,8 +9,9 @@
     <color name="button">#e6e6e6</color>
     <color name="listItemBackground">#fcfcfc</color>
     <color name="text">#000000</color>
+    <color name="textSub">#656565</color>
     <color name="textLight">#FFFFFF</color>
-    <color name="textSub">#C8FFFFFF</color>
+    <color name="textLightSub">#C8FFFFFF</color>
     <color name="icon">#303030</color>
     <color name="textDisabled">#919191</color>
     <color name="gradientEnd">#B06AB3</color>
