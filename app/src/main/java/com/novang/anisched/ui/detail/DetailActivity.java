@@ -1,7 +1,6 @@
 package com.novang.anisched.ui.detail;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,9 +32,10 @@ import com.novang.anisched.adapter.CaptionListAdapter;
 import com.novang.anisched.adapter.GenreListAdapter;
 import com.novang.anisched.adapter.SeasonListAdapter;
 import com.novang.anisched.adapter.VideoListAdapter;
+import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.tool.GlideApp;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     private DetailViewModel viewModel;
 
@@ -81,21 +81,15 @@ public class DetailActivity extends AppCompatActivity {
     private CaptionListAdapter captionListAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_detail);
-
         viewModel = new ViewModelProvider(this).get(DetailViewModel.class);
-
-        initReferences();
-        initViews();
-        initObservers();
-        initEvents();
-
+        super.init(savedInstanceState);
         viewModel.requestAnime(getIntent().getIntExtra("id", -1));
     }
 
-    private void initReferences() {
+    @Override
+    protected void initReferences() {
         toolbarLayout = findViewById(R.id.toolbar_layout);
         loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
@@ -138,7 +132,8 @@ public class DetailActivity extends AppCompatActivity {
         captionListAdapter = new CaptionListAdapter();
     }
 
-    private void initViews() {
+    @Override
+    protected void initViews() {
         genreListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         genreListView.setAdapter(genreListAdapter);
         tmdbVideoListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -163,7 +158,8 @@ public class DetailActivity extends AppCompatActivity {
         apiLogoContainer.setVisibility(View.GONE);
     }
 
-    private void initObservers() {
+    @Override
+    protected void initObservers() {
         viewModel.anissiaAnime.observe(this, anime -> {
             viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime);
             animeSubject.setText(anime.getSubject());
@@ -253,7 +249,8 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void initEvents() {
+    @Override
+    protected void initEvents() {
         captionListAdapter.setOnItemClickListener((v, caption) -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(caption.getWebsite())));
         });

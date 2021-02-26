@@ -1,13 +1,11 @@
 package com.novang.anisched.ui.main;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +13,14 @@ import android.widget.ImageButton;
 
 import com.novang.anisched.BuildConfig;
 import com.novang.anisched.R;
+import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.ui.list.ListActivity;
 import com.novang.anisched.ui.list.fragment.ListFragment;
 
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private MainViewModel viewModel;
 
@@ -29,16 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
-        initReferences();
-        initViews();
-        initObservers();
-        initEvents();
+        super.init(savedInstanceState);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -48,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initReferences() {
+    @Override
+    protected void initReferences() {
         menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
         menuMon = findViewById(R.id.menu_monday);
@@ -59,11 +53,15 @@ public class MainActivity extends AppCompatActivity {
         menuSat = findViewById(R.id.menu_saturday);
         menuOva = findViewById(R.id.menu_ova);
     }
-    private void initViews() {
+
+    @Override
+    protected void initViews() {
         viewModel.requestRelease(BuildConfig.VERSION_NAME);
+        viewModel.requestRanking();
     }
 
-    private void initObservers() {
+    @Override
+    protected void initObservers() {
         viewModel.release.observe(this, release -> {
             new AlertDialog.Builder(this)
                     .setTitle("새 버전이 있습니다.")
@@ -79,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initEvents() {
+    @Override
+    protected void initEvents() {
         View.OnClickListener menuClickListener = v -> {
             int week = 8;
 
@@ -110,9 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
-            Intent intent = new Intent(this, ListActivity.class);
-            intent.putExtra("week", week);
-            startActivity(intent);
+            ListActivity.start(this, ListActivity.class, week);
         };
 
         menuNew.setOnClickListener(menuClickListener);

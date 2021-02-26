@@ -2,7 +2,6 @@ package com.novang.anisched.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
@@ -11,7 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startActivity(new Intent(this, MainActivity.class));
+        MainActivity.start(this, MainActivity.class);
         finish();
     }
 }

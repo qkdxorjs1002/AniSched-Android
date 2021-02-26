@@ -1,27 +1,23 @@
 package com.novang.anisched.ui.list;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import com.novang.anisched.R;
+import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.ui.list.fragment.ListFragment;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends BaseActivity {
 
     private ListViewModel viewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_list);
-
         viewModel = new ViewModelProvider(this).get(ListViewModel.class);
-
-        initReferences();
-        initObservers();
-        initEvents();
+        super.init(savedInstanceState);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -31,15 +27,24 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-    private void initReferences() {
+    @Override
+    protected void initReferences() {
 
     }
 
-    private void initObservers() {
+    @Override
+    protected void initViews() {
 
     }
 
-    private void initEvents() {
+    @Override
+    protected void initObservers() {
 
     }
+
+    @Override
+    protected void initEvents() {
+
+    }
+
 }
