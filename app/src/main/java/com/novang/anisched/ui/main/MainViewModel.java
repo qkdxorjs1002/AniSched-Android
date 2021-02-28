@@ -48,6 +48,10 @@ public class MainViewModel extends ViewModel {
     }
 
     public void requestRelease(String versionName) {
+        if (!versionName.contains("dev")) {
+            return;
+        }
+
         githubRepository.requestRelease().observeForever(releases -> {
             if (releases == null) {
                 return;
