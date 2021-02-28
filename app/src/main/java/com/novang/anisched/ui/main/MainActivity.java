@@ -155,6 +155,7 @@ public class MainActivity extends BaseActivity {
         rankBannerListView.setOnFlingListener(new RecyclerView.OnFlingListener() {
             @Override
             public boolean onFling(int velocityX, int velocityY) {
+                rankBannerSnapHelper.onFling(velocityX, velocityY);
                 viewModel.restartTimer(10000,10000);
                 return false;
             }
