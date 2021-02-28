@@ -1,7 +1,5 @@
 package com.novang.anisched.model.tmdb;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
 import com.novang.anisched.model.tmdb.child.common.Genre;
@@ -10,12 +8,8 @@ import com.novang.anisched.model.tmdb.child.tv.Network;
 import com.novang.anisched.model.tmdb.child.common.Production;
 import com.novang.anisched.model.tmdb.child.tv.Season;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * TMDB API<br/>

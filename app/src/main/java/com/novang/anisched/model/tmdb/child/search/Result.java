@@ -3,7 +3,6 @@ package com.novang.anisched.model.tmdb.child.search;
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

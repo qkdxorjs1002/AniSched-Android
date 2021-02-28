@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.novang.anisched.R;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.ViewHolder> {
 
