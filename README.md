@@ -4,7 +4,7 @@
 <p align="center">
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
 <br/><br/>
-  <img src="img/main.jpg" width="200"/> <img src="img/detail1.jpg" width="200"/> <img src="img/detail2.jpg" width="200"/> <img src="img/detail3.jpg" width="200"/>
+  <img src="img/main1.jpg" width="200"/> <img src="img/main2.jpg" width="200"/> <img src="img/detail1.jpg" width="200"/> <img src="img/detail2.jpg" width="200"/> <img src="img/detail3.jpg" width="200"/>
 </p>
 <br/>
 
@@ -17,9 +17,10 @@
 
 ## 다운로드
 ### API 23 (Marshmallow / 6) 이상 지원
-[![Download](https://img.shields.io/badge/Release-Downloads-red.svg?style=for-the-badge&logo=github)](https://github.com/qkdxorjs1002/AniSched-Android/releases)
+[![Download](https://img.shields.io/badge/Playstore-Downloads-default.svg?style=for-the-badge&logo=google+play)](https://play.google.com/store/apps/details?id=com.novang.anisched)
+[![Download](https://img.shields.io/badge/Github-Downloads-red.svg?style=for-the-badge&logo=github)](https://github.com/qkdxorjs1002/AniSched-Android/releases) 
 <br/><br/>
-위 링크에서 앱을 다운로드 할 수 있습니다.
+위 두 링크에서 앱을 다운로드 할 수 있습니다. (플레이스토어 권장)
 <br/><br/>
 
 ## 기능
