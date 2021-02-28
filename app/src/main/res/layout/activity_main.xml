@@ -1,318 +1,359 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|snapMargins"
+            app:contentScrim="@color/background"
+            app:statusBarScrim="@android:color/transparent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rank_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                tools:itemCount="1"
+                tools:listitem="@layout/layout_rank_banner_list_item"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/menu_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/menu_new"
+                android:id="@+id/menu_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="26dp"
-                android:paddingVertical="12dp"
-                android:background="?selectableItemBackground"
+                android:paddingBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="신작 애니 목록"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/Font.MainList"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/Font.MainList"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75"
-                    android:src="@drawable/ic_arrow"
-                    app:tint="@color/text"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="24dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/stroke"
-                app:strokeWidth="1dp"
-                app:layout_constraintTop_toBottomOf="@id/menu_new">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/menu_new"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    android:background="?selectableItemBackground"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/menu_row1"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="신작 애니 목록"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/menu_row2">
+                        app:layout_constraintLeft_toLeftOf="parent"/>
 
-                        <ImageButton
-                            android:id="@+id/menu_sunday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/menu_monday"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="SUN"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_sunday"
-                            app:layout_constraintRight_toRightOf="@id/menu_sunday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_sunday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_monday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_sunday"
-                            app:layout_constraintRight_toLeftOf="@id/menu_tuesday"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="MON"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_monday"
-                            app:layout_constraintRight_toRightOf="@id/menu_monday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_monday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_tuesday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_monday"
-                            app:layout_constraintRight_toLeftOf="@id/menu_wednesday"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="TUE"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_tuesday"
-                            app:layout_constraintRight_toRightOf="@id/menu_tuesday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_tuesday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_wednesday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_tuesday"
-                            app:layout_constraintRight_toRightOf="parent"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="WED"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_wednesday"
-                            app:layout_constraintRight_toRightOf="@id/menu_wednesday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_wednesday"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_sunday"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_monday"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_tuesday"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/menu_row2"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintTop_toBottomOf="@id/menu_row1"
-                        app:layout_constraintBottom_toBottomOf="parent">
-
-                        <ImageButton
-                            android:id="@+id/menu_thursday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/menu_friday"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="THU"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_thursday"
-                            app:layout_constraintRight_toRightOf="@id/menu_thursday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_thursday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_friday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_thursday"
-                            app:layout_constraintRight_toLeftOf="@id/menu_saturday"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="FRI"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_friday"
-                            app:layout_constraintRight_toRightOf="@id/menu_friday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_friday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_saturday"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_friday"
-                            app:layout_constraintRight_toLeftOf="@id/menu_ova"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="SAT"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_saturday"
-                            app:layout_constraintRight_toRightOf="@id/menu_saturday"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_saturday"/>
-
-                        <ImageButton
-                            android:id="@+id/menu_ova"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            style="@style/UI.Category.Button"
-                            app:layout_constraintLeft_toRightOf="@id/menu_saturday"
-                            app:layout_constraintRight_toRightOf="parent"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="OVA"
-                            style="@style/UI.Category.TextView"
-                            app:layout_constraintLeft_toLeftOf="@id/menu_ova"
-                            app:layout_constraintRight_toRightOf="@id/menu_ova"
-                            app:layout_constraintBottom_toBottomOf="@id/menu_ova"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_thursday"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_friday"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/stroke"
-                            app:layout_constraintLeft_toRightOf="@id/menu_saturday"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/stroke"
-                        app:layout_constraintTop_toBottomOf="@id/menu_row1"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75"
+                        android:src="@drawable/ic_arrow"
+                        app:tint="@color/text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginHorizontal="24dp"
+                    app:cardBackgroundColor="@color/listItemBackground"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/stroke"
+                    app:strokeWidth="1dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_new">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/today_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@id/menu_container">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/menu_row1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/menu_row2">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/today_schedule_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="26dp"
-                android:paddingVertical="12dp"
-                android:background="?selectableItemBackground"
-                app:layout_constraintTop_toTopOf="parent">
+                            <ImageButton
+                                android:id="@+id/menu_sunday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/menu_monday"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="오늘의 편성표"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/Font.MainList"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="SUN"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_sunday"
+                                app:layout_constraintRight_toRightOf="@id/menu_sunday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_sunday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_monday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_sunday"
+                                app:layout_constraintRight_toLeftOf="@id/menu_tuesday"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="MON"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_monday"
+                                app:layout_constraintRight_toRightOf="@id/menu_monday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_monday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_tuesday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_monday"
+                                app:layout_constraintRight_toLeftOf="@id/menu_wednesday"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="TUE"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_tuesday"
+                                app:layout_constraintRight_toRightOf="@id/menu_tuesday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_tuesday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_wednesday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_tuesday"
+                                app:layout_constraintRight_toRightOf="parent"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="WED"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_wednesday"
+                                app:layout_constraintRight_toRightOf="@id/menu_wednesday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_wednesday"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_sunday"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_monday"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_tuesday"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/menu_row2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            app:layout_constraintTop_toBottomOf="@id/menu_row1"
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <ImageButton
+                                android:id="@+id/menu_thursday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/menu_friday"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="THU"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_thursday"
+                                app:layout_constraintRight_toRightOf="@id/menu_thursday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_thursday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_friday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_thursday"
+                                app:layout_constraintRight_toLeftOf="@id/menu_saturday"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="FRI"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_friday"
+                                app:layout_constraintRight_toRightOf="@id/menu_friday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_friday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_saturday"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_friday"
+                                app:layout_constraintRight_toLeftOf="@id/menu_ova"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="SAT"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_saturday"
+                                app:layout_constraintRight_toRightOf="@id/menu_saturday"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_saturday"/>
+
+                            <ImageButton
+                                android:id="@+id/menu_ova"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                style="@style/UI.Category.Button"
+                                app:layout_constraintLeft_toRightOf="@id/menu_saturday"
+                                app:layout_constraintRight_toRightOf="parent"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="OVA"
+                                style="@style/UI.Category.TextView"
+                                app:layout_constraintLeft_toLeftOf="@id/menu_ova"
+                                app:layout_constraintRight_toRightOf="@id/menu_ova"
+                                app:layout_constraintBottom_toBottomOf="@id/menu_ova"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_thursday"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_friday"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/stroke"
+                                app:layout_constraintLeft_toRightOf="@id/menu_saturday"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/stroke"
+                            app:layout_constraintTop_toBottomOf="@id/menu_row1"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/today_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toBottomOf="@id/today_schedule_header">
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/menu_container">
 
-                <FrameLayout
-                    android:id="@+id/today_schedule_container"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/today_schedule_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"/>
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="12dp"
+                    android:background="?selectableItemBackground"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘의 편성표"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Font.MainList"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/listItemBackground"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/today_schedule_header">
+
+                    <FrameLayout
+                        android:id="@+id/today_schedule_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

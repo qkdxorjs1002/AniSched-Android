@@ -4,6 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +17,9 @@ import android.widget.ImageButton;
 
 import com.novang.anisched.BuildConfig;
 import com.novang.anisched.R;
+import com.novang.anisched.adapter.RankBannerListAdapter;
 import com.novang.anisched.base.BaseActivity;
+import com.novang.anisched.ui.detail.DetailActivity;
 import com.novang.anisched.ui.schedule.ScheduleActivity;
 import com.novang.anisched.ui.schedule.fragment.ListFragment;
 
@@ -24,8 +30,13 @@ public class MainActivity extends BaseActivity {
 
     private MainViewModel viewModel;
 
-    private ConstraintLayout menuNew;
     private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
+
+    private ConstraintLayout menuNew;
+
+    private RecyclerView rankBannerListView;
+    private RankBannerListAdapter rankBannerListAdapter;
+    private SnapHelper rankBannerSnapHelper;
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
@@ -39,6 +50,8 @@ public class MainActivity extends BaseActivity {
                             Calendar.getInstance(Locale.KOREA).get(Calendar.DAY_OF_WEEK) - 1))
                     .commitNow();
         }
+        viewModel.requestRelease(BuildConfig.VERSION_NAME);
+        viewModel.requestRanking();
     }
 
     @Override
@@ -52,12 +65,20 @@ public class MainActivity extends BaseActivity {
         menuFri = findViewById(R.id.menu_friday);
         menuSat = findViewById(R.id.menu_saturday);
         menuOva = findViewById(R.id.menu_ova);
+
+        menuNew = findViewById(R.id.menu_new);
+
+        rankBannerListView = findViewById(R.id.rank_list_view);
+        rankBannerListAdapter = new RankBannerListAdapter(this);
+        rankBannerSnapHelper = new PagerSnapHelper();
     }
 
     @Override
     protected void initViews() {
-        viewModel.requestRelease(BuildConfig.VERSION_NAME);
-        viewModel.requestRanking();
+        rankBannerListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rankBannerListView.setHasFixedSize(true);
+        rankBannerListView.setAdapter(rankBannerListAdapter);
+        rankBannerSnapHelper.attachToRecyclerView(rankBannerListView);
     }
 
     @Override
@@ -74,6 +95,15 @@ public class MainActivity extends BaseActivity {
                         dialog.cancel();
                     })
                     .show();
+        });
+
+        viewModel.rankList.observe(this, ranks -> {
+            rankBannerListAdapter.updateList(ranks);
+            viewModel.startTimer(10000,10000);
+        });
+
+        viewModel.rankPage.observe(this, integer -> {
+            rankBannerListView.smoothScrollToPosition(integer);
         });
     }
 
@@ -109,7 +139,7 @@ public class MainActivity extends BaseActivity {
                     break;
             }
 
-            ScheduleActivity.start(this, ScheduleActivity.class, week);
+            start(this, ScheduleActivity.class, week);
         };
 
         menuNew.setOnClickListener(menuClickListener);
@@ -121,6 +151,18 @@ public class MainActivity extends BaseActivity {
         menuFri.setOnClickListener(menuClickListener);
         menuSat.setOnClickListener(menuClickListener);
         menuOva.setOnClickListener(menuClickListener);
+
+        rankBannerListView.setOnFlingListener(new RecyclerView.OnFlingListener() {
+            @Override
+            public boolean onFling(int velocityX, int velocityY) {
+                viewModel.restartTimer(10000,10000);
+                return false;
+            }
+        });
+
+        rankBannerListAdapter.setOnItemClickListener((v, anime) -> {
+            start(this, DetailActivity.class, anime.getId());
+        });
     }
 
 }

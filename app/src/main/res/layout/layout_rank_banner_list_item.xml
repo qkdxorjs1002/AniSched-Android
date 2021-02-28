@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/rank_backdrop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/rank_container"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rank_container"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/toolbar_gradient"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/rank_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingEnd="10dp"
+            android:text="0위"
+            android:textAppearance="@style/Font.Description"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/rank_title"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/rank_diff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Font.Description"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/rank_title"
+            app:layout_constraintLeft_toRightOf="@id/rank_num"/>
+
+        <TextView
+            android:id="@+id/rank_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:text="title"
+            android:textAppearance="@style/Font.Title"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
