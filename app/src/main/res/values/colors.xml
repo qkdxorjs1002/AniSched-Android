@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#ff2a62</color>
-    <color name="primaryDark">#cd1747</color>
-    <color name="accent">#ee176b</color>
-    <color name="background">#f2f2f2</color>
-    <color name="stroke">#d6d6d6</color>
-    <color name="highlight">#ff1d76</color>
+    <color name="primary">#355fb9</color>
+    <color name="primaryDark">#234fbf</color>
+    <color name="accent">#D46AB3</color>
+    <color name="background">#fafafa</color>
+    <color name="stroke">#dddddd</color>
+    <color name="highlight">#B06AB3</color>
     <color name="button">#e6e6e6</color>
-    <color name="listItemBackground">#fcfcfc</color>
-    <color name="text">#000000</color>
-    <color name="textSub">#656565</color>
+    <color name="listItemBackground">#ffffff</color>
+    <color name="text">#252525</color>
+    <color name="textSub">#868686</color>
     <color name="textLight">#FFFFFF</color>
     <color name="textLightSub">#C8FFFFFF</color>
-    <color name="icon">#303030</color>
+    <color name="icon">#555555</color>
     <color name="textDisabled">#919191</color>
     <color name="gradientEnd">#B06AB3</color>
     <color name="gradientStart">#4568DC</color>
+    <color name="rankUp">#A03B3B</color>
+    <color name="rankDown">#3B68A0</color>
 </resources>

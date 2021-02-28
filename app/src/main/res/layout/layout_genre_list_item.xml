@@ -11,7 +11,7 @@
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
-        app:strokeColor="@color/background"
+        app:strokeColor="@color/textLight"
         app:strokeWidth="1dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">

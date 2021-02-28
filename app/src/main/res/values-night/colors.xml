@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#000000</color>
+    <color name="stroke">@color/background</color>
+    <color name="button">#f0f0f0</color>
+    <color name="listItemBackground">#252525</color>
+    <color name="text">#fafafa</color>
+    <color name="textSub">#999999</color>
+    <color name="icon">#bbbbbb</color>
+    <color name="rankUp">#ff594d</color>
+    <color name="rankDown">#4da5ff</color>
+</resources>

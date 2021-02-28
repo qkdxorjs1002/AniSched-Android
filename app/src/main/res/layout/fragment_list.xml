@@ -9,6 +9,7 @@
         android:id="@+id/anime_list_View"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/listItemBackground"
         android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

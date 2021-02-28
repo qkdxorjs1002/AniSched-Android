@@ -10,7 +10,6 @@
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.AniSched.Detail" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -22,16 +21,12 @@
 
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.AniSched.Splash" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 </resources>
