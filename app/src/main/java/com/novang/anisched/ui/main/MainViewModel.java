@@ -76,10 +76,14 @@ public class MainViewModel extends ViewModel {
     }
 
     public void restartTimer(long delay, long period) {
+        stopTimer();
+        startTimer(delay, period);
+    }
+
+    public void stopTimer() {
         rankTimer.cancel();
         rankTimer.purge();
         rankTimer = new Timer();
-        startTimer(delay, period);
     }
 
 }

@@ -55,6 +55,20 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (rankBannerListAdapter.getItemCount() != 0) {
+            viewModel.startTimer(10000,10000);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.stopTimer();
+    }
+
+    @Override
     protected void initReferences() {
         menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
