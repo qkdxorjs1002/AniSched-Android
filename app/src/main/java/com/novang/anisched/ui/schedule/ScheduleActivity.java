@@ -1,4 +1,4 @@
-package com.novang.anisched.ui.list;
+package com.novang.anisched.ui.schedule;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,16 +7,16 @@ import android.os.Bundle;
 
 import com.novang.anisched.R;
 import com.novang.anisched.base.BaseActivity;
-import com.novang.anisched.ui.list.fragment.ListFragment;
+import com.novang.anisched.ui.schedule.fragment.ListFragment;
 
-public class ListActivity extends BaseActivity {
+public class ScheduleActivity extends BaseActivity {
 
-    private ListViewModel viewModel;
+    private ScheduleViewModel viewModel;
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_list);
-        viewModel = new ViewModelProvider(this).get(ListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         super.init(savedInstanceState);
 
         if (savedInstanceState == null) {

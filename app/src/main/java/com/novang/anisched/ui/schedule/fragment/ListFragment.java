@@ -1,4 +1,4 @@
-package com.novang.anisched.ui.list.fragment;
+package com.novang.anisched.ui.schedule.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,22 +16,24 @@ import android.view.ViewGroup;
 
 import com.novang.anisched.R;
 import com.novang.anisched.adapter.AnimeListAdapter;
+import com.novang.anisched.base.BaseFragment;
 import com.novang.anisched.ui.detail.DetailActivity;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends BaseFragment {
 
-    private int week;
     private ListViewModel viewModel;
 
     private RecyclerView animeListView;
     private AnimeListAdapter animeListAdapter;
 
     public static ListFragment newInstance(int week) {
-        return new ListFragment(week);
-    }
+        ListFragment fragment = new ListFragment();
+        Bundle bundle = new Bundle();
 
-    public ListFragment(int week) {
-        this.week = week;
+        bundle.putInt("week", week);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     @Nullable
@@ -43,32 +44,33 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    protected void init(@Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ListViewModel.class);
-
-        initReferences();
-        initObservers();
-        initEvents();
-
-        viewModel.callSchedule(week);
+        super.init(savedInstanceState);
+        viewModel.callSchedule(getArguments().getInt("week"));
     }
 
-    private void initReferences() {
+    @Override
+    protected void initReferences() {
         animeListView = getView().findViewById(R.id.anime_list_View);
         animeListAdapter = new AnimeListAdapter();
         animeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         animeListView.setAdapter(animeListAdapter);
     }
 
-    private void initObservers() {
+    @Override
+    protected void initViews() {
+    }
+
+    @Override
+    protected void initObservers() {
         viewModel.animeList.observe(this, animes -> {
             animeListAdapter.updateList(animes);
         });
     }
 
-    private void initEvents() {
+    @Override
+    protected void initEvents() {
         animeListAdapter.setOnItemClickListener((v, anime) -> {
             Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra("id", anime.getId());

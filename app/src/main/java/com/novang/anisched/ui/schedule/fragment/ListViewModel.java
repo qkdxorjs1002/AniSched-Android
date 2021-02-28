@@ -1,4 +1,4 @@
-package com.novang.anisched.ui.list.fragment;
+package com.novang.anisched.ui.schedule.fragment;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

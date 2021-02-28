@@ -14,8 +14,8 @@ import android.widget.ImageButton;
 import com.novang.anisched.BuildConfig;
 import com.novang.anisched.R;
 import com.novang.anisched.base.BaseActivity;
-import com.novang.anisched.ui.list.ListActivity;
-import com.novang.anisched.ui.list.fragment.ListFragment;
+import com.novang.anisched.ui.schedule.ScheduleActivity;
+import com.novang.anisched.ui.schedule.fragment.ListFragment;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity {
                     break;
             }
 
-            ListActivity.start(this, ListActivity.class, week);
+            ScheduleActivity.start(this, ScheduleActivity.class, week);
         };
 
         menuNew.setOnClickListener(menuClickListener);
