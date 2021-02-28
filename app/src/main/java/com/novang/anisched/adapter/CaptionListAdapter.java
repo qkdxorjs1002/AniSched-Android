@@ -38,12 +38,17 @@ public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.
         TextView captionEpisode = holder.view.findViewById(R.id.episode);
         TextView captionAuthor = holder.view.findViewById(R.id.author);
         TextView captionUpdate = holder.view.findViewById(R.id.update);
+        View stroke = holder.view.findViewById(R.id.stroke);
 
         captionEpisode.setText(caption.getEpisode());
         captionAuthor.setText(caption.getAuthor());
         captionUpdate.setText(caption.getTimeElapsed());
         if(caption.getWebsite().equals("")) {
             holder.view.setEnabled(false);
+        }
+
+        if (position >= getItemCount() - 1) {
+            stroke.setVisibility(View.GONE);
         }
 
         holder.view.setOnClickListener(v -> {

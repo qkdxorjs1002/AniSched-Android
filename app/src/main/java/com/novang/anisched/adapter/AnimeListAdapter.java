@@ -38,10 +38,15 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.View
         TextView subject = holder.view.findViewById(R.id.subject);
         TextView time = holder.view.findViewById(R.id.time);
         TextView genres = holder.view.findViewById(R.id.genres);
+        View stroke = holder.view.findViewById(R.id.stroke);
 
         subject.setText(anime.getSubject());
         time.setText(anime.getTime());
         genres.setText(anime.getGenres());
+
+        if (position >= getItemCount() - 1) {
+            stroke.setVisibility(View.GONE);
+        }
 
         holder.view.setOnClickListener(v -> {
             if (onItemClickListener != null) {
