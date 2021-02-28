@@ -49,6 +49,8 @@ public class CaptionListAdapter extends RecyclerView.Adapter<CaptionListAdapter.
 
         if (position >= getItemCount() - 1) {
             stroke.setVisibility(View.GONE);
+        } else {
+            stroke.setVisibility(View.VISIBLE);
         }
 
         holder.view.setOnClickListener(v -> {

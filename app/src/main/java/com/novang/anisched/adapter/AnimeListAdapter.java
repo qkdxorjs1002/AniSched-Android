@@ -46,6 +46,8 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.View
 
         if (position >= getItemCount() - 1) {
             stroke.setVisibility(View.GONE);
+        } else {
+            stroke.setVisibility(View.VISIBLE);
         }
 
         holder.view.setOnClickListener(v -> {

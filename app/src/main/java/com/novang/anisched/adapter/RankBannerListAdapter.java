@@ -70,9 +70,11 @@ public class RankBannerListAdapter extends RecyclerView.Adapter<RankBannerListAd
         if (rank.getDiff() > 0) {
             rankDiff.setText("▲".concat(String.valueOf(rank.getDiff())));
             rankDiff.setTextColor(context.getColor(R.color.rankUp));
+            rankDiff.setVisibility(View.VISIBLE);
         } else if (rank.getDiff() < 0) {
             rankDiff.setText("▼".concat(String.valueOf(rank.getDiff() * -1)));
             rankDiff.setTextColor(context.getColor(R.color.rankDown));
+            rankDiff.setVisibility(View.VISIBLE);
         } else {
             rankDiff.setVisibility(View.INVISIBLE);
         }
