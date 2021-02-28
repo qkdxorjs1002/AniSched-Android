@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -234,9 +236,10 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.gradientBackground.observe(this, dynamicBackground -> {
-            container.setBackground(dynamicBackground.getGradient());
+            container.setBackground(dynamicBackground.getBackground());
             toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
-            animeSubject.setBackgroundColor(dynamicBackground.getTopColor());
+            animeSubject.setBackground(dynamicBackground.getShade());
+
             if (!dynamicBackground.isDark()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     getWindow().getInsetsController().setSystemBarsAppearance(
