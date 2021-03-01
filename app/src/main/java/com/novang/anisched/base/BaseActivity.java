@@ -20,9 +20,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
-    public static void start(Activity activity, Class<?> tClass, int extra) {
+    public static void start(Activity activity, Class<?> tClass, String extraName, int extra) {
         Intent intent = new Intent(activity, tClass);
-        intent.putExtra("id", extra);
+        intent.putExtra(extraName, extra);
         activity.startActivity(intent);
     }
 

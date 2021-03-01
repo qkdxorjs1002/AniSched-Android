@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity {
                     break;
             }
 
-            start(this, ScheduleActivity.class, week);
+            start(this, ScheduleActivity.class, "week", week);
         };
 
         menuNew.setOnClickListener(menuClickListener);
@@ -176,7 +176,7 @@ public class MainActivity extends BaseActivity {
         });
 
         rankBannerListAdapter.setOnItemClickListener((v, anime) -> {
-            start(this, DetailActivity.class, anime.getId());
+            start(this, DetailActivity.class, "id", anime.getId());
         });
     }
 
