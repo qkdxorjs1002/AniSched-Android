@@ -6,6 +6,8 @@ import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
 
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,6 +29,18 @@ public class AnissiaRepository {
         public static final String WEEK = "week";
         public static final String MONTH = "month";
     }
+
+    public static HashMap<Integer, String> DAY_OF_WEEK = new HashMap<Integer, String>() {{
+        put(0, "일요일");
+        put(1, "월요일");
+        put(2, "화요일");
+        put(3, "수요일");
+        put(4, "목요일");
+        put(5, "금요일");
+        put(6, "토요일");
+        put(7, "외전");
+        put(8, "신작");
+    }};
 
     private Retrofit retrofit;
     private AnissiaService service;
