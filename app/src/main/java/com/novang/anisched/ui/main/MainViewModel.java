@@ -14,22 +14,18 @@ import java.util.TimerTask;
 
 public class MainViewModel extends ViewModel {
 
-    GithubRepository githubRepository;
-    AnissiaRepository anissiaRepository;
+    private GithubRepository githubRepository;
+    private AnissiaRepository anissiaRepository;
 
-    MutableLiveData<Release> release;
-    MutableLiveData<List<Rank>> rankList;
-    MutableLiveData<Integer> rankPage;
+    private MutableLiveData<Release> release;
+    private MutableLiveData<List<Rank>> rankList;
+    private MutableLiveData<Integer> rankPage;
 
-    Timer rankTimer;
+    private Timer rankTimer;
 
     public MainViewModel() {
         githubRepository = new GithubRepository("qkdxorjs1002", "AniSched-Android");
         anissiaRepository = new AnissiaRepository();
-
-        release = new MutableLiveData<>();
-        rankList = new MutableLiveData<>();
-        rankPage = new MutableLiveData<>(0);
 
         rankTimer = new Timer();
     }
@@ -90,4 +86,24 @@ public class MainViewModel extends ViewModel {
         rankTimer = new Timer();
     }
 
+    public LiveData<Release> getRelease() {
+        if (release == null) {
+            release = new MutableLiveData<>();
+        }
+        return release;
+    }
+
+    public LiveData<List<Rank>> getRankList() {
+        if (rankList == null) {
+            rankList = new MutableLiveData<>();
+        }
+        return rankList;
+    }
+
+    public LiveData<Integer> getRankPage() {
+        if (rankPage == null) {
+            rankPage = new MutableLiveData<>(0);
+        }
+        return rankPage;
+    }
 }

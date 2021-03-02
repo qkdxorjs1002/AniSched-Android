@@ -1,5 +1,6 @@
 package com.novang.anisched.repository.tmdb;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.model.tmdb.Movie;
@@ -41,7 +42,7 @@ public class TMDBRepository {
      * @param keyword keyword
      * @return Call<List<Anime>>
      */
-    public MutableLiveData<Search> search(String apiKey, String lang, String keyword) {
+    public LiveData<Search> search(String apiKey, String lang, String keyword) {
         MutableLiveData<Search> resultList = new MutableLiveData<>();
 
         Call<Search> request = service.search(apiKey, lang, keyword);
@@ -69,7 +70,7 @@ public class TMDBRepository {
      * @param id id
      * @return Call<Movie>
      */
-    public MutableLiveData<Movie> requestMovie(String apiKey, String lang, int id) {
+    public LiveData<Movie> requestMovie(String apiKey, String lang, int id) {
         MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
 
         Call<Movie> request = service.requestMovie(id, apiKey, lang);
@@ -97,7 +98,7 @@ public class TMDBRepository {
      * @param id id
      * @return Call<TV>
      */
-    public MutableLiveData<TV> requestTv(String apiKey, String lang, int id) {
+    public LiveData<TV> requestTv(String apiKey, String lang, int id) {
         MutableLiveData<TV> tvDetail = new MutableLiveData<>();
 
         Call<TV> request = service.requestTv(id, apiKey, lang);
@@ -126,7 +127,7 @@ public class TMDBRepository {
      * @param lang language code
      * @return Call<Videos>
      */
-    public MutableLiveData<Videos> requestVideos(String apiKey, String lang, String type, int id) {
+    public LiveData<Videos> requestVideos(String apiKey, String lang, String type, int id) {
         MutableLiveData<Videos> videoList = new MutableLiveData<>();
 
         Call<Videos> request = service.requestVideos(type, id, apiKey, lang);

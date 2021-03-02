@@ -123,7 +123,7 @@ public class DetailActivity extends BaseActivity {
         genreListView = findViewById(R.id.anime_info_genre_list_view);
         genreListAdapter = new GenreListAdapter();
         tmdbVideoListView = findViewById(R.id.tmdb_video_list);
-        tmdbVideoListAdapter = new VideoListAdapter(getLifecycle());
+        tmdbVideoListAdapter = new VideoListAdapter();
         tmdbVideoListSnapHelper = new PagerSnapHelper();
         tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
         tmdbSeasonListAdapter = new SeasonListAdapter();
@@ -160,7 +160,7 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        viewModel.anissiaAnime.observe(this, anime -> {
+        viewModel.getAnissiaAnime().observe(this, anime -> {
             viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime);
             animeSubject.setText(anime.getSubject());
             animeTime.setText(anime.getTime());
@@ -183,7 +183,7 @@ public class DetailActivity extends BaseActivity {
             captionListAdapter.updateList(anime.getCaptionList());
         });
 
-        viewModel.tmdbMovie.observe(this, movie -> {
+        viewModel.getTmdbMovie().observe(this, movie -> {
             updateImages(movie.getBackdropURL("original"), movie.getPosterURL("w400"));
             animeTime.setText(movie.getRuntime().concat("분"));
             tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
@@ -192,10 +192,10 @@ public class DetailActivity extends BaseActivity {
             tmdbRatingCount.setText(String.valueOf(movie.getVoteCount()));
             tmdbRatingDecimal.setText(String.valueOf(movie.getVoteDecimal()));
             tmdbProduction.setText(movie.getStringProductionList());
-            viewModel.loadingStatus.postValue(false);
+            viewModel.getLoadingStatus().postValue(false);
         });
 
-        viewModel.tmdbTV.observe(this, tv -> {
+        viewModel.getTmdbTV().observe(this, tv -> {
             updateImages(tv.getBackdropURL("original"), tv.getPosterURL("w400"));
             animeTime.setText(animeTime.getText().toString().concat(" - ").concat(String.valueOf(tv.getRuntime()).concat("분")));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
@@ -206,15 +206,15 @@ public class DetailActivity extends BaseActivity {
             tmdbNetworks.setText(tv.getStringNetworkList());
             tmdbProduction.setText(tv.getStringProductionList());
             tmdbSeasonListAdapter.updateList(tv.getSeasonList());
-            viewModel.loadingStatus.postValue(false);
+            viewModel.getLoadingStatus().postValue(false);
         });
 
-        viewModel.tmdbVideos.observe(this, videos -> {
+        viewModel.getTmdbVideos().observe(this, videos -> {
             tmdbVideoListAdapter.updateList(videos);
             tmdbVideoListContainer.setVisibility(View.VISIBLE);
         });
 
-        viewModel.mediaType.observe(this, s -> {
+        viewModel.getMediaType().observe(this, s -> {
             tmdbDetailContainer.setVisibility(View.VISIBLE);
             apiLogoContainer.setVisibility(View.VISIBLE);
 
@@ -224,16 +224,14 @@ public class DetailActivity extends BaseActivity {
             }
         });
 
-        viewModel.loadingStatus.observe(this, loading -> {
+        viewModel.getLoadingStatus().observe(this, loading -> {
             if (!loading) {
                 loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
                 loadingContainer.setVisibility(View.GONE);
-            } else {
-                loadingContainer.setVisibility(View.VISIBLE);
             }
         });
 
-        viewModel.gradientBackground.observe(this, dynamicBackground -> {
+        viewModel.getGradientBackground().observe(this, dynamicBackground -> {
             container.setBackground(dynamicBackground.getBackground());
             toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
             animeSubject.setBackground(dynamicBackground.getShade());
@@ -266,8 +264,8 @@ public class DetailActivity extends BaseActivity {
 
             @Override
             public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                appBar.setExpanded(true, true);
                 viewModel.dynamicBackground(resource);
+                appBar.setExpanded(true, true);
                 return false;
             }
         };

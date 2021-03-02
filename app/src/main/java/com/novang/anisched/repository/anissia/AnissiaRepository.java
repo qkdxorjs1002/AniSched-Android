@@ -1,12 +1,12 @@
 package com.novang.anisched.repository.anissia;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
 
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class AnissiaRepository {
      * @param week 0~6: 일~토<br/>7: 기타<br/>8: 신작
      * @return MutableLiveData<List<Anime>>
      */
-    public MutableLiveData<List<Anime>> requestSchedule(int week) {
+    public LiveData<List<Anime>> requestSchedule(int week) {
         MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
         Call<List<Anime>> request = service.requestSchedule(week);
@@ -86,7 +86,7 @@ public class AnissiaRepository {
      * @param page int
      * @return MutableLiveData<List<Anime>>
      */
-    public MutableLiveData<List<Anime>> requestAllSchedule(int page) {
+    public LiveData<List<Anime>> requestAllSchedule(int page) {
         MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
         Call<List<Anime>> request = service.requestAllSchedule(page);
@@ -112,7 +112,7 @@ public class AnissiaRepository {
      * @param id 애니메이션 고유번호
      * @return MutableLiveData<List<Caption>>
      */
-    public MutableLiveData<List<Caption>> requestCaption(int id) {
+    public LiveData<List<Caption>> requestCaption(int id) {
         MutableLiveData<List<Caption>> captionList = new MutableLiveData<>();
 
         Call<List<Caption>> request = service.requestCaption(id);
@@ -138,7 +138,7 @@ public class AnissiaRepository {
      * @param id int
      * @return MutableLiveData<Anime>
      */
-    public MutableLiveData<Anime> requestAnime(int id) {
+    public LiveData<Anime> requestAnime(int id) {
         MutableLiveData<Anime> animeInfo = new MutableLiveData<>();
 
         Call<Anime> request = service.requestAnime(id);
@@ -164,7 +164,7 @@ public class AnissiaRepository {
      * @param factor (day/week/month)
      * @return MutableLiveData<List<Rank>>
      */
-    public MutableLiveData<List<Rank>> requestRanking(String factor) {
+    public LiveData<List<Rank>> requestRanking(String factor) {
         MutableLiveData<List<Rank>> rankList = new MutableLiveData<>();
 
         Call<List<Rank>> request = service.requestRanking(factor);

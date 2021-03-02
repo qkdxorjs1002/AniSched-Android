@@ -1,5 +1,6 @@
 package com.novang.anisched.repository.github;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.model.github.Release;
@@ -42,7 +43,7 @@ public class GithubRepository {
      *
      * @return Call<List < Release>>
      */
-    public MutableLiveData<List<Release>> requestRelease() {
+    public LiveData<List<Release>> requestRelease() {
         MutableLiveData<List<Release>> releaseList = new MutableLiveData<>();
 
         Call<List<Release>> request = service.requestRelease(username, repo);

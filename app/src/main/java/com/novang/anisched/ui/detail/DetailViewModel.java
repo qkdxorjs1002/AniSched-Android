@@ -2,6 +2,7 @@ package com.novang.anisched.ui.detail;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -22,27 +23,18 @@ public class DetailViewModel extends ViewModel {
     private AnissiaRepository anissiaRepository;
     private TMDBRepository tmdbRepository;
 
-    public MutableLiveData<Anime> anissiaAnime;
-    public MutableLiveData<Movie> tmdbMovie;
-    public MutableLiveData<TV> tmdbTV;
-    public MutableLiveData<List<Video>> tmdbVideos;
+    private MutableLiveData<Anime> anissiaAnime;
+    private MutableLiveData<Movie> tmdbMovie;
+    private MutableLiveData<TV> tmdbTV;
+    private MutableLiveData<List<Video>> tmdbVideos;
 
-    public MutableLiveData<String> mediaType;
-    public MutableLiveData<Boolean> loadingStatus;
-    public MutableLiveData<DynamicBackground> gradientBackground;
+    private MutableLiveData<String> mediaType;
+    private MutableLiveData<Boolean> loadingStatus;
+    private MutableLiveData<DynamicBackground> gradientBackground;
 
     public DetailViewModel() {
         anissiaRepository = new AnissiaRepository();
         tmdbRepository = new TMDBRepository();
-
-        anissiaAnime = new MutableLiveData<>();
-        tmdbMovie = new MutableLiveData<>();
-        tmdbTV = new MutableLiveData<>();
-        tmdbVideos = new MutableLiveData<>();
-
-        mediaType = new MutableLiveData<>();
-        loadingStatus = new MutableLiveData<>(true);
-        gradientBackground = new MutableLiveData<>();
     }
 
     public void dynamicBackground(Bitmap bitmap) {
@@ -111,5 +103,54 @@ public class DetailViewModel extends ViewModel {
         });
 
         tmdbHelper.searchWithFilter(apiKey, anime);
+    }
+
+    public LiveData<Anime> getAnissiaAnime() {
+        if (anissiaAnime == null) {
+            anissiaAnime = new MutableLiveData<>();
+        }
+        return anissiaAnime;
+    }
+
+    public LiveData<Movie> getTmdbMovie() {
+        if (tmdbMovie == null) {
+            tmdbMovie = new MutableLiveData<>();
+        }
+        return tmdbMovie;
+    }
+
+    public LiveData<TV> getTmdbTV() {
+        if (tmdbTV == null) {
+            tmdbTV = new MutableLiveData<>();
+        }
+        return tmdbTV;
+    }
+
+    public LiveData<List<Video>> getTmdbVideos() {
+        if (tmdbVideos == null) {
+            tmdbVideos = new MutableLiveData<>();
+        }
+        return tmdbVideos;
+    }
+
+    public LiveData<String> getMediaType() {
+        if (mediaType == null) {
+            mediaType = new MutableLiveData<>();
+        }
+        return mediaType;
+    }
+
+    public MutableLiveData<Boolean> getLoadingStatus() {
+        if (loadingStatus == null) {
+            loadingStatus = new MutableLiveData<>();
+        }
+        return loadingStatus;
+    }
+
+    public LiveData<DynamicBackground> getGradientBackground() {
+        if (gradientBackground == null) {
+            gradientBackground = new MutableLiveData<>();
+        }
+        return gradientBackground;
     }
 }

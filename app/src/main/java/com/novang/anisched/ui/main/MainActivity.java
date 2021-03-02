@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        viewModel.release.observe(this, release -> {
+        viewModel.getRelease().observe(this, release -> {
             new AlertDialog.Builder(this)
                     .setTitle("새 버전이 있습니다.")
                     .setMessage(release.getTagName().concat("\n").concat(release.getBody()))
@@ -111,12 +111,12 @@ public class MainActivity extends BaseActivity {
                     .show();
         });
 
-        viewModel.rankList.observe(this, ranks -> {
+        viewModel.getRankList().observe(this, ranks -> {
             rankBannerListAdapter.updateList(ranks);
             viewModel.startTimer(10000,10000);
         });
 
-        viewModel.rankPage.observe(this, integer -> {
+        viewModel.getRankPage().observe(this, integer -> {
             rankBannerListView.smoothScrollToPosition(integer);
         });
     }
