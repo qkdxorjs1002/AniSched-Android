@@ -5,25 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.novang.anisched.R;
 import com.novang.anisched.model.tmdb.child.common.Video;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.novang.anisched.view.YoutubePlayer;
 
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
-    private final Lifecycle lifecycle;
     private List<Video> videoList;
     private OnItemClickListener onItemClickListener;
 
-    public VideoListAdapter(Lifecycle lifecycle) {
-        this.lifecycle = lifecycle;
+    public VideoListAdapter() {
         onItemClickListener = null;
     }
 
@@ -40,16 +35,9 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Video video = videoList.get(position);
 
-        YouTubePlayerView youTubePlayerView = holder.view.findViewById(R.id.youtube_player);
+        YoutubePlayer youtubePlayer = holder.view.findViewById(R.id.youtube_player);
 
-        lifecycle.addObserver(youTubePlayerView);
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                youTubePlayer.cueVideo(video.getKey(), 0);
-            }
-        });
+        youtubePlayer.load(video.getKey());
 
         holder.view.setOnClickListener(v -> {
             if (onItemClickListener != null) {
