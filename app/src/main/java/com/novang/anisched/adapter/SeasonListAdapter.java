@@ -1,5 +1,6 @@
 package com.novang.anisched.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.novang.anisched.R;
 import com.novang.anisched.model.tmdb.child.tv.Season;
@@ -20,10 +20,13 @@ import java.util.List;
 
 public class SeasonListAdapter extends RecyclerView.Adapter<SeasonListAdapter.ViewHolder> {
 
+    private Context context;
+
     private List<Season> seasonList;
     private OnItemClickListener onItemClickListener;
 
-    public SeasonListAdapter() {
+    public SeasonListAdapter(Context context) {
+        this.context = context;
         onItemClickListener = null;
     }
 
@@ -46,7 +49,7 @@ public class SeasonListAdapter extends RecyclerView.Adapter<SeasonListAdapter.Vi
         TextView seasonEpisodeCount = holder.view.findViewById(R.id.season_episode_count);
         TextView seasonOverview = holder.view.findViewById(R.id.season_overview);
 
-        GlideApp.with(holder.itemView)
+        GlideApp.with(context)
                 .asBitmap()
                 .load(season.getPosterURL("w400"))
                 .override(Target.SIZE_ORIGINAL)

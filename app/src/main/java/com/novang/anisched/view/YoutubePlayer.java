@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.R;
@@ -20,14 +21,12 @@ import com.novang.anisched.tool.GlideApp;
 
 public class YoutubePlayer extends FrameLayout {
 
-    private final WebView webView;
     private final ImageView thumbnail;
 
     private MutableLiveData<String> key;
 
     public YoutubePlayer(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.webView = new WebView(context);
         this.thumbnail = new ImageView(context);
         key = new MutableLiveData<>();
 
@@ -48,7 +47,7 @@ public class YoutubePlayer extends FrameLayout {
 
     private void initView(Context context) {
         thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        thumbnail.setForeground(context.getDrawable(R.drawable.player_foreground));
+        thumbnail.setForeground(ContextCompat.getDrawable(context, R.drawable.player_foreground));
         addView(thumbnail, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
@@ -71,12 +70,13 @@ public class YoutubePlayer extends FrameLayout {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void loadPlayer(String key) {
-        addView(webView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        webView.setBackgroundColor(Color.TRANSPARENT);
+        WebView webView = new WebView(this.getContext());
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.loadUrl("https://www.youtube.com/embed/".concat(key).concat("?controls=0&autoplay=1"));
+        webView.setBackgroundColor(Color.TRANSPARENT);
+        webView.loadUrl("https://www.youtube.com/embed/".concat(key).concat("?controls=0"));
+        addView(webView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 }

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -126,7 +127,7 @@ public class DetailActivity extends BaseActivity {
         tmdbVideoListAdapter = new VideoListAdapter();
         tmdbVideoListSnapHelper = new PagerSnapHelper();
         tmdbSeasonListView = findViewById(R.id.tmdb_season_list);
-        tmdbSeasonListAdapter = new SeasonListAdapter();
+        tmdbSeasonListAdapter = new SeasonListAdapter(this);
         tmdbSeasonListSnapHelper = new PagerSnapHelper();
         captionListView = findViewById(R.id.caption_list_View);
         captionListAdapter = new CaptionListAdapter();
@@ -210,8 +211,8 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getTmdbVideos().observe(this, videos -> {
-            tmdbVideoListAdapter.updateList(videos);
             tmdbVideoListContainer.setVisibility(View.VISIBLE);
+            tmdbVideoListAdapter.updateList(videos);
         });
 
         viewModel.getMediaType().observe(this, s -> {
@@ -273,12 +274,14 @@ public class DetailActivity extends BaseActivity {
         GlideApp.with(this)
                 .asBitmap()
                 .load(backdropURL)
+                .priority(Priority.HIGH)
                 .listener(backdropListener)
                 .into(animeTmdbBackdrop);
 
         GlideApp.with(this)
                 .asBitmap()
                 .load(posterURL)
+                .priority(Priority.NORMAL)
                 .override(Target.SIZE_ORIGINAL)
                 .into(animeTmdbPoster);
     }

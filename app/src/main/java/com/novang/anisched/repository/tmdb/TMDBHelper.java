@@ -15,6 +15,11 @@ public class TMDBHelper {
     private TMDBRepository tmdbRepository;
     private OnResultListener onResultListener;
 
+    private final List<String> regexList = new ArrayList<>(Arrays.asList(
+            "(\\s\\d기)|(\\s(OVA|OAD))", "(\\s(IX|IV|V?I{0,3})$)|(\\s\\d(?i)[snrt](?i)[tdh])|(((\\s(?i)the)(\\s\\w+|)|)\\s(시즌|(?i)season)(\\d|\\s\\d|))",
+            "(((\\s(?i)the)(\\s\\w+|)|)\\s((?i)animation)(\\d|\\s\\d|))", "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s"
+    ));
+
     public TMDBHelper(TMDBRepository repository, OnResultListener listener) {
         this.tmdbRepository = repository;
         this.onResultListener = listener;
@@ -26,20 +31,10 @@ public class TMDBHelper {
     }
 
     public void searchWithFilter(String apiKey, String keyword) {
-        List<String> regexList = new ArrayList<>(Arrays.asList(
-                "(\\s\\d기)|(\\s(OVA|OAD))", "(\\s(IX|IV|V?I{0,3})$)|(\\s\\d(?i)[snrt](?i)[tdh])|(((\\s(?i)the)(\\s\\w+|)|)\\s(시즌|(?i)season)(\\d|\\s\\d|))",
-                "(((\\s(?i)the)(\\s\\w+|)|)\\s((?i)animation)(\\d|\\s\\d|))", "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s"
-        ));
-
         search(apiKey, keyword, keyword, regexList.iterator());
     }
 
     public void searchWithFilter(String apiKey, Anime anime) {
-        List<String> regexList = new ArrayList<>(Arrays.asList(
-                "(\\s\\d기)|(\\s(OVA|OAD))", "(\\s(IX|IV|V?I{0,3})$)|(\\s\\d(?i)[snrt](?i)[tdh])|(((\\s(?i)the)(\\s\\w+|)|)\\s(시즌|(?i)season)(\\d|\\s\\d|))",
-                "(((\\s(?i)the)(\\s\\w+|)|)\\s((?i)animation)(\\d|\\s\\d|))", "[-~].*[-~]", "[^\\uAC00-\\uD7A30-9A-z\\s]", "\\s"
-        ));
-
         search(apiKey, anime.getSubject(), anime, regexList.iterator());
     }
 
