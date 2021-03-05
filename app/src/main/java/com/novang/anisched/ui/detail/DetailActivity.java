@@ -35,6 +35,7 @@ import com.novang.anisched.adapter.SeasonListAdapter;
 import com.novang.anisched.adapter.VideoListAdapter;
 import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.tool.GlideApp;
+import com.novang.anisched.view.LoadingView;
 
 public class DetailActivity extends BaseActivity {
 
@@ -57,10 +58,9 @@ public class DetailActivity extends BaseActivity {
     private TextView tmdbRatingDecimal;
     private TextView tmdbNetworks;
     private TextView tmdbProduction;
-    private ImageView loadingIcon;
+    private LoadingView loadingView;
 
     private CoordinatorLayout container;
-    private ConstraintLayout loadingContainer;
     private ConstraintLayout animeStatusOffNotice;
     private ConstraintLayout tmdbVideoListContainer;
     private ConstraintLayout tmdbDetailContainer;
@@ -92,7 +92,6 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected void initReferences() {
         toolbarLayout = findViewById(R.id.toolbar_layout);
-        loadingIcon = findViewById(R.id.loading_icon);
         appBar = findViewById(R.id.appBar);
         animeTmdbBackdrop = findViewById(R.id.anime_info_tmdb_backdrop);
         animeSubject = findViewById(R.id.anime_info_subject);
@@ -111,7 +110,7 @@ public class DetailActivity extends BaseActivity {
         tmdbProduction = findViewById(R.id.tmdb_production);
 
         container = findViewById(R.id.container);
-        loadingContainer = findViewById(R.id.loading_container);
+        loadingView = findViewById(R.id.loading_view);
         tmdbVideoListContainer = findViewById(R.id.tmdb_video_list_container);
         animeStatusOffNotice = findViewById(R.id.anime_status_off_notice);
         tmdbDetailContainer = findViewById(R.id.tmdb_detail_container);
@@ -146,8 +145,7 @@ public class DetailActivity extends BaseActivity {
         captionListView.setLayoutManager(new LinearLayoutManager(this));
         captionListView.setAdapter(captionListAdapter);
 
-        loadingContainer.setVisibility(View.VISIBLE);
-        loadingIcon.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
+        loadingView.setVisibility(View.VISIBLE);
         appBar.setExpanded(false, false);
         animeStatusOffNotice.setVisibility(View.GONE);
         animeStatusLive.setVisibility(View.GONE);
@@ -227,8 +225,8 @@ public class DetailActivity extends BaseActivity {
 
         viewModel.getLoadingStatus().observe(this, loading -> {
             if (!loading) {
-                loadingContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
-                loadingContainer.setVisibility(View.GONE);
+                loadingView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+                loadingView.setVisibility(View.GONE);
             }
         });
 

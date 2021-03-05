@@ -1,6 +1,7 @@
 package com.novang.anisched.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.novang.anisched.R;
 import com.novang.anisched.model.anissia.Rank;
 import com.novang.anisched.model.tmdb.child.search.Result;
 import com.novang.anisched.repository.tmdb.TMDBHelper;
 import com.novang.anisched.repository.tmdb.TMDBRepository;
 import com.novang.anisched.tool.GlideApp;
+import com.novang.anisched.view.LoadingView;
 
 import java.util.List;
 
@@ -44,9 +51,12 @@ public class RankBannerListAdapter extends RecyclerView.Adapter<RankBannerListAd
         Rank rank = rankList.get(position);
 
         ImageView rankBackdrop = holder.view.findViewById(R.id.rank_backdrop);
+        LoadingView loadingView = holder.view.findViewById(R.id.loading_view);
         TextView rankTitle = holder.view.findViewById(R.id.rank_title);
         TextView rankNum = holder.view.findViewById(R.id.rank_num);
         TextView rankDiff = holder.view.findViewById(R.id.rank_diff);
+
+        loadingView.setVisibility(View.VISIBLE);
 
         TMDBHelper tmdbHelper = new TMDBHelper(new TMDBRepository(), new TMDBHelper.OnResultListener() {
             @Override
@@ -54,6 +64,18 @@ public class RankBannerListAdapter extends RecyclerView.Adapter<RankBannerListAd
                 GlideApp.with(holder.view)
                         .asBitmap()
                         .load(result.getBackdropURL("original"))
+                        .listener(new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                loadingView.setVisibility(View.GONE);
+                                return false;
+                            }
+                        })
                         .into(rankBackdrop);
             }
 
