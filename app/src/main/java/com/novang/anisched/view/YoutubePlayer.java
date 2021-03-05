@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -70,7 +71,22 @@ public class YoutubePlayer extends FrameLayout {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void loadPlayer(String key) {
-        WebView webView = new WebView(this.getContext());
+        WebView webView = new WebView(this.getContext()) {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        event.setAction(MotionEvent.ACTION_DOWN);
+                        super.onTouchEvent(event);
+                        event.setAction(MotionEvent.ACTION_UP);
+                        return super.onTouchEvent(event);
+                    case MotionEvent.ACTION_DOWN:
+                        return true;
+                }
+                return super.onTouchEvent(event);
+            }
+        };
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
