@@ -18,27 +18,31 @@ public class DynamicBackground {
     private GradientDrawable shade;
     private int topColor;
     private int bottomColor;
-    private boolean isDark;
+    private boolean isTopDark;
 
-    public DynamicBackground(GradientDrawable background, GradientDrawable shade, int topColor, int bottomColor, boolean isDark) {
+    public DynamicBackground(GradientDrawable background, GradientDrawable shade, int topColor, int bottomColor, boolean isTopDark) {
         this.background = background;
         this.shade = shade;
         this.topColor = topColor;
         this.bottomColor = bottomColor;
-        this.isDark = isDark;
+        this.isTopDark = isTopDark;
     }
 
     public static DynamicBackground generate(Bitmap bitmap) {
         Palette palette = Palette.from(bitmap).generate();
         Palette.Swatch dominantSwatch = palette.getDominantSwatch();
+        Palette.Swatch topDominantSwatch =
+                Palette.from(Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight() / 6))
+                        .generate()
+                        .getDominantSwatch();
 
         int topColor = 0, bottomColor = 0;
-        boolean isDark = false;
+        boolean isTopDark = false;
         float hue = 0;
 
         if (dominantSwatch != null) {
             hue = dominantSwatch.getHsl()[0];
-            isDark = !(dominantSwatch.getHsl()[2] >= 0.5f);
+            isTopDark = (topDominantSwatch.getHsl()[2] <= 0.6f);
         } else {
             return null;
         }
@@ -54,7 +58,7 @@ public class DynamicBackground {
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[] { Color.TRANSPARENT, topColor, topColor });
 
-        return new DynamicBackground(background, shade, topColor, bottomColor, isDark);
+        return new DynamicBackground(background, shade, topColor, bottomColor, isTopDark);
     }
 
     public GradientDrawable getBackground() {
@@ -73,7 +77,7 @@ public class DynamicBackground {
         return bottomColor;
     }
 
-    public boolean isDark() {
-        return isDark;
+    public boolean isTopDark() {
+        return isTopDark;
     }
 }

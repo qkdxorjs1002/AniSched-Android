@@ -235,7 +235,7 @@ public class DetailActivity extends BaseActivity {
             toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
             animeSubject.setBackground(dynamicBackground.getShade());
 
-            if (!dynamicBackground.isDark()) {
+            if (!dynamicBackground.isTopDark()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     getWindow().getInsetsController().setSystemBarsAppearance(
                             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
