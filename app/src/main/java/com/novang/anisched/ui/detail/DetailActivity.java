@@ -231,7 +231,7 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getGradientBackground().observe(this, dynamicBackground -> {
-            container.setBackground(dynamicBackground.getBackground());
+            getWindow().setBackgroundDrawable(dynamicBackground.getBackground());
             toolbarLayout.setContentScrimColor(dynamicBackground.getTopColor());
             animeSubject.setBackground(dynamicBackground.getShade());
 
