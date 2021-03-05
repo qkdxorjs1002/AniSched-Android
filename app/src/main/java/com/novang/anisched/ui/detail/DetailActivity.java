@@ -269,6 +269,19 @@ public class DetailActivity extends BaseActivity {
             }
         };
 
+        RequestListener<Bitmap> posterListener = new RequestListener<Bitmap>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                animeTmdbPoster.startAnimation(AnimationUtils.loadAnimation(DetailActivity.this, R.anim.fade_in));
+                return false;
+            }
+        };
+
         GlideApp.with(this)
                 .asBitmap()
                 .load(backdropURL)
@@ -281,6 +294,7 @@ public class DetailActivity extends BaseActivity {
                 .load(posterURL)
                 .priority(Priority.NORMAL)
                 .override(Target.SIZE_ORIGINAL)
+                .listener(posterListener)
                 .into(animeTmdbPoster);
     }
 }
