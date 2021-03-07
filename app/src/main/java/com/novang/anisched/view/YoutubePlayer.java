@@ -15,12 +15,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.novang.anisched.R;
 import com.novang.anisched.tool.GlideApp;
 
-public class YoutubePlayer extends FrameLayout {
+public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
 
     private final String THUMBNAIL_BASE_URL = "https://i.ytimg.com/vi/";
     private final String THUMBNAIL_ORIGINAL = "/original.jpg";
@@ -28,12 +31,30 @@ public class YoutubePlayer extends FrameLayout {
     private final String THUMBNAIL_HQ = "/hqdefault.jpg";
 
     private final ImageView thumbnail;
+    private final WebView webView;
 
     private MutableLiveData<String> key;
 
     public YoutubePlayer(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.thumbnail = new ImageView(context);
+        this.webView = new WebView(this.getContext()) {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        event.setAction(MotionEvent.ACTION_DOWN);
+                        super.onTouchEvent(event);
+                        event.setAction(MotionEvent.ACTION_UP);
+                        return super.onTouchEvent(event);
+                    case MotionEvent.ACTION_DOWN:
+                        return true;
+                }
+                return super.onTouchEvent(event);
+            }
+        };
+
         key = new MutableLiveData<>();
 
         initView(context);
@@ -49,6 +70,16 @@ public class YoutubePlayer extends FrameLayout {
                     (View.MeasureSpec.getSize(widthMeasureSpec) / 16) * 9, View.MeasureSpec.EXACTLY));
         } else
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    private void resume() {
+        webView.onResume();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    private void stop() {
+        webView.onPause();
     }
 
     private void initView(Context context) {
@@ -84,22 +115,6 @@ public class YoutubePlayer extends FrameLayout {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void loadPlayer(String key) {
-        WebView webView = new WebView(this.getContext()) {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouchEvent(MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        event.setAction(MotionEvent.ACTION_DOWN);
-                        super.onTouchEvent(event);
-                        event.setAction(MotionEvent.ACTION_UP);
-                        return super.onTouchEvent(event);
-                    case MotionEvent.ACTION_DOWN:
-                        return true;
-                }
-                return super.onTouchEvent(event);
-            }
-        };
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);

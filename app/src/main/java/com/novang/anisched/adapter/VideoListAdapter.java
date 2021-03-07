@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.novang.anisched.R;
@@ -16,9 +17,11 @@ import java.util.List;
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
     private List<Video> videoList;
+    private Lifecycle lifecycle;
     private OnItemClickListener onItemClickListener;
 
-    public VideoListAdapter() {
+    public VideoListAdapter(Lifecycle lifecycle) {
+        this.lifecycle = lifecycle;
         onItemClickListener = null;
     }
 
@@ -36,6 +39,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         Video video = videoList.get(position);
 
         YoutubePlayer youtubePlayer = holder.view.findViewById(R.id.youtube_player);
+        lifecycle.addObserver(youtubePlayer);
 
         youtubePlayer.load(video.getKey());
 
