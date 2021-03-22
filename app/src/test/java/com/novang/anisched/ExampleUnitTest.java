@@ -1,5 +1,7 @@
 package com.novang.anisched;
 
+import com.novang.anisched.model.anissia.Anime;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,7 +13,12 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void subjectTest() {
+        Anime anime = new Anime();
+        anime.setStatus("ON");
+        anime.setSubject("제목");
+        anime.setStartDate("2021-03-25");
+        anime.setTime("00:00");
+        assertEquals("[03-25] 제목", anime.getSubjectString());
     }
 }
