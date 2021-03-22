@@ -1,4 +1,4 @@
-package com.novang.anisched.ui.detail;
+ package com.novang.anisched.ui.detail;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -45,6 +45,7 @@ public class DetailActivity extends BaseActivity {
     private AppBarLayout appBar;
     private ImageView animeTmdbBackdrop;
     private TextView animeSubject;
+    private TextView animeStatusOffNotice;
     private ImageView animeTmdbPoster;
     private TextView animeTime;
     private TextView animeStartDate;
@@ -61,7 +62,6 @@ public class DetailActivity extends BaseActivity {
     private LoadingView loadingView;
 
     private CoordinatorLayout container;
-    private ConstraintLayout animeStatusOffNotice;
     private ConstraintLayout tmdbVideoListContainer;
     private ConstraintLayout tmdbDetailContainer;
     private ConstraintLayout tmdbNetworksContainer;
@@ -165,7 +165,11 @@ public class DetailActivity extends BaseActivity {
             animeTime.setText(anime.getTime());
             animeStartDate.setText(anime.getStartDate());
             animeEndDate.setText(anime.getEndDate());
-            if (anime.isStatus()) {
+            if (anime.isEnd()) {
+                animeStatusOffNotice.setVisibility(View.VISIBLE);
+                animeStatusOffNotice.setText("종영한 작품입니다");
+                animeStatusOff.setVisibility(View.VISIBLE);
+            } else if (anime.isStatus()) {
                 animeStatusLive.setVisibility(View.VISIBLE);
             } else {
                 animeStatusOffNotice.setVisibility(View.VISIBLE);

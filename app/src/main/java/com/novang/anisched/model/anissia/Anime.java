@@ -3,8 +3,13 @@ package com.novang.anisched.model.anissia;
 import com.google.gson.annotations.SerializedName;
 import com.novang.anisched.model.base.BaseModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
@@ -104,6 +109,20 @@ public class Anime extends BaseModel {
         return subject;
     }
 
+    public String getSubjectString() {
+        if (getTime().contains(":")) {
+            return (isSoon()
+                    ? "[".concat(startDate.replaceAll("\\d\\d\\d\\d-", "")).concat("] ")
+                    : (!isEnd()
+                        ? (isStatus()
+                            ? ""
+                            : "[결방] ")
+                        : "[종영] "))
+                    .concat(getSubject());
+        }
+        return getSubject();
+    }
+
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -137,6 +156,18 @@ public class Anime extends BaseModel {
         return startDate.replace("-99", "");
     }
 
+    public boolean isSoon() {
+        Date start;
+
+        try {
+            start = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).parse(startDate);
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return Calendar.getInstance(Locale.KOREA).getTime().before(start);
+    }
+
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
@@ -153,6 +184,18 @@ public class Anime extends BaseModel {
             return "미정";
         }
         return endDate.replace("-99", "");
+    }
+
+    public boolean isEnd() {
+        Date end;
+
+        try {
+            end = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).parse(endDate);
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return Calendar.getInstance(Locale.KOREA).getTime().after(end);
     }
 
     public void setEndDate(String endDate) {
