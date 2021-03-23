@@ -54,17 +54,17 @@ public class ListFragment extends BaseFragment {
     protected void initReferences() {
         animeListView = getView().findViewById(R.id.anime_list_View);
         animeListAdapter = new AnimeListAdapter();
+    }
+
+    @Override
+    protected void initViews() {
         animeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         animeListView.setAdapter(animeListAdapter);
     }
 
     @Override
-    protected void initViews() {
-    }
-
-    @Override
     protected void initObservers() {
-        viewModel.animeList.observe(this, animes -> {
+        viewModel.getAnimeList().observe(this, animes -> {
             animeListAdapter.updateList(animes);
         });
     }

@@ -1,5 +1,6 @@
 package com.novang.anisched.ui.schedule.fragment;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,11 +13,10 @@ public class ListViewModel extends ViewModel {
 
     private AnissiaRepository anissiaRepository;
 
-    public MutableLiveData<List<Anime>> animeList;
+    private MutableLiveData<List<Anime>> animeList;
 
     public ListViewModel() {
         anissiaRepository = new AnissiaRepository();
-        animeList = new MutableLiveData<>();
     }
 
     public void callSchedule(int week) {
@@ -25,4 +25,10 @@ public class ListViewModel extends ViewModel {
         });
     }
 
+    public LiveData<List<Anime>> getAnimeList() {
+        if (animeList == null) {
+            animeList = new MutableLiveData<>();
+        }
+        return animeList;
+    }
 }
