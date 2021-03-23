@@ -64,8 +64,15 @@
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="Font.Toolbar" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">20sp</item>
+    <style name="Font.Toolbar" parent="Font.DialogTitle">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Font.ToolbarLight" parent="Font.DialogTitle">
+        <item name="android:textColor">@color/textLight</item>
+    </style>
+
+    <style name="Font.Clear" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/transparent</item>
     </style>
 </resources>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.AniSched.Main" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.AniSched.Main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:colorBackground">@color/background</item>
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:colorPrimary">@color/primary</item>
         <item name="android:colorPrimaryDark">@color/primaryDark</item>
+        <item name="android:textColorHighlight">@color/textDisabled</item>
+        <item name="android:colorControlActivated">@color/text</item>
         <item name="android:colorControlHighlight">@color/textDisabled</item>
 
         <item name="android:windowBackground">@color/background</item>
