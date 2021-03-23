@@ -57,6 +57,17 @@
             app:layout_constraintTop_toBottomOf="@id/subject"
             app:layout_constraintLeft_toRightOf="@id/divider"/>
 
+        <TextView
+            android:id="@+id/extra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="3dp"
+            android:text="EXTRA"
+            android:textAppearance="@style/Font.SubList"
+            android:textColor="@color/textSub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

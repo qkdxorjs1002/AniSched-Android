@@ -109,20 +109,6 @@ public class Anime extends BaseModel {
         return subject;
     }
 
-    public String getSubjectString() {
-        if (getTime().contains(":")) {
-            return (isSoon()
-                    ? "[".concat(startDate.replaceAll("\\d\\d\\d\\d-", "")).concat("] ")
-                    : (!isEnd()
-                        ? (isStatus()
-                            ? ""
-                            : "[결방] ")
-                        : "[종영] "))
-                    .concat(getSubject());
-        }
-        return getSubject();
-    }
-
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -265,5 +251,18 @@ public class Anime extends BaseModel {
         }
 
         return genreList;
+    }
+
+    public String getExtraInfo() {
+        if (getTime().contains(":")) {
+            return (isSoon()
+                    ? startDate.replaceAll("\\d\\d\\d\\d-", "")
+                    : (!isEnd()
+                    ? (isStatus()
+                    ? ""
+                    : "결방")
+                    : "종영"));
+        }
+        return "";
     }
 }
