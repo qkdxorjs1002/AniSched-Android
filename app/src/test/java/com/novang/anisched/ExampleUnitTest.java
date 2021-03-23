@@ -13,12 +13,15 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void subjectTest() {
+    public void extraTest() {
         Anime anime = new Anime();
         anime.setStatus("ON");
-        anime.setSubject("제목");
-        anime.setStartDate("2021-03-25");
+        anime.setStartDate("2019-03-25");
+        anime.setEndDate("2020-03-25");
         anime.setTime("00:00");
-        assertEquals("[03-25] 제목", anime.getSubjectString());
+        assertEquals("종영", anime.getExtraInfo());
+        anime.setStartDate("2089-03-25");
+        anime.setEndDate("2099-03-25");
+        assertEquals("03-25", anime.getExtraInfo());
     }
 }
