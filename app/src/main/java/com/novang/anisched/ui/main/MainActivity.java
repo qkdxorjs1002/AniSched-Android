@@ -1,7 +1,9 @@
 package com.novang.anisched.ui.main;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -22,6 +25,7 @@ import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.ui.detail.DetailActivity;
 import com.novang.anisched.ui.schedule.ScheduleActivity;
 import com.novang.anisched.ui.schedule.fragment.ListFragment;
+import com.novang.anisched.ui.search.SearchActivity;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -30,6 +34,7 @@ public class MainActivity extends BaseActivity {
 
     private MainViewModel viewModel;
 
+    private Toolbar toolbar;
     private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
 
     private ConstraintLayout menuNew;
@@ -70,6 +75,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initReferences() {
+        toolbar = findViewById(R.id.toolbar);
         menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
         menuMon = findViewById(R.id.menu_monday);
@@ -123,6 +129,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEvents() {
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menu_search) {
+                start(this, SearchActivity.class);
+            }
+            return false;
+        });
+
         View.OnClickListener menuClickListener = v -> {
             int week = 8;
 
@@ -179,5 +192,4 @@ public class MainActivity extends BaseActivity {
             start(this, DetailActivity.class, "id", anime.getId());
         });
     }
-
 }

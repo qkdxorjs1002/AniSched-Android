@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.model.anissia.Anime;
+import com.novang.anisched.model.anissia.AutoCorrect;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -182,6 +185,42 @@ public class AnissiaRepository {
         });
 
         return rankList;
+    }
+
+    /**
+     * 검색 Auto correct
+     *
+     * @param query 쿼리할 단어
+     * @return Call<List<String>>
+     */
+    public LiveData<List<AutoCorrect>> requestAutoCorrect(String query) {
+        MutableLiveData<List<AutoCorrect>> autoList = new MutableLiveData<>();
+
+        Call<List<String>> request = service.requestAutoCorrect(query);
+
+        request.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                ListIterator<String> listIterator = response.body().listIterator();
+                List<AutoCorrect> autoCorrectList = new ArrayList<>();
+
+                while (listIterator.hasNext()) {
+                    autoCorrectList.add(new AutoCorrect(listIterator.next()));
+                }
+
+                autoList.postValue(autoCorrectList);
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+        return autoList;
     }
 
 }

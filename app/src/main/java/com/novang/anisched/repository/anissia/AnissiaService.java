@@ -10,6 +10,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * 애니시아 API<br/>
@@ -59,9 +60,18 @@ public interface AnissiaService {
      * 순위 정보
      *
      * @param factor 순위 단위 (day/week/month)
-     * @return Call<List<Rank></Rank>>
+     * @return Call<List<Rank>>
      */
     @GET("rank/{factor}")
     Call<List<Rank>> requestRanking(@Path("factor") String factor);
-    
+
+    /**
+     * 검색 Auto correct
+     *
+     * @param query 쿼리할 단어
+     * @return Call<List<String>>
+     */
+    @GET("autocorrect")
+    Call<List<String>> requestAutoCorrect(@Query("q") String query);
+
 }
