@@ -14,11 +14,11 @@ import androidx.palette.graphics.Palette;
  */
 public class DynamicBackground {
 
-    private GradientDrawable background;
-    private GradientDrawable shade;
-    private int topColor;
-    private int bottomColor;
-    private boolean isTopDark;
+    private final GradientDrawable background;
+    private final GradientDrawable shade;
+    private final int topColor;
+    private final int bottomColor;
+    private final boolean isTopDark;
 
     public DynamicBackground(GradientDrawable background, GradientDrawable shade, int topColor, int bottomColor, boolean isTopDark) {
         this.background = background;
@@ -29,12 +29,12 @@ public class DynamicBackground {
     }
 
     public static DynamicBackground generate(Bitmap bitmap) {
-        Palette palette = Palette.from(bitmap).generate();
-        Palette.Swatch dominantSwatch = palette.getDominantSwatch();
-        Palette.Swatch topDominantSwatch =
-                Palette.from(Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight() / 6))
-                        .generate()
-                        .getDominantSwatch();
+        Palette.Swatch dominantSwatch = Palette.from(bitmap).generate().getDominantSwatch();
+        Palette.Swatch topDominantSwatch = Palette.from(
+                Bitmap.createBitmap(
+                        bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight() / 6))
+                .generate()
+                .getDominantSwatch();
 
         int topColor = 0, bottomColor = 0;
         boolean isTopDark = false;
@@ -42,7 +42,9 @@ public class DynamicBackground {
 
         if (dominantSwatch != null) {
             hue = dominantSwatch.getHsl()[0];
-            isTopDark = (topDominantSwatch.getHsl()[2] <= 0.6f);
+            if (topDominantSwatch != null) {
+                isTopDark = (topDominantSwatch.getHsl()[2] <= 0.6f);
+            }
         } else {
             return null;
         }
