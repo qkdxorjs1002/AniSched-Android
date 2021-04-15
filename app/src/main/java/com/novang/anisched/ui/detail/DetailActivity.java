@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
@@ -187,7 +188,7 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getTmdbMovie().observe(this, movie -> {
-            updateImages(movie.getBackdropURL("original"), movie.getPosterURL("w400"));
+            updateImages(movie.getBackdropURL("w1280"), movie.getPosterURL("w400"));
             animeTime.setText(movie.getRuntime().concat("분"));
             tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
             tmdbOverview.setText(movie.getOverview());
@@ -199,7 +200,7 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getTmdbTV().observe(this, tv -> {
-            updateImages(tv.getBackdropURL("original"), tv.getPosterURL("w400"));
+            updateImages(tv.getBackdropURL("w1280"), tv.getPosterURL("w400"));
             animeTime.setText(animeTime.getText().toString().concat(" - ").concat(String.valueOf(tv.getRuntime()).concat("분")));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));
             tmdbOverview.setText(tv.getOverview());

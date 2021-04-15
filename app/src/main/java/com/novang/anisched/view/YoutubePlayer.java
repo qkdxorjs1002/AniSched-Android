@@ -27,8 +27,9 @@ public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
 
     private final String THUMBNAIL_BASE_URL = "https://i.ytimg.com/vi/";
     private final String THUMBNAIL_ORIGINAL = "/original.jpg";
-    private final String THUMBNAIL_MAXRES = "/maxresdefault.jpg";
+    private final String THUMBNAIL_MAX = "/maxresdefault.jpg";
     private final String THUMBNAIL_HQ = "/hqdefault.jpg";
+    private final String THUMBNAIL_MQ = "/mqdefault.jpg";
 
     private final ImageView thumbnail;
     private final WebView webView;
@@ -92,14 +93,7 @@ public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
         key.observeForever(s -> {
 
             GlideApp.with(this)
-                    .load(THUMBNAIL_BASE_URL.concat(s).concat(THUMBNAIL_ORIGINAL))
-                    .error(
-                            GlideApp.with(this)
-                                    .load(THUMBNAIL_BASE_URL.concat(s).concat(THUMBNAIL_MAXRES))
-                                    .error(GlideApp.with(this)
-                                            .load(THUMBNAIL_BASE_URL.concat(s).concat(THUMBNAIL_HQ))
-                                    )
-                    )
+                    .load(THUMBNAIL_BASE_URL.concat(s).concat(THUMBNAIL_HQ))
                     .into(thumbnail);
 
             thumbnail.setOnClickListener(v -> {
