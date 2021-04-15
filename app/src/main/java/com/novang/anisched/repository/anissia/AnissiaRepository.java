@@ -57,6 +57,27 @@ public class AnissiaRepository {
         service = retrofit.create(AnissiaService.class);
     }
 
+    public LiveData<Boolean> ping() {
+        MutableLiveData<Boolean> available = new MutableLiveData<>();
+
+        Call<String[]> request = service.ping();
+
+        request.enqueue(new Callback<String[]>() {
+            @Override
+            public void onResponse(Call<String[]> call, Response<String[]> response) {
+                available.postValue(response.code() == 200 || response.code() == 204);
+            }
+
+            @Override
+            public void onFailure(Call<String[]> call, Throwable throwable) {
+                available.postValue(false);
+                throwable.printStackTrace();
+            }
+        });
+
+        return available;
+    }
+
     /**
      * 애니메이션 목록
      *

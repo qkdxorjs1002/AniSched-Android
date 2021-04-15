@@ -263,6 +263,7 @@ public class DetailActivity extends BaseActivity {
         RequestListener<Bitmap> backdropListener = new RequestListener<Bitmap>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                Toast.makeText(DetailActivity.this, "배경 이미지를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -277,6 +278,7 @@ public class DetailActivity extends BaseActivity {
         RequestListener<Bitmap> posterListener = new RequestListener<Bitmap>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                Toast.makeText(DetailActivity.this, "포스터 이미지를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 return false;
             }
 

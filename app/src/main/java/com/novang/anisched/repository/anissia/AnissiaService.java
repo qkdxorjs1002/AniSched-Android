@@ -20,6 +20,9 @@ import retrofit2.http.Query;
  */
 public interface AnissiaService {
 
+    @GET("autocorrect?q=")
+    Call<String[]> ping();
+
     /**
      * 스케줄 목록
      *
