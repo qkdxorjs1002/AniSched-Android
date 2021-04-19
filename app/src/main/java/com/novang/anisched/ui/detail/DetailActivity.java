@@ -161,6 +161,12 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected void initObservers() {
         viewModel.getAnissiaAnime().observe(this, anime -> {
+            if (anime == null) {
+                Toast.makeText(this, "애니시아 서버에서 정보를 가져오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+                finish();
+
+                return;
+            }
             viewModel.searchTMDB(getString(R.string.tmdb_api_key), anime);
             animeSubject.setText(anime.getSubject());
             animeTime.setText(anime.getTime());
@@ -188,6 +194,12 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getTmdbMovie().observe(this, movie -> {
+            if (movie == null) {
+                Toast.makeText(this, "TMDb 서버에서 정보를 가져오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+                viewModel.getLoadingStatus().postValue(false);
+
+                return;
+            }
             updateImages(movie.getBackdropURL("w1280"), movie.getPosterURL("w400"));
             animeTime.setText(movie.getRuntime().concat("분"));
             tmdbTitle.setText(movie.getTitle().concat("\n").concat(movie.getOriginalTitle()));
@@ -200,6 +212,12 @@ public class DetailActivity extends BaseActivity {
         });
 
         viewModel.getTmdbTV().observe(this, tv -> {
+            if (tv == null) {
+                Toast.makeText(this, "TMDb 서버에서 정보를 가져오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+                viewModel.getLoadingStatus().postValue(false);
+
+                return;
+            }
             updateImages(tv.getBackdropURL("w1280"), tv.getPosterURL("w400"));
             animeTime.setText(animeTime.getText().toString().concat(" - ").concat(String.valueOf(tv.getRuntime()).concat("분")));
             tmdbTitle.setText(tv.getName().concat("\n").concat(tv.getOriginalName()));

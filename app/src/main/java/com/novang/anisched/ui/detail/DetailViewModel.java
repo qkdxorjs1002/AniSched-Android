@@ -1,6 +1,7 @@
 package com.novang.anisched.ui.detail;
 
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -55,12 +56,16 @@ public class DetailViewModel extends ViewModel {
         if (type.equals("movie")) {
             tmdbRepository.requestMovie(apiKey, "ko-KR", id).observeForever(movie -> {
                 tmdbMovie.postValue(movie);
-                mediaType.postValue("movie");
+                if (movie != null) {
+                    mediaType.postValue("movie");
+                }
             });
         } else if (type.equals("tv")) {
             tmdbRepository.requestTv(apiKey, "ko-KR", id).observeForever(tv -> {
                 tmdbTV.postValue(tv);
-                mediaType.postValue("tv");
+                if (tv != null) {
+                    mediaType.postValue("tv");
+                }
             });
         }
 

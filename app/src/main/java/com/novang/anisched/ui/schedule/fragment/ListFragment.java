@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.novang.anisched.R;
 import com.novang.anisched.adapter.AnimeListAdapter;
@@ -65,6 +66,11 @@ public class ListFragment extends BaseFragment {
     @Override
     protected void initObservers() {
         viewModel.getAnimeList().observe(this, animes -> {
+            if (animes == null) {
+                Toast.makeText(getActivity(), "애니시아 서버에서 정보를 가져오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+
+                return;
+            }
             animeListAdapter.updateList(animes);
         });
     }

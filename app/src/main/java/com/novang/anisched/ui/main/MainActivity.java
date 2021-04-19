@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.novang.anisched.BuildConfig;
 import com.novang.anisched.R;
@@ -116,6 +117,12 @@ public class MainActivity extends BaseActivity {
         });
 
         viewModel.getRankList().observe(this, ranks -> {
+            if (ranks == null) {
+                Toast.makeText(this, "애니시아 서버에서 정보를 가져오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+                finish();
+
+                return;
+            }
             rankBannerListAdapter.updateList(ranks);
             viewModel.startTimer(10000,10000);
         });
