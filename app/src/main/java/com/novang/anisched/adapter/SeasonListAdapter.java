@@ -51,7 +51,7 @@ public class SeasonListAdapter extends RecyclerView.Adapter<SeasonListAdapter.Vi
 
         GlideApp.with(holder.view)
                 .asBitmap()
-                .load(season.getPosterURL("w200"))
+                .load(season.getPosterURL("w400"))
                 .override(Target.SIZE_ORIGINAL)
                 .into(seasonPoster);
 
