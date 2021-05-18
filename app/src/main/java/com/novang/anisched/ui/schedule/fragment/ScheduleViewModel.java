@@ -9,13 +9,13 @@ import com.novang.anisched.repository.anissia.AnissiaRepository;
 
 import java.util.List;
 
-public class ListViewModel extends ViewModel {
+public class ScheduleViewModel extends ViewModel {
 
-    private AnissiaRepository anissiaRepository;
+    private final AnissiaRepository anissiaRepository;
 
     private MutableLiveData<List<Anime>> animeList;
 
-    public ListViewModel() {
+    public ScheduleViewModel() {
         anissiaRepository = new AnissiaRepository();
     }
 

@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class TMDBHelper {
 
-    private TMDBRepository tmdbRepository;
-    private OnResultListener onResultListener;
+    private final TMDBRepository tmdbRepository;
+    private final OnResultListener onResultListener;
 
     private final List<String> regexList = new ArrayList<>(Arrays.asList(
             "", "(\\s\\d기)|(\\s(OVA|OAD))|(\\s(IX|IV|V?I{0,3})$)|(\\s\\d(?i)[snrt](?i)[tdh])|(((\\s(?i)the)(\\s\\w+|)|)\\s(시즌|(?i)season)(\\d|\\s\\d|))"

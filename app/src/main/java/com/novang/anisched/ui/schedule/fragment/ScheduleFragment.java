@@ -20,15 +20,15 @@ import com.novang.anisched.adapter.AnimeListAdapter;
 import com.novang.anisched.base.BaseFragment;
 import com.novang.anisched.ui.detail.DetailActivity;
 
-public class ListFragment extends BaseFragment {
+public class ScheduleFragment extends BaseFragment {
 
-    private ListViewModel viewModel;
+    private ScheduleViewModel viewModel;
 
     private RecyclerView animeListView;
     private AnimeListAdapter animeListAdapter;
 
-    public static ListFragment newInstance(int week) {
-        ListFragment fragment = new ListFragment();
+    public static ScheduleFragment newInstance(int week) {
+        ScheduleFragment fragment = new ScheduleFragment();
         Bundle bundle = new Bundle();
 
         bundle.putInt("week", week);
@@ -46,14 +46,14 @@ public class ListFragment extends BaseFragment {
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(ListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         super.init(savedInstanceState);
         viewModel.callSchedule(getArguments().getInt("week"));
     }
 
     @Override
     protected void initReferences() {
-        animeListView = getView().findViewById(R.id.anime_list_View);
+        animeListView = getView().findViewById(R.id.fragment_list_View);
         animeListAdapter = new AnimeListAdapter();
     }
 

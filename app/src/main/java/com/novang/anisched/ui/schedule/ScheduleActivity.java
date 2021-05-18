@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.novang.anisched.R;
 import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.repository.anissia.AnissiaRepository;
-import com.novang.anisched.ui.schedule.fragment.ListFragment;
+import com.novang.anisched.ui.schedule.fragment.ScheduleFragment;
 
 public class ScheduleActivity extends BaseActivity {
 
@@ -28,7 +28,7 @@ public class ScheduleActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.list_container, ListFragment.newInstance(week))
+                    .replace(R.id.list_container, ScheduleFragment.newInstance(week))
                     .commitNow();
         }
     }
