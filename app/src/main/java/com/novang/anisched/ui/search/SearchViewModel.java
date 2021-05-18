@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SearchViewModel extends ViewModel {
 
-    private AnissiaRepository anissiaRepository;
+    private final AnissiaRepository anissiaRepository;
 
     private MutableLiveData<List<AutoCorrect>> autoCorrectList;
 

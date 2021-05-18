@@ -15,7 +15,7 @@ import com.novang.anisched.R;
 
 public class LoadingView extends ConstraintLayout {
 
-    private ImageView loadingIcon;
+    private final ImageView loadingIcon;
 
     public LoadingView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

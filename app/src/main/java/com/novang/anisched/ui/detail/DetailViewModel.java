@@ -21,8 +21,8 @@ import java.util.List;
 
 public class DetailViewModel extends ViewModel {
 
-    private AnissiaRepository anissiaRepository;
-    private TMDBRepository tmdbRepository;
+    private final AnissiaRepository anissiaRepository;
+    private final TMDBRepository tmdbRepository;
 
     private MutableLiveData<Anime> anissiaAnime;
     private MutableLiveData<Movie> tmdbMovie;

@@ -34,7 +34,7 @@ public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
     private final ImageView thumbnail;
     private final WebView webView;
 
-    private MutableLiveData<String> key;
+    private final MutableLiveData<String> key;
 
     public YoutubePlayer(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
