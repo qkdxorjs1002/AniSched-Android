@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.schedule.ScheduleActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recent_caption_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="26dp"
+            android:paddingVertical="12dp"
+            android:background="?selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/recent_caption_header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 자막"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/Font.MainList"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/recent_caption_header_title_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:text="길게 눌러 해당 작품 정보로 바로가기"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/Font.SubList"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintLeft_toRightOf="@id/recent_caption_header_title"
+                app:layout_constraintBottom_toBottomOf="@id/recent_caption_header_title"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/listItemBackground"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/recent_caption_header">
+
+            <FrameLayout
+                android:id="@+id/list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

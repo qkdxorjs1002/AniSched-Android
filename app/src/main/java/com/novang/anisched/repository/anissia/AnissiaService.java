@@ -4,6 +4,7 @@ package com.novang.anisched.repository.anissia;
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
+import com.novang.anisched.model.anissia.RecentCaption;
 
 import java.util.List;
 
@@ -49,6 +50,14 @@ public interface AnissiaService {
      */
     @GET("caption/animeNo/{id}")
     Call<List<Caption>> requestCaption(@Path("id") int id);
+
+    /**
+     * 최근 업로드된 자막 목록
+     *
+     * @return Call<List<RecentCaption>>
+     */
+    @GET("caption/recent")
+    Call<List<RecentCaption>> requestRecentCaption();
 
     /**
      * 애니메이션 정보

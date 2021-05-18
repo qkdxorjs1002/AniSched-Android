@@ -7,6 +7,7 @@ import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.AutoCorrect;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
+import com.novang.anisched.model.anissia.RecentCaption;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,6 +148,31 @@ public class AnissiaRepository {
 
             @Override
             public void onFailure(Call<List<Caption>> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+        return captionList;
+    }
+
+    /**
+     * 최근 업로드된 자막 목록
+     *
+     * @return MutableLiveData<List<RecentCaption>>
+     */
+    public LiveData<List<RecentCaption>> requestRecentCaption() {
+        MutableLiveData<List<RecentCaption>> captionList = new MutableLiveData<>();
+
+        Call<List<RecentCaption>> request = service.requestRecentCaption();
+
+        request.enqueue(new Callback<List<RecentCaption>>() {
+            @Override
+            public void onResponse(Call<List<RecentCaption>> call, Response<List<RecentCaption>> response) {
+                captionList.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<RecentCaption>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });

@@ -31,6 +31,8 @@
 
         <activity android:name=".ui.schedule.ScheduleActivity" />
 
+        <activity android:name=".ui.recent.caption.RecentCaptionActivity" />
+
         <activity android:name=".ui.search.SearchActivity" />
 
     </application>

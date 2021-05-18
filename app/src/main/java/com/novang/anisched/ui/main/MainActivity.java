@@ -22,8 +22,10 @@ import com.novang.anisched.R;
 import com.novang.anisched.adapter.RankBannerListAdapter;
 import com.novang.anisched.base.BaseActivity;
 import com.novang.anisched.ui.detail.DetailActivity;
+import com.novang.anisched.ui.recent.caption.RecentCaptionActivity;
+import com.novang.anisched.ui.recent.caption.fragment.RecentCaptionFragment;
 import com.novang.anisched.ui.schedule.ScheduleActivity;
-import com.novang.anisched.ui.schedule.fragment.ListFragment;
+import com.novang.anisched.ui.schedule.fragment.ScheduleFragment;
 import com.novang.anisched.ui.search.SearchActivity;
 
 import java.util.Calendar;
@@ -36,7 +38,7 @@ public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     private ImageButton menuSun, menuMon, menuTue, menuWed, menuThu, menuFri, menuSat, menuOva;
 
-    private ConstraintLayout menuNew;
+    private ConstraintLayout recentCaptionHeader, menuNew;
 
     private RecyclerView rankBannerListView;
     private RankBannerListAdapter rankBannerListAdapter;
@@ -50,7 +52,11 @@ public class MainActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.today_schedule_container, ListFragment.newInstance(
+                    .replace(R.id.recent_caption_container, RecentCaptionFragment.newInstance(3))
+                    .commitNow();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.today_schedule_container, ScheduleFragment.newInstance(
                             Calendar.getInstance(Locale.KOREA).get(Calendar.DAY_OF_WEEK) - 1))
                     .commitNow();
         }
@@ -75,6 +81,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initReferences() {
         toolbar = findViewById(R.id.toolbar);
+        recentCaptionHeader = findViewById(R.id.recent_caption_header);
         menuNew = findViewById(R.id.menu_new);
         menuSun = findViewById(R.id.menu_sunday);
         menuMon = findViewById(R.id.menu_monday);
@@ -139,6 +146,10 @@ public class MainActivity extends BaseActivity {
                 start(this, SearchActivity.class);
             }
             return false;
+        });
+
+        recentCaptionHeader.setOnClickListener(v -> {
+            start(this, RecentCaptionActivity.class);
         });
 
         View.OnClickListener menuClickListener = v -> {
