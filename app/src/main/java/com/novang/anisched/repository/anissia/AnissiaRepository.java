@@ -45,16 +45,14 @@ public class AnissiaRepository {
         put(8, "신작");
     }};
 
-    private Retrofit retrofit;
-    private AnissiaService service;
+    private final AnissiaService service;
 
     public AnissiaRepository() {
-        retrofit = new Retrofit.Builder()
+        service = new Retrofit.Builder()
                 .baseUrl("https://anissia.net/api/anime/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(AnissiaService.class);
+                .build()
+                .create(AnissiaService.class);
     }
 
     public LiveData<Boolean> ping() {

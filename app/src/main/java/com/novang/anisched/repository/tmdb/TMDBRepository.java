@@ -22,16 +22,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TMDBRepository {
 
-    private Retrofit retrofit;
-    private TMDBService service;
+    private final TMDBService service;
 
     public TMDBRepository() {
-        retrofit = new Retrofit.Builder()
+        service = new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(TMDBService.class);
+                .build()
+                .create(TMDBService.class);
     }
 
     /**

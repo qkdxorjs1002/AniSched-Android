@@ -21,18 +21,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GithubRepository {
 
-    private Retrofit retrofit;
-    private GithubService service;
+    private final GithubService service;
 
     public String username, repo;
 
     public GithubRepository(String username, String repo) {
-        retrofit = new Retrofit.Builder()
+        service = new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(GithubService.class);
+                .build()
+                .create(GithubService.class);
 
         this.username = username;
         this.repo = repo;
