@@ -2,6 +2,7 @@ package com.novang.anisched.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,15 @@ public class RankBannerListAdapter extends RecyclerView.Adapter<RankBannerListAd
                 .inflate(R.layout.layout_rank_banner_list_item, parent, false);
 
         return new ViewHolder(v);
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        ImageView rankBackdrop = holder.view.findViewById(R.id.rank_backdrop);
+
+        rankBackdrop.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
