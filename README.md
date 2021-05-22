@@ -4,7 +4,9 @@
 <p align="center">
   <img src="img/playstore_graphic.png"/>
 <br/><br/>
-  <img src="img/1.jpg" width="200"/> <img src="img/1-2.jpg" width="200"/> <img src="img/2.jpg" width="200"/> <img src="img/3.jpg" width="200"/><br/><img src="img/4.jpg" width="200"/> <img src="img/6.jpg" width="200"/> <img src="img/7.jpg" width="200"/> <img src="img/8.jpg" width="200"/>
+  <img src="img/1.jpg" width="200"/> <img src="img/1-2.jpg" width="200"/>
+  <img src="img/5.jpg" width="200"/> <img src="img/6.jpg" width="200"/><br/>
+  <img src="img/2.jpg" width="200"/> <img src="img/3.jpg" width="200"/> <img src="img/4.jpg" width="200"/>
 </p>
 <br/>
 
@@ -15,6 +17,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/qkdxorjs1002/AniSched-Android/total?style=for-the-badge)](https://github.com/qkdxorjs1002/AniSched-Android/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
+
 ## 다운로드
 ### API 23 (Marshmallow / 6) 이상 지원
 [![Download](https://img.shields.io/badge/Playstore-Downloads-default.svg?style=for-the-badge&logo=google+play)](https://play.google.com/store/apps/details?id=com.novang.anisched)
@@ -23,15 +26,30 @@
 위 두 링크에서 앱을 다운로드 할 수 있습니다. (플레이스토어 권장)
 <br/><br/>
 
-## 기능
- - 요일별, 신작 / 외전 편성표 목록
- - 작품의 방영 정보와 이미지, 줄거리 및 시청자 평가 등 상세 정보
- - 트레일러 조회
- - 작품의 실시간 자막 정보
- - 주간 랭킹
- - 전체 목록 검색
- - 나무위키 바로가기
- - 그 외 [추가 예정](https://github.com/qkdxorjs1002/AniSched-Android/projects/1)
+## 설명
+### 언제 원하는 애니가 방영되는지, 어떤 애니인지 확인하세요.
+### 무슨 애니메이션이 방영 예정인지 확인하세요.
+<br/>
+
+### 애니시아와 TMDb 기반의 애니메이션 편성표입니다.
+<br/>
+
+AniSched는 아래와 같은 기능을 제공합니다.
+- Light/Dark 모드 지원
+- 요일별 / 신작 / 외전 편성표
+- 제목, 방영 시간, 방영일, 종영일, 장르, 사이트 정보
+- 애니시아 주요 기능, 주간 순위
+- 포스터, 대표 이미지 등
+- 트레일러, PV, CM 등 영상 (해당 영상 업로더의 설정에 따라 재생이 제한될 수 있습니다.)
+- 줄거리 및 시청자 평점, 시즌, 방송사 및 제작사 정보
+- 위키 바로가기
+- 전체 검색 기능
+- 그 외 [추가 예정](https://github.com/qkdxorjs1002/AniSched-Android/projects/1)
+
+<br/>
+
+업데이트를 통해 많은 편리한 기능이 추가될 예정이에요.<br/>
+본 앱은 세로가 긴 휴대전화 화면에 최적화 되어 있습니다.
 <br/><br/>
 
 ## Q&A
