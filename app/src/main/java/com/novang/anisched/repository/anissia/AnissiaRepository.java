@@ -50,7 +50,7 @@ public class AnissiaRepository {
 
     public AnissiaRepository() {
         service = new Retrofit.Builder()
-                .baseUrl("https://anissia.net/api/anime/")
+                .baseUrl("https://api.anissia.net/anime/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AnissiaService.class);
