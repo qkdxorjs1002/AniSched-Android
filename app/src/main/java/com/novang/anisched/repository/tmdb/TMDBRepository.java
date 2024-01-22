@@ -41,9 +41,9 @@ public class TMDBRepository {
      * @return Call<List<Anime>>
      */
     public LiveData<Search> search(String apiKey, String lang, String keyword) {
-        MutableLiveData<Search> resultList = new MutableLiveData<>();
+        final MutableLiveData<Search> resultList = new MutableLiveData<>();
 
-        Call<Search> request = service.search(apiKey, lang, keyword);
+        final Call<Search> request = service.search(apiKey, lang, keyword);
 
         request.enqueue(new Callback<Search>() {
             @Override
@@ -69,9 +69,9 @@ public class TMDBRepository {
      * @return Call<Movie>
      */
     public LiveData<Movie> requestMovie(String apiKey, String lang, int id) {
-        MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
+        final MutableLiveData<Movie> movieDetail = new MutableLiveData<>();
 
-        Call<Movie> request = service.requestMovie(id, apiKey, lang);
+        final Call<Movie> request = service.requestMovie(id, apiKey, lang);
 
         request.enqueue(new Callback<Movie>() {
             @Override
@@ -97,9 +97,9 @@ public class TMDBRepository {
      * @return Call<TV>
      */
     public LiveData<TV> requestTv(String apiKey, String lang, int id) {
-        MutableLiveData<TV> tvDetail = new MutableLiveData<>();
+        final MutableLiveData<TV> tvDetail = new MutableLiveData<>();
 
-        Call<TV> request = service.requestTv(id, apiKey, lang);
+        final Call<TV> request = service.requestTv(id, apiKey, lang);
 
         request.enqueue(new Callback<TV>() {
             @Override
@@ -126,9 +126,9 @@ public class TMDBRepository {
      * @return Call<Videos>
      */
     public LiveData<Videos> requestVideos(String apiKey, String lang, String type, int id) {
-        MutableLiveData<Videos> videoList = new MutableLiveData<>();
+        final MutableLiveData<Videos> videoList = new MutableLiveData<>();
 
-        Call<Videos> request = service.requestVideos(type, id, apiKey, lang);
+        final Call<Videos> request = service.requestVideos(type, id, apiKey, lang);
 
         request.enqueue(new Callback<Videos>() {
             @Override

@@ -5,6 +5,7 @@ import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
 import com.novang.anisched.model.anissia.RecentCaption;
+import com.novang.anisched.model.anissia.AnissiaResponse;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import retrofit2.http.Query;
 public interface AnissiaService {
 
     @GET("autocorrect?q=")
-    Call<String[]> ping();
+    Call<AnissiaResponse<String[]>> ping();
 
     /**
      * 스케줄 목록
@@ -31,7 +32,7 @@ public interface AnissiaService {
      * @return Call<List<Anime>>
      */
     @GET("schedule/{week}")
-    Call<List<Anime>> requestSchedule(@Path("week") int week);
+    Call<AnissiaResponse<List<Anime>>> requestSchedule(@Path("week") int week);
 
     /**
      * 전체 목록
@@ -40,7 +41,7 @@ public interface AnissiaService {
      * @return Call<List<Anime>>
      */
     @GET("list/{page}")
-    Call<List<Anime>> requestAllSchedule(@Path("page") int page);
+    Call<AnissiaResponse<List<Anime>>> requestAllSchedule(@Path("page") int page);
 
     /**
      * 자막 목록
@@ -49,7 +50,7 @@ public interface AnissiaService {
      * @return Call<List<Caption>>
      */
     @GET("caption/animeNo/{id}")
-    Call<List<Caption>> requestCaption(@Path("id") int id);
+    Call<AnissiaResponse<List<Caption>>> requestCaption(@Path("id") int id);
 
     /**
      * 최근 업로드된 자막 목록
@@ -57,7 +58,7 @@ public interface AnissiaService {
      * @return Call<List<RecentCaption>>
      */
     @GET("caption/recent")
-    Call<List<RecentCaption>> requestRecentCaption();
+    Call<AnissiaResponse<List<RecentCaption>>> requestRecentCaption();
 
     /**
      * 애니메이션 정보
@@ -66,7 +67,7 @@ public interface AnissiaService {
      * @return Call<Anime>
      */
     @GET("animeNo/{id}")
-    Call<Anime> requestAnime(@Path("id") int id);
+    Call<AnissiaResponse<Anime>> requestAnime(@Path("id") int id);
 
     /**
      * 순위 정보
@@ -75,7 +76,7 @@ public interface AnissiaService {
      * @return Call<List<Rank>>
      */
     @GET("rank/{factor}")
-    Call<List<Rank>> requestRanking(@Path("factor") String factor);
+    Call<AnissiaResponse<List<Rank>>> requestRanking(@Path("factor") String factor);
 
     /**
      * 검색 Auto correct
@@ -84,6 +85,6 @@ public interface AnissiaService {
      * @return Call<List<String>>
      */
     @GET("autocorrect")
-    Call<List<String>> requestAutoCorrect(@Query("q") String query);
+    Call<AnissiaResponse<List<String>>> requestAutoCorrect(@Query("q") String query);
 
 }

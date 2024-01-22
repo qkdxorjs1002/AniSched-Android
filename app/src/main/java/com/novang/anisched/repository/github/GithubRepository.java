@@ -42,9 +42,9 @@ public class GithubRepository {
      * @return Call<List < Release>>
      */
     public LiveData<List<Release>> requestRelease() {
-        MutableLiveData<List<Release>> releaseList = new MutableLiveData<>();
+        final MutableLiveData<List<Release>> releaseList = new MutableLiveData<>();
 
-        Call<List<Release>> request = service.requestRelease(username, repo);
+        final Call<List<Release>> request = service.requestRelease(username, repo);
 
         request.enqueue(new Callback<List<Release>>() {
             @Override

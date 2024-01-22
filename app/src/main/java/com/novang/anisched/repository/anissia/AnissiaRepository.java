@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novang.anisched.model.anissia.Anime;
+import com.novang.anisched.model.anissia.AnissiaResponse;
 import com.novang.anisched.model.anissia.AutoCorrect;
 import com.novang.anisched.model.anissia.Caption;
 import com.novang.anisched.model.anissia.Rank;
@@ -57,18 +58,18 @@ public class AnissiaRepository {
     }
 
     public LiveData<Boolean> ping() {
-        MutableLiveData<Boolean> available = new MutableLiveData<>();
+        final MutableLiveData<Boolean> available = new MutableLiveData<>();
 
-        Call<String[]> request = service.ping();
+        final Call<AnissiaResponse<String[]>> request = service.ping();
 
-        request.enqueue(new Callback<String[]>() {
+        request.enqueue(new Callback<AnissiaResponse<String[]>>() {
             @Override
-            public void onResponse(Call<String[]> call, Response<String[]> response) {
+            public void onResponse(Call<AnissiaResponse<String[]>> call, Response<AnissiaResponse<String[]>> response) {
                 available.postValue(response.code() == 200 || response.code() == 204);
             }
 
             @Override
-            public void onFailure(Call<String[]> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<String[]>> call, Throwable throwable) {
                 available.postValue(false);
                 throwable.printStackTrace();
             }
@@ -84,18 +85,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<List<Anime>>
      */
     public LiveData<List<Anime>> requestSchedule(int week) {
-        MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
+        final MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
-        Call<List<Anime>> request = service.requestSchedule(week);
+        final Call<AnissiaResponse<List<Anime>>> request = service.requestSchedule(week);
 
-        request.enqueue(new Callback<List<Anime>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<Anime>>>() {
             @Override
-            public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
-                animeList.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<List<Anime>>> call, Response<AnissiaResponse<List<Anime>>> response) {
+                animeList.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<List<Anime>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<Anime>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -110,18 +111,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<List<Anime>>
      */
     public LiveData<List<Anime>> requestAllSchedule(int page) {
-        MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
+        final MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
 
-        Call<List<Anime>> request = service.requestAllSchedule(page);
+        final Call<AnissiaResponse<List<Anime>>> request = service.requestAllSchedule(page);
 
-        request.enqueue(new Callback<List<Anime>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<Anime>>>() {
             @Override
-            public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
-                animeList.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<List<Anime>>> call, Response<AnissiaResponse<List<Anime>>> response) {
+                animeList.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<List<Anime>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<Anime>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -136,18 +137,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<List<Caption>>
      */
     public LiveData<List<Caption>> requestCaption(int id) {
-        MutableLiveData<List<Caption>> captionList = new MutableLiveData<>();
+        final MutableLiveData<List<Caption>> captionList = new MutableLiveData<>();
 
-        Call<List<Caption>> request = service.requestCaption(id);
+        final Call<AnissiaResponse<List<Caption>>> request = service.requestCaption(id);
 
-        request.enqueue(new Callback<List<Caption>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<Caption>>>() {
             @Override
-            public void onResponse(Call<List<Caption>> call, Response<List<Caption>> response) {
-                captionList.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<List<Caption>>> call, Response<AnissiaResponse<List<Caption>>> response) {
+                captionList.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<List<Caption>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<Caption>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -161,18 +162,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<List<RecentCaption>>
      */
     public LiveData<List<RecentCaption>> requestRecentCaption() {
-        MutableLiveData<List<RecentCaption>> captionList = new MutableLiveData<>();
+        final MutableLiveData<List<RecentCaption>> captionList = new MutableLiveData<>();
 
-        Call<List<RecentCaption>> request = service.requestRecentCaption();
+        final Call<AnissiaResponse<List<RecentCaption>>> request = service.requestRecentCaption();
 
-        request.enqueue(new Callback<List<RecentCaption>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<RecentCaption>>>() {
             @Override
-            public void onResponse(Call<List<RecentCaption>> call, Response<List<RecentCaption>> response) {
-                captionList.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<List<RecentCaption>>> call, Response<AnissiaResponse<List<RecentCaption>>> response) {
+                captionList.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<List<RecentCaption>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<RecentCaption>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -187,18 +188,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<Anime>
      */
     public LiveData<Anime> requestAnime(int id) {
-        MutableLiveData<Anime> animeInfo = new MutableLiveData<>();
+        final MutableLiveData<Anime> animeInfo = new MutableLiveData<>();
 
-        Call<Anime> request = service.requestAnime(id);
+        final Call<AnissiaResponse<Anime>> request = service.requestAnime(id);
 
-        request.enqueue(new Callback<Anime>() {
+        request.enqueue(new Callback<AnissiaResponse<Anime>>() {
             @Override
-            public void onResponse(Call<Anime> call, Response<Anime> response) {
-                animeInfo.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<Anime>> call, Response<AnissiaResponse<Anime>> response) {
+                animeInfo.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<Anime> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<Anime>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -213,18 +214,18 @@ public class AnissiaRepository {
      * @return MutableLiveData<List<Rank>>
      */
     public LiveData<List<Rank>> requestRanking(String factor) {
-        MutableLiveData<List<Rank>> rankList = new MutableLiveData<>();
+        final MutableLiveData<List<Rank>> rankList = new MutableLiveData<>();
 
-        Call<List<Rank>> request = service.requestRanking(factor);
+        final Call<AnissiaResponse<List<Rank>>> request = service.requestRanking(factor);
 
-        request.enqueue(new Callback<List<Rank>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<Rank>>>() {
             @Override
-            public void onResponse(Call<List<Rank>> call, Response<List<Rank>> response) {
-                rankList.postValue(response.body());
+            public void onResponse(Call<AnissiaResponse<List<Rank>>> call, Response<AnissiaResponse<List<Rank>>> response) {
+                rankList.postValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<List<Rank>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<Rank>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -239,18 +240,19 @@ public class AnissiaRepository {
      * @return Call<List<String>>
      */
     public LiveData<List<AutoCorrect>> requestAutoCorrect(String query) {
-        MutableLiveData<List<AutoCorrect>> autoList = new MutableLiveData<>();
+        final MutableLiveData<List<AutoCorrect>> autoList = new MutableLiveData<>();
 
-        Call<List<String>> request = service.requestAutoCorrect(query);
+        final Call<AnissiaResponse<List<String>>> request = service.requestAutoCorrect(query);
 
-        request.enqueue(new Callback<List<String>>() {
+        request.enqueue(new Callback<AnissiaResponse<List<String>>>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+            public void onResponse(Call<AnissiaResponse<List<String>>> call, Response<AnissiaResponse<List<String>>> response) {
                 if (response.body() == null) {
                     return;
                 }
-                ListIterator<String> listIterator = response.body().listIterator();
-                List<AutoCorrect> autoCorrectList = new ArrayList<>();
+                final ListIterator<String> listIterator = response.body().getData().listIterator();
+                final List<AutoCorrect> autoCorrectList = new ArrayList<>();
+
 
                 while (listIterator.hasNext()) {
                     autoCorrectList.add(new AutoCorrect(listIterator.next()));
@@ -260,7 +262,7 @@ public class AnissiaRepository {
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable throwable) {
+            public void onFailure(Call<AnissiaResponse<List<String>>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });

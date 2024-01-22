@@ -2,7 +2,7 @@ package com.novang.anisched.repository.tmdb;
 
 import com.novang.anisched.model.anissia.Anime;
 import com.novang.anisched.model.tmdb.child.search.Result;
-import com.novang.anisched.tool.Levenshtein;
+import com.novang.anisched.tool.LevenshteinWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class TMDBHelper {
 
     private void search(String apiKey, String keyword, String originalKeyword, Iterator<String> iterator) {
         tmdbRepository.search(apiKey, "ko-KR", keyword).observeForever(searches -> {
-            List<Result> result = searches.getResultList();
+            final List<Result> result = searches.getResultList();
 
             if (!searches.isNullOrEmpty(result)) {
                 int idx = selectBestResult(result, keyword, originalKeyword);
@@ -53,14 +53,14 @@ public class TMDBHelper {
                 onResultListener.onFailed();
                 return;
             }
-            String filtered = keyword.replaceAll(iterator.next(), "");
+            final String filtered = keyword.replaceAll(iterator.next(), "");
             search(apiKey, filtered, originalKeyword, iterator);
         });
     }
 
     private void search(String apiKey, String keyword, Anime anime, Iterator<String> iterator) {
         tmdbRepository.search(apiKey, "ko-KR", keyword).observeForever(searches -> {
-            List<Result> result = searches.getResultList();
+            final List<Result> result = searches.getResultList();
 
             if (!searches.isNullOrEmpty(result)) {
                 int idx = selectBestResult(result, keyword, anime);
@@ -74,7 +74,7 @@ public class TMDBHelper {
                 onResultListener.onFailed();
                 return;
             }
-            String filtered = keyword.replaceAll(iterator.next(), "");
+            final String filtered = keyword.replaceAll(iterator.next(), "");
             search(apiKey, filtered, anime, iterator);
         });
     }
@@ -84,18 +84,18 @@ public class TMDBHelper {
         double last_diff = -1;
 
         for (int idx = 0; result.size() > idx; idx++) {
-            Result target = result.get(idx);
+            final Result target = result.get(idx);
 
-            List<Integer> genreIdList = target.getGenreIdList();
+            final List<Integer> genreIdList = target.getGenreIdList();
             if (target.isNullOrEmpty(genreIdList)) {
                 continue;
             }
 
             if (genreIdList.contains(16) && ((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
-                String targetString = target.getFlexibleName().replace(" ", "");
+                final String targetString = target.getFlexibleName().replace(" ", "");
 
-                double diff = (Levenshtein.getDistance(targetString, originalKeyword.replace(" ", ""))
-                        + Levenshtein.getDistance(targetString, keyword.replace(" ", ""))) / 2;
+                final double diff = (LevenshteinWrapper.getDistance(targetString, originalKeyword.replace(" ", ""))
+                        + LevenshteinWrapper.getDistance(targetString, keyword.replace(" ", ""))) / 2;
 
                 if (last_diff < diff) {
                     similar = idx;
@@ -127,8 +127,8 @@ public class TMDBHelper {
             if (genreIdList.contains(16) && ((target.getMediaType().equals("tv") || target.getMediaType().equals("movie")))) {
                 String targetString = target.getFlexibleName().replace(" ", "");
 
-                double diff = (Levenshtein.getDistance(targetString, anime.getSubject().replace(" ", ""))
-                        + Levenshtein.getDistance(targetString, keyword.replace(" ", ""))) / 2;
+                double diff = (LevenshteinWrapper.getDistance(targetString, anime.getSubject().replace(" ", ""))
+                        + LevenshteinWrapper.getDistance(targetString, keyword.replace(" ", ""))) / 2;
 
                 if (last_diff < diff) {
                     similar = idx;

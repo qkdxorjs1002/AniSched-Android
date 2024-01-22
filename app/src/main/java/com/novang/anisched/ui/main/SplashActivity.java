@@ -1,21 +1,24 @@
 package com.novang.anisched.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.core.splashscreen.SplashScreen;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.novang.anisched.repository.anissia.AnissiaRepository;
-import com.novang.anisched.repository.tmdb.TMDBRepository;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AnissiaRepository anissiaRepository = new AnissiaRepository();
+        final SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
+        final AnissiaRepository anissiaRepository = new AnissiaRepository();
 
         anissiaRepository.ping().observe(this, aBoolean -> {
             if (aBoolean) {

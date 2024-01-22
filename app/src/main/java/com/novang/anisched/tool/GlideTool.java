@@ -14,17 +14,18 @@ import com.bumptech.glide.module.AppGlideModule;
 
 @GlideModule
 public class GlideTool extends AppGlideModule {
+
+    private static final int bitmapPoolSizeBytes = 1024 * 1024 * 30;
+
+    private static final int diskCacheSizeBytes = 1024 * 1024 * 100;
+
     @Override
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
         super.applyOptions(context, builder);
 
-        MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context).setMemoryCacheScreens(2).build();
+        final MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context).setMemoryCacheScreens(2).build();
         builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()));
-
-        int bitmapPoolSizeBytes = 1024 * 1024 * 30;
         builder.setBitmapPool(new LruBitmapPool(bitmapPoolSizeBytes));
-
-        int diskCacheSizeBytes = 1024 * 1024 * 100;
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "cache", diskCacheSizeBytes));
     }
 }

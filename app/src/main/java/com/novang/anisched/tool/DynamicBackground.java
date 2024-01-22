@@ -29,8 +29,8 @@ public class DynamicBackground {
     }
 
     public static DynamicBackground generate(Bitmap bitmap) {
-        Palette.Swatch dominantSwatch = Palette.from(bitmap).generate().getDominantSwatch();
-        Palette.Swatch topDominantSwatch = Palette.from(
+        final Palette.Swatch dominantSwatch = Palette.from(bitmap).generate().getDominantSwatch();
+        final Palette.Swatch topDominantSwatch = Palette.from(
                 Bitmap.createBitmap(
                         bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight() / 6))
                 .generate()
@@ -52,11 +52,11 @@ public class DynamicBackground {
         topColor = ColorUtils.HSLToColor(new float[] { hue, 0.3f, 0.5f });
         bottomColor = ColorUtils.HSLToColor(new float[] { (hue % 360f) + 60f, 0.35f, 0.3f });
 
-        GradientDrawable background = new GradientDrawable(
+        final GradientDrawable background = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[] { topColor, topColor, bottomColor });
 
-        GradientDrawable shade = new GradientDrawable(
+        final GradientDrawable shade = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[] { Color.TRANSPARENT, topColor, topColor });
 
