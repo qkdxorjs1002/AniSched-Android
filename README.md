@@ -13,27 +13,6 @@
 ### 애니메이션 편성표 앱 (애니시아 API, TMDb)
 <br/>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="cmd" value="_s-xclick" />
-  <input type="hidden" name="hosted_button_id" value="CALFKMJCJ7GAE" />
-  <table>
-    <tr>
-      <td>
-        <input type="hidden" name="on0" value="개발자에게 커피를 사주세요!"/>
-        개발자에게 커피를 사주세요!
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" name="os0" maxLength="200" />
-      </td>
-    </tr>
-  </table>
-  <input type="hidden" name="currency_code" value="USD" />
-  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
-</form>
-<br/>
-
 
 [![Travis (.com)](https://img.shields.io/travis/com/qkdxorjs1002/AniSched-Android?logo=travis-ci&style=for-the-badge)](https://travis-ci.com/qkdxorjs1002/AniSched-Android)
 [![GitHub all releases](https://img.shields.io/github/downloads/qkdxorjs1002/AniSched-Android/total?style=for-the-badge)](https://github.com/qkdxorjs1002/AniSched-Android/releases)
