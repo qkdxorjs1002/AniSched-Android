@@ -74,7 +74,7 @@ public class RankBannerListAdapter extends RecyclerView.Adapter<RankBannerListAd
                 GlideApp.with(holder.view)
                         .asBitmap()
                         .load(result.getBackdropURL("w1280"))
-                        .listener(new RequestListener<Bitmap>() {
+                        .listener(new RequestListener<>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                                 return false;

@@ -16,14 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.OnLifecycleEvent;
 
 import com.novang.anisched.R;
 import com.novang.anisched.tool.GlideApp;
 
-public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
+public class YoutubePlayer extends FrameLayout implements LifecycleEventObserver {
 
     private final String THUMBNAIL_BASE_URL = "https://i.ytimg.com/vi/";
     private final String THUMBNAIL_ORIGINAL = "/original.jpg";
@@ -73,16 +73,6 @@ public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private void resume() {
-        webView.onResume();
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    private void stop() {
-        webView.onPause();
-    }
-
     private void initView(Context context) {
         thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
         thumbnail.setForeground(ContextCompat.getDrawable(context, R.drawable.player_foreground));
@@ -116,5 +106,14 @@ public class YoutubePlayer extends FrameLayout implements LifecycleObserver {
         webView.setBackgroundColor(Color.TRANSPARENT);
         webView.loadUrl("https://www.youtube.com/embed/".concat(key).concat("?controls=0"));
         addView(webView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.Event event) {
+        if (event == Lifecycle.Event.ON_RESUME) {
+            webView.onResume();
+        } else if (event == Lifecycle.Event.ON_PAUSE) {
+            webView.onPause();
+        }
     }
 }
